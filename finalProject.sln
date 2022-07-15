@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fridgeApp", "fridgeApp\fridgeApp.csproj", "{49D11FE7-0D2A-4FC0-8124-3CE143075BDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fridgeApi", "fridgeApi\fridgeApi.csproj", "{EE02B26D-6958-4200-947E-5205FBB861F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,9 @@ Global
 		{49D11FE7-0D2A-4FC0-8124-3CE143075BDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D11FE7-0D2A-4FC0-8124-3CE143075BDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D11FE7-0D2A-4FC0-8124-3CE143075BDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE02B26D-6958-4200-947E-5205FBB861F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE02B26D-6958-4200-947E-5205FBB861F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE02B26D-6958-4200-947E-5205FBB861F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE02B26D-6958-4200-947E-5205FBB861F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
