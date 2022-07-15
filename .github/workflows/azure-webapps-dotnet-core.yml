@@ -64,7 +64,6 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
-          needs: build
 
   deploy:
     permissions:
@@ -80,6 +79,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: .net-app
+          needs: build
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
