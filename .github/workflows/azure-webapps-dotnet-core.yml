@@ -64,6 +64,7 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+          needs: build
 
   deploy:
     permissions:
