@@ -21,9 +21,6 @@ public class ItemController : ControllerBase
     {
         _context = context;
         _config = config;
-        var constring = _config.GetConnectionString("Azure_Connectionstring");
-        var blobServiceClient = new BlobServiceClient(constring);
-        containerClient = blobServiceClient.GetBlobContainerClient("fridgeappitems");
     }
 
 
@@ -66,9 +63,6 @@ public class ItemController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Item>> GetItem(int id)
     {
-        var blobClient = containerClient.GetBlobClient("tests");
-        var meme = await blobClient.DownloadContentAsync();
-        return Ok(meme.Value.Content);
         if (_context.Item == null)
         {
             return NotFound();
