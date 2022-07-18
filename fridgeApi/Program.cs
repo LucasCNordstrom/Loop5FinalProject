@@ -16,6 +16,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://fridgeapp-45c8b.web.app/"));
+//TODO not any method and this will be changed later I HOPE
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
