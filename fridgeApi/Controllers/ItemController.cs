@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Azure.Storage.Blobs;
 
 namespace fridgeApi.Controllers;
 
@@ -13,11 +14,18 @@ namespace fridgeApi.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly ItemContext _context;
+    private readonly IConfiguration _config;
+    BlobContainerClient containerClient;
 
-    public ItemController(ItemContext context)
+    public ItemController(ItemContext context, IConfiguration config)
     {
         _context = context;
+        _config = config;
+        var constring = _config.GetConnectionString("Azure_Connectionstring");
+        var blobServiceClient = new BlobServiceClient(constring);
+        containerClient = blobServiceClient.GetBlobContainerClient("fridgeappitems");
     }
+
 
     // GET: api/Item
     [HttpGet]
@@ -58,15 +66,9 @@ public class ItemController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Item>> GetItem(int id)
     {
-        return new Item
-        {
-            Id = 1,
-            Name = "Milk",
-            ExpiryDate = DateTime.Today,
-            Amount = 1,
-            Measurement = "Litre"
-        };
-
+        var blobClient = containerClient.GetBlobClient("tests");
+        var meme = await blobClient.DownloadContentAsync();
+        return Ok(meme.Value.Content);
         if (_context.Item == null)
         {
             return NotFound();
@@ -77,7 +79,6 @@ public class ItemController : ControllerBase
         {
             return NotFound();
         }
-
         return item;
     }
 
@@ -114,11 +115,23 @@ public class ItemController : ControllerBase
 
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost ("postItem")]
-    public async Task<ActionResult<Item>> PostItem()
+    [HttpPost("postItem")]
+    public async Task<ActionResult> PostItem()
     {
-      var seeder = new DataSeeder();
-      await seeder.UploadItem();
+        var blobClient = containerClient.GetBlobClient("tests");
+        Console.WriteLine("Uploading to Blob storage:\n\t {0}\n", blobClient.Uri);
+        var newItem = new Item
+        {
+            Id = 1,
+            Name = "Milk",
+            ExpiryDate = DateTime.Today,
+            Amount = 5,
+            Measurement = "Litres"
+        };
+        var binary = new BinaryData(newItem);
+        // Upload data from the local file
+        var meme = await blobClient.UploadAsync(binary, true);
+        return new OkObjectResult(binary);
         /*if (_context.Item == null)
         {
             return Problem("Entity set 'ItemContext.Item'  is null.");
@@ -129,6 +142,8 @@ public class ItemController : ControllerBase
         return CreatedAtAction("GetItem", new { id = item.Id }, item);*/
         return Ok();
     }
+
+
 
     // DELETE: api/Item/5
     [HttpDelete("{id}")]

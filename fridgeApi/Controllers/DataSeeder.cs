@@ -19,8 +19,16 @@ public class DataSeeder
     {
       var blobClient = containerClient.GetBlobClient("tests");
       Console.WriteLine("Uploading to Blob storage:\n\t {0}\n", blobClient.Uri);
+      var newItem = new Item{
+        Id = 1,
+        Name = "Milk",
+        ExpiryDate = DateTime.Today,
+        Amount = 5,
+        Measurement = "Litres"
+      };
+      var binary = new BinaryData(newItem);
       // Upload data from the local file
-      var meme = await blobClient.UploadAsync("meme", true);
-      return new OkObjectResult(meme);
+      //var meme = await blobClient.UploadAsync(binary, true);
+      return new OkObjectResult(binary);
     }
 }
