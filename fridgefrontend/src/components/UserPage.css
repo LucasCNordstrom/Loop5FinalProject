@@ -1,0 +1,17 @@
+
+@media (min-width: 600px) {
+
+}
+
+.UserPage {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+div {
+  align-items: center;
+}
