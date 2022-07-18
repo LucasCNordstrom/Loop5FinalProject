@@ -115,7 +115,7 @@ public class ItemController : ControllerBase
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost ("postItem")]
-    public async Task<ActionResult<Item>> PostItem(Item item)
+    public async Task<ActionResult<Item>> PostItem()
     {
       var seeder = new DataSeeder();
       await seeder.UploadItem();
