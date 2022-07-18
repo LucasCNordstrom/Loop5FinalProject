@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace fridgeApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("Items")]
   [ApiController]
   public class ItemController : ControllerBase
   {
@@ -27,21 +27,21 @@ namespace fridgeApi.Controllers
                 new Item {
                     Id = 1,
                     Name = "Milk",
-                    ExpiryDate = DateTime.Now,
+                    ExpiryDate = DateTime.Today,
                     Amount = 1,
                     Measurement = "Litre"
                 },
                 new Item {
                     Id = 2,
                     Name = "Eggs",
-                    ExpiryDate = DateTime.Now,
+                    ExpiryDate = DateTime.Today,
                     Amount = 12,
                     Measurement = "quantity"
                 },
                 new Item {
                     Id = 3,
                     Name = "Flour",
-                    ExpiryDate = DateTime.Now,
+                    ExpiryDate = DateTime.Today,
                     Amount = 2,
                     Measurement = "Kilos"
                 }
