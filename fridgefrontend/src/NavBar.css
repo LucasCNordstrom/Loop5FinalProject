@@ -1,0 +1,18 @@
+* {box-sizing:border-box;}
+
+@media (min-width: 600px) {
+    .NavBar--list {
+        padding: 3rem;
+    }
+}
+
+.NavBar--list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: red;
+    padding: 2rem;
+    margin-left: -30px;
+    margin-right: -30px;
+}
