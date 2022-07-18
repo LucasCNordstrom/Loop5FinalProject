@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ItemContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ItemContext") ?? throw new InvalidOperationException("Connection string 'ItemContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Azure_Connectionstring") ?? throw new InvalidOperationException("Connection string 'ItemContext' not found.")));
 
 // Add services to the container.
 
