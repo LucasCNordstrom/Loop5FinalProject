@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine("pls");
 builder.Services.AddDbContext<ItemContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Azure_Connectionstring") ?? throw new InvalidOperationException("Connection string 'ItemContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ItemContext") ?? throw new InvalidOperationException("Connection string 'ItemContext' not found.")));
 
 // Add services to the container.
 
@@ -20,7 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://fridgeapp-45c8b.web.app"));
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://fridgeapp-45c8b.web.app", "localhost"));
 //TODO not any method and this will be changed later I HOPE
 
 app.UseHttpsRedirection();
