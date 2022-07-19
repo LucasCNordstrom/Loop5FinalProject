@@ -18,9 +18,35 @@ public class ItemController : ControllerBase
         _config = config;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetCheatedItems()
+    {
+        var itemResponses = new List<ItemResponse> {
+            new ItemResponse{
+                Name ="Milk",
+                ExpiryDate = DateTime.Today.AddMonths(1),
+                Amount = 5,
+                Measurement = "Litres"
+            },
+            new ItemResponse{
+                Name ="Honey",
+                ExpiryDate = DateTime.Today.AddMonths(11),
+                Amount = 3,
+                Measurement = "Kilo"
+            },
+            new ItemResponse{
+                Name ="Meat",
+                ExpiryDate = DateTime.Today.AddDays(4),
+                Amount = 500,
+                Measurement = "Gram"
+            }
+        };
+
+        return Ok(itemResponses);
+    }
 
     // GET: api/Item
-    [HttpGet]
+    [HttpGet("All")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
     {
         if (_context.Item == null)
@@ -54,7 +80,7 @@ public class ItemController : ControllerBase
         {
             return NotFound();
         }
-        var meme = new ItemResponse{
+        var meme = new ItemResponse {
             Name = "can't believe its not butter"
         };
         return Ok(meme);
