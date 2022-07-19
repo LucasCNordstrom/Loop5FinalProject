@@ -1,36 +1,28 @@
-import './ItemList.css';
+import '../CSS/ItemList.css';
 import { useState, useEffect } from 'react';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { SiAddthis } from 'react-icons/si';
-import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { useUserAuth } from "../context/UserAuthContext";
-import { UserAuthContextProvider } from "../context/UserAuthContext";
+import { Link } from "react-router-dom";
+
+function sortFunction(a,b){  
+  var dateA = new Date(a.expiryDate).getTime();
+  var dateB = new Date(b.expiryDate).getTime();
+  return dateA > dateB ? 1 : -1;  
+}; 
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
-  const { logOut, user } = useUserAuth();
-  const navigate = useNavigate();
+  let link = '';
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-      navigate("/");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const itemDetails = (id) => {
-    setItems(items.map((item) => item.id === id ? {...item, clicked: !item.clicked} : item));
+  const itemDetails = (name) => {
+    setItems(items.map((item) => item.name === name ? {...item, clicked: !item.clicked} : item));
     console.log();
   }
 
   const fetchData = () => {
     fetch(`https://loop5finalproject.azurewebsites.net/items`)
     .then(response => response.json())
-    .then(data => setItems(data))
+    .then(data => setItems(data.sort(sortFunction)))
   };
 
   useEffect(() => {fetchData()}, []);
@@ -41,11 +33,11 @@ const ItemList = () => {
     <div className='ItemList'>
       Items in the fridge: {items.length}
       <div className="tools">
-          <SiAddthis />
+      <Link to = "/home/add"> <SiAddthis /> </Link>
         </div>
       <ul>
       {items.map((item)=> (
-        <li className='ItemList--list' onClick={() => {itemDetails(item.id)}} key={item.id}> 
+        <li className='ItemList--list' onClick={() => {itemDetails(item.name)}} key={item.name}> 
         <div className='ItemList--list__components'>
           <div> {item.name} </div>
           <div> {item.expiryDate} </div>
@@ -54,13 +46,11 @@ const ItemList = () => {
           { item.clicked && 
             <div className="itemList__detail">
               <div>{item.amount} {item.measurement}</div>
+              <div><Link to = {`${item.name}` }> EDIT </Link></div>
             </div>
           }
         </li>))}
         </ul>
-        <Button onClick={handleLogout}>
-          Log out
-        </Button>
     </div>
   )
 }

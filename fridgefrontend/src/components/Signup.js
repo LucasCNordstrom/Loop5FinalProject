@@ -1,13 +1,18 @@
+import '../CSS/Signup.css';
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Navigate } from "react-router-dom";
+import { getAuth, updateProfile } from "firebase/auth";
+
+const auth = getAuth();
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { signUp } = useUserAuth();
   const { user } = useUserAuth();
@@ -27,6 +32,14 @@ const Signup = () => {
     return <Navigate to="/home" />;
   }
 
+  updateProfile(auth.currentUser, {
+    displayName: name
+  }).then(() => {
+    console.log('worked')
+  }).catch((error) => {
+    console.log(error);
+  });
+
   return (
     <>
       <div>
@@ -41,6 +54,14 @@ const Signup = () => {
             />
           </Form.Group>
 
+          <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Control
+              type="name"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control
               type="password"
@@ -50,7 +71,7 @@ const Signup = () => {
           </Form.Group>
 
           <div className="d-grid gap-2">
-            <Button variant="primary" type="Submit">
+            <Button variant="primary" type="Submit" onClick={updateProfile}>
               Sign up
             </Button>
           </div>

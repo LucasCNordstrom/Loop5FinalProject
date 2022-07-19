@@ -17,14 +17,7 @@ function App() {
     <div>
       <UserAuthContextProvider>
             <Routes>
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <ItemList />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="home/*" element={<ProtectedRoute />} />
               <Route path="/" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
             </Routes>

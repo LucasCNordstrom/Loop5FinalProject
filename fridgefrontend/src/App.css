@@ -2,20 +2,3 @@
   box-sizing: border-box;
   font-family: 'Eczar', sans-serif;
 }
-
-@media (min-width: 600px) {
-  .App-Logo{
-    font-size: 5rem;
-    margin-top: -4rem;
-  }
-}
-
-.App {
-  text-align: center;
-  margin: 0rem 1rem;
-  
-}
-
-.App-Logo {
-  margin-top: 1rem;
-}

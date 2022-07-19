@@ -1,4 +1,4 @@
-import "./NavBar.css";
+import "../CSS/NavBar.css";
 import { Link } from "react-router-dom";
 
 function ItemList() {
@@ -8,10 +8,10 @@ function ItemList() {
       <Link to = "/"> Home </Link>
       </div>
       <div>
-        Items
+      <Link to = "/home/items"> Items </Link>
       </div>
       <div>
-        <Link to = "user"> User </Link>
+        <Link to = "/home/user"> User </Link>
       </div>
     </div>
   );
