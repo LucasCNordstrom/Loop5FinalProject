@@ -20,9 +20,10 @@ public class ItemController : ControllerBase
 
 
     // GET: api/Item
-    [HttpGet ("")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems()
     {
+        string searchQuery = "milk";
         if (_context.Item == null)
         {
             return NotFound();
