@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Azure.Storage.Blobs;
+using System.Linq;
 
 namespace fridgeApi.Controllers;
 
@@ -10,7 +11,6 @@ public class ItemController : ControllerBase
 {
     private readonly ItemContext _context;
     private readonly IConfiguration _config;
-    BlobContainerClient containerClient;
 
     public ItemController(ItemContext context, IConfiguration config)
     {
@@ -18,51 +18,83 @@ public class ItemController : ControllerBase
         _config = config;
     }
 
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetCheatedItems()
+    {
+        var itemResponses = new List<ItemResponse> {
+            new ItemResponse{
+                Name ="Milk",
+                ExpiryDate = DateTime.Today.AddMonths(1),
+                Amount = 5,
+                Measurement = "Litres"
+            },
+            new ItemResponse{
+                Name ="Honey",
+                ExpiryDate = DateTime.Today.AddMonths(11),
+                Amount = 3,
+                Measurement = "Kilo"
+            },
+            new ItemResponse{
+                Name ="Meat",
+                ExpiryDate = DateTime.Today.AddDays(4),
+                Amount = 500,
+                Measurement = "Gram"
+            }
+        };
+        return Ok(itemResponses);
+    }
 
     // GET: api/Item
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<Item>>> GetItem()
+    [HttpGet("All")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
     {
-        var items = new List<Item> {
-                new Item {
-                    Id = 1,
-                    Name = "Milk",
-                    ExpiryDate = DateTime.Today,
-                    Amount = 1,
-                    Measurement = "Litre"
-                },
-                new Item {
-                    Id = 2,
-                    Name = "Eggs",
-                    ExpiryDate = DateTime.Today,
-                    Amount = 12,
-                    Measurement = "quantity"
-                },
-                new Item {
-                    Id = 3,
-                    Name = "Flour",
-                    ExpiryDate = DateTime.Today,
-                    Amount = 2,
-                    Measurement = "Kilos"
-                }
-            };
         if (_context.Item == null)
         {
             return NotFound();
         }
-        //return await _context.Item.ToListAsync();
-        return items;
+        
+        if(!string.IsNullOrEmpty(searchQuery)) 
+        {
+            var item = await _context.Item.Where<Item>(i => i.Name.Contains(searchQuery)).ToListAsync();
+            if(item == null) return NotFound();
+            
+            return Ok(item);
+        }
+
+        return Ok(await (from item in _context.Item
+                let newItem = new ItemResponse
+                {
+                    Name = item.Name,
+                    ExpiryDate = item.ExpiryDate,
+                    Amount = item.Amount,
+                    Measurement = item.Measurement
+                }
+                select newItem).ToListAsync());
+    }
+
+    [HttpGet("plsWork")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
+    {
+        if (_context.Item == null)
+        {
+            return NotFound();
+        }
+        var meme = new ItemResponse {
+            Name = "can't believe its not butter"
+        };
+        return Ok(meme);
     }
 
     // GET: api/Item/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Item>> GetItem(int id)
+    [HttpGet("advanced/{searchQuery}")] //TODO fix advanced if we have time. Then Adding request instead of string
+    public async Task<ActionResult<Item>> GetItem(string searchQuery)
     {
         if (_context.Item == null)
         {
             return NotFound();
         }
-        var item = await _context.Item.FindAsync(id);
+
+        var item = await _context.Item.FirstOrDefaultAsync(i => i.Name.Contains(searchQuery));
 
         if (item == null)
         {
@@ -74,7 +106,7 @@ public class ItemController : ControllerBase
     // PUT: api/Item/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutItem(int id, Item item)
+    public async Task<IActionResult> PutItem(int id, Item item) //should take request
     {
         if (id != item.Id)
         {
@@ -104,20 +136,31 @@ public class ItemController : ControllerBase
 
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost("postItem")]
-    public async Task<ActionResult> PostItem(Item item)
+    [HttpPost("PostItem")]
+    public async Task<ActionResult> PostItem(ItemPostRequest itemRequest) //should probably take a DTO instead
     {
-        await _context.Item.AddAsync(item);
+        var newItem = new Item {
+            Name = itemRequest.Name,
+            ExpiryDate = itemRequest.ExpiryDate,
+            Amount = itemRequest.Amount,
+            Measurement = itemRequest.Measurement,
+            Category = itemRequest.Category,
+            Location = itemRequest.Location
+        };
+        if(_context == null || _context.Item == null) return NotFound();
+
+        await _context.Item.AddAsync(newItem);
+
         await _context.SaveChangesAsync();
         
-        return Ok();
+        return Ok(newItem);
     }
 
 
 
     // DELETE: api/Item/5
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteItem(int id)
+    [HttpDelete("Delete/{id}")]
+    public async Task<IActionResult> DeleteItem(int id) //name 
     {
         if (_context.Item == null)
         {
