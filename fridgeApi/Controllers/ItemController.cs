@@ -41,7 +41,6 @@ public class ItemController : ControllerBase
                 Measurement = "Gram"
             }
         };
-
         return Ok(itemResponses);
     }
 
