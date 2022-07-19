@@ -23,9 +23,7 @@ public class ItemController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
     {
-        try
-        {
-            if (_context.Item == null)
+        if (_context.Item == null)
         {
             return NotFound();
         }
@@ -47,13 +45,24 @@ public class ItemController : ControllerBase
                     Measurement = item.Measurement
                 }
                 select newItem).ToListAsync());
-        }
-        catch (System.Exception)
+    }
+
+    [HttpGet("plsWork")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
+    {
+        if (_context.Item == null)
         {
-            Console.WriteLine("its jag");
-            throw ;
+            return NotFound();
         }
-        
+        return Ok(await (from item in _context.Item
+                let newItem = new ItemResponse
+                {
+                    Name = item.Name,
+                    ExpiryDate = item.ExpiryDate,
+                    Amount = item.Amount,
+                    Measurement = item.Measurement
+                }
+                select newItem).ToListAsync());
     }
 
     // GET: api/Item/5
