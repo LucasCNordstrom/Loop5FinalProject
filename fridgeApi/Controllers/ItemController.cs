@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Azure.Storage.Blobs;
@@ -110,30 +105,11 @@ public class ItemController : ControllerBase
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost("postItem")]
-    public async Task<ActionResult> PostItem()
+    public async Task<ActionResult> PostItem(Item item)
     {
-        var blobClient = containerClient.GetBlobClient("tests");
-        Console.WriteLine("Uploading to Blob storage:\n\t {0}\n", blobClient.Uri);
-        var newItem = new Item
-        {
-            Id = 1,
-            Name = "Milk",
-            ExpiryDate = DateTime.Today,
-            Amount = 5,
-            Measurement = "Litres"
-        };
-        var binary = new BinaryData(newItem);
-        // Upload data from the local file
-        var meme = await blobClient.UploadAsync(binary, true);
-        return new OkObjectResult(binary);
-        /*if (_context.Item == null)
-        {
-            return Problem("Entity set 'ItemContext.Item'  is null.");
-        }
-        _context.Item.Add(item);
+        await _context.Item.AddAsync(item);
         await _context.SaveChangesAsync();
-
-        return CreatedAtAction("GetItem", new { id = item.Id }, item);*/
+        
         return Ok();
     }
 
