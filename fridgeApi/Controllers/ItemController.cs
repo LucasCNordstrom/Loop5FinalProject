@@ -21,10 +21,11 @@ public class ItemController : ControllerBase
 
     // GET: api/Item
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems()
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
     {
-        string searchQuery = "milk";
-        if (_context.Item == null)
+        try
+        {
+            if (_context.Item == null)
         {
             return NotFound();
         }
@@ -46,6 +47,13 @@ public class ItemController : ControllerBase
                     Measurement = item.Measurement
                 }
                 select newItem).ToListAsync());
+        }
+        catch (System.Exception)
+        {
+            Console.WriteLine("its jag");
+            throw ;
+        }
+        
     }
 
     // GET: api/Item/5
