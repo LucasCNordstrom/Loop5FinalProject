@@ -54,15 +54,10 @@ public class ItemController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(await (from item in _context.Item
-                let newItem = new ItemResponse
-                {
-                    Name = item.Name,
-                    ExpiryDate = item.ExpiryDate,
-                    Amount = item.Amount,
-                    Measurement = item.Measurement
-                }
-                select newItem).ToListAsync());
+        var meme = new ItemResponse{
+            Name = "can't believe its not butter"
+        };
+        return Ok(meme);
     }
 
     // GET: api/Item/5
