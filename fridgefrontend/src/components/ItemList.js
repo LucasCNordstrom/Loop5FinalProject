@@ -2,9 +2,25 @@ import './ItemList.css';
 import { useState, useEffect } from 'react';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { SiAddthis } from 'react-icons/si';
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Alert } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { useUserAuth } from "../context/UserAuthContext";
+import { UserAuthContextProvider } from "../context/UserAuthContext";
 
 const ItemList = () => {
   const [items, setItems] = useState([]);
+  const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const itemDetails = (id) => {
     setItems(items.map((item) => item.id === id ? {...item, clicked: !item.clicked} : item));
@@ -42,6 +58,9 @@ const ItemList = () => {
           }
         </li>))}
         </ul>
+        <Button onClick={handleLogout}>
+          Log out
+        </Button>
     </div>
   )
 }
