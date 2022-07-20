@@ -35,8 +35,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://fridgeapp-45c8b.web.app", "http://localhost:3000"));
 }
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://fridgeapp-45c8b.web.app", "http://localhost:3000"));
 
 //TODO not any method and this will be changed later I HOPE
 
