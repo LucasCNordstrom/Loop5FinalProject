@@ -14,5 +14,4 @@ public class ItemResponse
     public string Measurement { get; set; } = "";
     // public string? Category { get; set; }
     // public string? Location { get; set; }
-
 }

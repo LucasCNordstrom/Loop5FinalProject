@@ -52,22 +52,21 @@ public class ItemController : ControllerBase
 
     // GET: api/Item
     [HttpGet("All")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string userId, string? searchQuery)
     {
-        if (_context.Item == null)
-        {
-            return NotFound();
-        }
+        if(string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
+        if (_context.Item == null) return NotFound();
+        if(!UserExists(userId)) return Ok(new List<ItemResponse>());
 
         if (!string.IsNullOrEmpty(searchQuery))
         {
-            var item = await _context.Item.Where<Item>(i => i.Name.Contains(searchQuery)).ToListAsync();
+            var item = await _context.Item.Where<Item>(i => i.Name.Contains(searchQuery) && i.UserId == userId).ToListAsync();
             if (item == null) return NotFound();
 
             return Ok(item);
         }
 
-        return Ok(await (from item in _context.Item
+        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId) 
                          let newItem = new ItemResponse
                          {
                              UniqueId = item.UniqueId,
@@ -142,10 +141,11 @@ public class ItemController : ControllerBase
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost("PostItem")]
-    public async Task<ActionResult> PostItem(ItemPostRequest itemRequest) //should probably take a DTO instead
+    public async Task<ActionResult> PostItem(string userId, ItemPostRequest itemRequest) //should probably take a DTO instead
     {
         var newItem = new Item
         {
+            UserId = userId,
             UniqueId = Guid.NewGuid().ToString(),
             Name = itemRequest.Name,
             ExpiryDate = itemRequest.ExpiryDate,
@@ -160,14 +160,14 @@ public class ItemController : ControllerBase
 
         await _context.SaveChangesAsync();
 
-        return Ok(newItem);
+        return Ok(itemRequest);
     }
 
 
 
     // DELETE: api/Item/5
     [HttpDelete("Delete/{id}")]
-    public async Task<IActionResult> DeleteItem(int id) //name 
+    public async Task<IActionResult> DeleteItem(string userId, int id) //name 
     {
         if (_context.Item == null)
         {
@@ -188,6 +188,11 @@ public class ItemController : ControllerBase
     private bool ItemExists(string id)
     {
         return (_context.Item?.Any(e => e.UniqueId == id)).GetValueOrDefault();
+    }
+
+    private bool UserExists(string id)
+    {
+        return (_context.Item?.Any(e => e.UserId == id)).GetValueOrDefault();
     }
 }
 
