@@ -12,11 +12,35 @@ function AddItem() {
   const { user } = useUserAuth();
   const navigate = useNavigate();
 
+  console.log('this is user')
+  console.log(user);
+
   const requestOptions = {
-    method : 'POST', headers : {'Content-Type':'application/json'}, body: {userId: user.uid, name: title, expiryDate: date, amount: amount, measurement: unit}
+    method : 'POST', headers : {'Content-Type':'application/json', 'Accept': 'application/json'}, body: JSON.stringify({
+      userId: user.uid
+   })
   };
 
-  const onSubmit = (e) => {
+  const limitValue = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    setAmount(value);
+  }
+
+  const onSubmit = async (e) => {
+    const requestOptions = {
+      method : 'POST', 
+      headers: {
+        Accept: '*/*', 
+        'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+        Name: title,
+        ExpiryDate: date,
+        Amount: amount,
+        Unit: unit,
+        UserId: user.uid
+      })
+  };
     e.preventDefault();
 
     if (!title || !date || !amount) {
@@ -27,9 +51,12 @@ function AddItem() {
     if (e.key === "Enter") {
       document.getElementById("btnSubmit").click(); 
     }
-
-    await fetch('http://localhost:7106/items', requestOptions);
-
+    console.log(requestOptions);
+    try {
+      await fetch(`https://localhost:7106/Items`, requestOptions)
+    } catch (error) {
+      
+    }
     navigate('/items');
   }
 
@@ -42,7 +69,7 @@ function AddItem() {
       <form id="addItem" onSubmit={onSubmit}>
         <div>
           <label> Item name: </label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
+          <input type="text" value={title} maxlength="25" onChange={(e) => setTitle(e.target.value)}/>
         </div>
         <div>
           <label> Expiration date: </label>
@@ -50,10 +77,11 @@ function AddItem() {
         </div>
         <div>
           <label> Quantity: </label>
-          <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}/>
+          <input type="text" value={amount} maxlength="3" onChange={limitValue}/>
           <select value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option value="Kg">Kg</option>
             <option value="Liter">Liter</option>
+            <option value="Liter">Pieces</option>
         </select>
         </div>
         <input type="submit" id="btnSubmit"/>

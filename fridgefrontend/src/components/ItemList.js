@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { SiAddthis } from 'react-icons/si';
 import { Link } from "react-router-dom";
-import ClipLoader from "react-spinners/ClipLoader";
+import BounceLoader from "react-spinners/BounceLoader";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 
@@ -17,8 +17,9 @@ function sortFunction(a,b){
 const ItemList = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { user } = useUserAuth();
+  const today = new Date().toISOString().split('T')[0];
 
   let link = '';
   const requestOptions = {
@@ -31,7 +32,6 @@ const ItemList = () => {
   }
 
   const fetchData = () => {
-    setLoading(true);
     fetch(`https://loop5finalproject.azurewebsites.net/items/`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
@@ -40,14 +40,7 @@ const ItemList = () => {
 
   useEffect(() => {fetchData()}, []);
 
-  console.log(items);
-
   const ItemRender = (
-    <div>
-      Items in the fridge: {items.length}
-      <div className="tools">
-      <Link to = "/items/add"> <SiAddthis /> </Link>
-      </div>
       <ul>
       {items.map((item)=> (
         <li className='ItemList--list' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
@@ -66,14 +59,18 @@ const ItemList = () => {
           }
         </li>))}
       </ul> 
-    </div>
   )
   
   return (
-    
+    <div>
+      Items in the fridge: {items.length}
+      <div className="tools">
+      <Link to = "/items/add"> <SiAddthis /> </Link>
+      </div>
     <div className='ItemList'>
-      { loading ? <ClipLoader loading={loading} size={150} /> : ItemRender }
+      { loading ? < BounceLoader size={150} color="#8aff99"/> : ItemRender }
     </div> 
+    </div>
   )
 }
 
