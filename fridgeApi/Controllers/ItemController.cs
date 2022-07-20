@@ -55,9 +55,9 @@ public class ItemController : ControllerBase
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string userId)  //should take a searchquery
     {
         string? searchQuery = "";
-        if(string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
+        if (string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
         if (_context.Item == null) return NotFound();
-        if(!UserExists(userId)) return Ok(new List<ItemResponse>());
+        if (!UserExists(userId)) return Ok(new List<ItemResponse>());
 
         if (!string.IsNullOrEmpty(searchQuery))
         {
@@ -67,7 +67,7 @@ public class ItemController : ControllerBase
             return Ok(item);
         }
 
-        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId) 
+        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId)
                          let newItem = new ItemResponse
                          {
                              UniqueId = item.UniqueId,
@@ -77,13 +77,12 @@ public class ItemController : ControllerBase
                              Measurement = item.Measurement
                          }
                          select newItem).ToListAsync());
-
     }
 
     [HttpGet("GetEverySingleItem")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
     {
-        return Ok(await (from item in _context.Item 
+        return Ok(await (from item in _context.Item
                          let newItem = new ItemResponse
                          {
                              UniqueId = item.UniqueId,
@@ -115,15 +114,20 @@ public class ItemController : ControllerBase
 
     // PUT: api/Item/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("{id}")]
-    public async Task<IActionResult> PutItem(PostItemRequest item) //should take request
+    [HttpPut("edit")]
+    public async Task<IActionResult> PutItem(PostItemRequest item)
     {
-        if(string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
-
-        _context.Entry(item).State = EntityState.Modified;
+        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
+        var itemInDb = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == item.UniqueId);
+        itemInDb.Name = item.Name;
+        itemInDb.ExpiryDate = item.ExpiryDate;
+        itemInDb.Amount = item.Amount;
+        itemInDb.Measurement = item.Unit;
+        itemInDb.UserId = item.UserId;
         try
         {
             await _context.SaveChangesAsync();
+            return Ok("changed successfully");
         }
         catch (DbUpdateConcurrencyException)
         {
