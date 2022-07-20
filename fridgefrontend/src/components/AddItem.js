@@ -12,20 +12,10 @@ function AddItem() {
   const { user } = useUserAuth();
   const navigate = useNavigate();
 
-  console.log('this is user')
-  console.log(user);
-
-  const requestOptions = {
-    method : 'POST', headers : {'Content-Type':'application/json', 'Accept': 'application/json'}, body: JSON.stringify({
-      userId: user.uid
-   })
-  };
-
   const limitValue = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     setAmount(value);
   }
-
   const onSubmit = async (e) => {
     const requestOptions = {
       method : 'POST', 
@@ -38,7 +28,8 @@ function AddItem() {
         ExpiryDate: date,
         Amount: amount,
         Unit: unit,
-        UserId: user.uid
+        UserId: user.uid,
+        UniqueId: 'something'
       })
   };
     e.preventDefault();

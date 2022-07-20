@@ -32,7 +32,9 @@ const ItemList = () => {
   }
 
   const fetchData = () => {
-    fetch(`https://loop5finalproject.azurewebsites.net/items/`)
+
+    setLoading(true);
+    fetch(`https://localhost:7106/items/user/${user.uid}`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
     setLoading(false);
