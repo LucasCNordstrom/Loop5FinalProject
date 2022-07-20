@@ -9,8 +9,6 @@ import { Routes, Route } from "react-router-dom";
 import AddItem from "./AddItem";
 const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
-
-  console.log("Check user in Private: ", user);
   return (
     user ? <div><NavBar /> <Outlet/> </div> : <Navigate to="/"/>
   )

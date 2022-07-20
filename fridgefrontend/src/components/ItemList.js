@@ -28,11 +28,9 @@ const ItemList = () => {
 
   const itemDetails = (id) => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
-    console.log();
   }
 
   const fetchData = () => {
-
     setLoading(true);
     fetch(`https://localhost:7106/items/user/${user.uid}`)
     .then(response => response.json())
