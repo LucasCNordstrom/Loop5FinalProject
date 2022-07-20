@@ -140,7 +140,7 @@ public class ItemController : ControllerBase
 
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost]
+    /*[HttpPost]
     public async Task<ActionResult> PostItem(string userId, ItemPostRequest itemRequest) //should probably take a DTO instead
     {
         var newItem = new Item
@@ -161,6 +161,29 @@ public class ItemController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(itemRequest);
+    }*/
+
+    [HttpPost]
+    public async Task<ActionResult> PostSpecificItem(TinyItem item) //should probably take a DTO instead
+    {
+        var newItem = new Item
+        {
+            UserId = item.UserId,
+            UniqueId = Guid.NewGuid().ToString(),
+            Name = item.Name,
+            ExpiryDate = item.ExpiryDate,
+            Amount = item.Amount,
+            Measurement = item.Unit,
+            Category = "itemRequest.Category",
+            Location = "itemRequest.Location"
+        };
+        if (_context == null || _context.Item == null) return NotFound();
+
+        await _context.Item.AddAsync(newItem);
+
+        await _context.SaveChangesAsync();
+
+        return Ok();
     }
 
 
