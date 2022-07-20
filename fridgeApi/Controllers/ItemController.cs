@@ -51,7 +51,9 @@ public class ItemController : ControllerBase
     [HttpGet("All")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string? searchQuery)
     {
-        if (_context.Item == null)
+        try
+        {
+            if (_context.Item == null)
         {
             return NotFound();
         }
@@ -73,6 +75,14 @@ public class ItemController : ControllerBase
                     Measurement = item.Measurement
                 }
                 select newItem).ToListAsync());
+        }
+        catch (System.Exception error)
+        {
+            Console.WriteLine(error.ToString());
+            _logger.LogError(0, error, "Error while processing request from Http get");
+            throw;
+        }
+        
     }
 
     [HttpGet("plsWork")]
