@@ -1,9 +1,6 @@
 import '../CSS/AddItem.css';
-import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-import { UserAuthContextProvider } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import { useState } from 'react';
 
 function AddItem() {
@@ -12,7 +9,12 @@ function AddItem() {
   const [error, setError] = useState(false);
   const [amount, setAmount] = useState('');
   const [unit, setUnit] = useState('Kg')
+  const { user } = useUserAuth();
   const navigate = useNavigate();
+
+  const requestOptions = {
+    method : 'POST', headers : {'Content-Type':'application/json'}, body: {userId: user.uid, name: title, expiryDate: date, amount: amount, measurement: unit}
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,11 +25,15 @@ function AddItem() {
     }
 
     if (e.key === "Enter") {
-      document.getElementById("btnAddTodo").click(); 
+      document.getElementById("btnSubmit").click(); 
     }
 
-    navigate('/home/items');
+    await fetch('http://localhost:7106/items', requestOptions);
+
+    navigate('/items');
   }
+
+  console.log(typeof date);
 
   return (
     <div>
@@ -50,7 +56,7 @@ function AddItem() {
             <option value="Liter">Liter</option>
         </select>
         </div>
-        <input type="submit" id="btnAddTodo"/>
+        <input type="submit" id="btnSubmit"/>
       </form>
     </div>
   );

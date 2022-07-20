@@ -5,13 +5,13 @@ function ItemList() {
   return (
     <div className="NavBar--list">
       <div>
-      <Link to = "/"> Home </Link>
+      <Link to = "/home"> Home </Link>
       </div>
       <div>
-      <Link to = "/home/items"> Items </Link>
+      <Link to = "/items"> Items </Link>
       </div>
       <div>
-        <Link to = "/home/user"> User </Link>
+        <Link to = "/user"> User </Link>
       </div>
     </div>
   );
