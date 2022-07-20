@@ -38,7 +38,7 @@ const ItemList = () => {
     setLoading(false);
   };
 
-  useEffect(() => {fetchData()}, []);
+  useEffect(() => {fetchData()}, [items]);
 
   const ItemRender = (
       <ul>
