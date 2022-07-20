@@ -80,18 +80,19 @@ public class ItemController : ControllerBase
 
     }
 
-    [HttpGet("plsWork")]
+    [HttpGet("GetEverySingleItem")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
     {
-        if (_context.Item == null)
-        {
-            return NotFound();
-        }
-        var meme = new ItemResponse
-        {
-            Name = "can't believe its not butter"
-        };
-        return Ok(meme);
+        return Ok(await (from item in _context.Item 
+                         let newItem = new ItemResponse
+                         {
+                             UniqueId = item.UniqueId,
+                             Name = item.Name,
+                             ExpiryDate = item.ExpiryDate,
+                             Amount = item.Amount,
+                             Measurement = item.Measurement
+                         }
+                         select newItem).ToListAsync());
     }
 
     // GET: api/Item/5
@@ -115,9 +116,9 @@ public class ItemController : ControllerBase
     // PUT: api/Item/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutItem(string uniqueId, PostItemRequest item) //should take request
+    public async Task<IActionResult> PutItem(PostItemRequest item) //should take request
     {
-        if(string.IsNullOrEmpty(uniqueId)) return BadRequest();
+        if(string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
 
         _context.Entry(item).State = EntityState.Modified;
         try
@@ -126,7 +127,7 @@ public class ItemController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!ItemExists(uniqueId))
+            if (!ItemExists(item.UniqueId))
             {
                 return NotFound();
             }

@@ -45,7 +45,6 @@ function AddItem() {
     if (e.key === "Enter") {
       document.getElementById("btnSubmit").click(); 
     }
-    console.log(requestOptions);
     try {
       await fetch(`https://localhost:7106/Items`, requestOptions)
     } catch (error) {
@@ -53,9 +52,6 @@ function AddItem() {
     }
     navigate('/items');
   }
-
-  console.log(typeof date);
-
   return (
     <div>
       <h1> Add new Item:</h1>

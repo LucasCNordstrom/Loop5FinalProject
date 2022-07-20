@@ -17,10 +17,6 @@ function ProductInfo() {
     setLoading(false);
   };
 
-  console.log('dis is id:');
-  console.log(id);
-  console.log(item);
-
   useEffect(() => {fetchData()}, []);
 
   return (
