@@ -140,7 +140,7 @@ public class ItemController : ControllerBase
 
     // POST: api/Item
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPost("PostItem")]
+    [HttpPost]
     public async Task<ActionResult> PostItem(string userId, ItemPostRequest itemRequest) //should probably take a DTO instead
     {
         var newItem = new Item
