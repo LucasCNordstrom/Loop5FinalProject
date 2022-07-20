@@ -2,6 +2,7 @@ import '../CSS/AddItem.css';
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import {formatDate} from '../helperFunctions/helpers';
 
 function AddItem() {
   const [title, setTitle] = useState('');
@@ -11,11 +12,13 @@ function AddItem() {
   const [unit, setUnit] = useState('Kg')
   const { user } = useUserAuth();
   const navigate = useNavigate();
+  const today = formatDate(new Date);
 
   const limitValue = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     setAmount(value);
   }
+
   const onSubmit = async (e) => {
     const requestOptions = {
       method : 'POST', 
@@ -64,7 +67,7 @@ function AddItem() {
         </div>
         <div>
           <label> Expiration date: </label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <input type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
         </div>
         <div>
           <label> Quantity: </label>
