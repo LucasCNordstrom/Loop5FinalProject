@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/20f8b3e4-e5a4-4be9-adb5-15770f9bacbf/microsoft.web/sites/subscriptions/20f8b3e4-e5a4-4be9-adb5-15770f9bacbf/resourceGroups/loop5Group/providers/Microsoft.Web/sites/loop5FinalProject",
+    "appService.deploySubpath": "fridgeApi/publish"
+}
