@@ -51,9 +51,10 @@ public class ItemController : ControllerBase
     }
 
     // GET: api/Item
-    [HttpGet("All")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string userId, string? searchQuery)
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string userId)  //should take a searchquery
     {
+        string? searchQuery = "";
         if(string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
         if (_context.Item == null) return NotFound();
         if(!UserExists(userId)) return Ok(new List<ItemResponse>());
@@ -114,7 +115,7 @@ public class ItemController : ControllerBase
     // PUT: api/Item/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutItem(string uniqueId, ItemPostRequest item) //should take request
+    public async Task<IActionResult> PutItem(string uniqueId, PostItemRequest item) //should take request
     {
         if(string.IsNullOrEmpty(uniqueId)) return BadRequest();
 
@@ -134,37 +135,11 @@ public class ItemController : ControllerBase
                 throw;
             }
         }
-
         return NoContent();
     }
 
-    // POST: api/Item
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    /*[HttpPost]
-    public async Task<ActionResult> PostItem(string userId, ItemPostRequest itemRequest) //should probably take a DTO instead
-    {
-        var newItem = new Item
-        {
-            UserId = userId,
-            UniqueId = Guid.NewGuid().ToString(),
-            Name = itemRequest.Name,
-            ExpiryDate = itemRequest.ExpiryDate,
-            Amount = itemRequest.Amount,
-            Measurement = itemRequest.Measurement,
-            Category = itemRequest.Category,
-            Location = itemRequest.Location
-        };
-        if (_context == null || _context.Item == null) return NotFound();
-
-        await _context.Item.AddAsync(newItem);
-
-        await _context.SaveChangesAsync();
-
-        return Ok(itemRequest);
-    }*/
-
     [HttpPost]
-    public async Task<ActionResult> PostSpecificItem(TinyItem item) //should probably take a DTO instead
+    public async Task<ActionResult> PostSpecificItem(PostItemRequest item) //should probably take a DTO instead
     {
         var newItem = new Item
         {
@@ -189,14 +164,14 @@ public class ItemController : ControllerBase
 
 
     // DELETE: api/Item/5
-    [HttpDelete("Delete/{id}")]
-    public async Task<IActionResult> DeleteItem(string userId, int id) //name 
+    [HttpDelete("user/delete")]
+    public async Task<IActionResult> DeleteItem(DeleteItemRequest itemToDelete)
     {
         if (_context.Item == null)
         {
             return NotFound();
         }
-        var item = await _context.Item.FindAsync(id);
+        var item = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == itemToDelete.UniqueId);
         if (item == null)
         {
             return NotFound();
@@ -204,7 +179,6 @@ public class ItemController : ControllerBase
 
         _context.Item.Remove(item);
         await _context.SaveChangesAsync();
-
         return NoContent();
     }
 
