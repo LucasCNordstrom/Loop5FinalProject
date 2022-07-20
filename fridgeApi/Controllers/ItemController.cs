@@ -26,21 +26,21 @@ public class ItemController : ControllerBase
     {
         var itemResponses = new List<ItemResponse> {
             new ItemResponse{
-                uniqueId = Guid.NewGuid().ToString(),
+                UniqueId = Guid.NewGuid().ToString(),
                 Name ="Milk",
                 ExpiryDate = DateTime.Today.AddMonths(1),
                 Amount = 5,
                 Measurement = "Litres"
             },
             new ItemResponse{
-                uniqueId = Guid.NewGuid().ToString(),
+                UniqueId = Guid.NewGuid().ToString(),
                 Name ="Honey",
                 ExpiryDate = DateTime.Today.AddMonths(11),
                 Amount = 3,
                 Measurement = "Kilo"
             },
             new ItemResponse{
-                uniqueId = Guid.NewGuid().ToString(),
+                UniqueId = Guid.NewGuid().ToString(),
                 Name ="Meat",
                 ExpiryDate = DateTime.Today.AddDays(4),
                 Amount = 500,
@@ -70,7 +70,7 @@ public class ItemController : ControllerBase
         return Ok(await (from item in _context.Item
                          let newItem = new ItemResponse
                          {
-                             uniqueId = item.uniqueId,
+                             UniqueId = item.UniqueId,
                              Name = item.Name,
                              ExpiryDate = item.ExpiryDate,
                              Amount = item.Amount,
@@ -103,7 +103,7 @@ public class ItemController : ControllerBase
             return NotFound();
         }
 
-        var item = await _context.Item.FirstOrDefaultAsync(i => i.uniqueId == searchUniqueId);
+        var item = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == searchUniqueId);
 
         if (item == null)
         {
@@ -146,7 +146,7 @@ public class ItemController : ControllerBase
     {
         var newItem = new Item
         {
-            uniqueId = Guid.NewGuid().ToString(),
+            UniqueId = Guid.NewGuid().ToString(),
             Name = itemRequest.Name,
             ExpiryDate = itemRequest.ExpiryDate,
             Amount = itemRequest.Amount,
@@ -187,7 +187,7 @@ public class ItemController : ControllerBase
 
     private bool ItemExists(string id)
     {
-        return (_context.Item?.Any(e => e.uniqueId == id)).GetValueOrDefault();
+        return (_context.Item?.Any(e => e.UniqueId == id)).GetValueOrDefault();
     }
 }
 

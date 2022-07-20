@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 public class ItemResponse
 {
     //will need a unique ID to be used by frontend and in database
-    public string uniqueId { get; set; } = "";
+    public string UniqueId { get; set; } = "";
     public string Name { get; set; } = "";
 
     [DataType(DataType.Date)]
