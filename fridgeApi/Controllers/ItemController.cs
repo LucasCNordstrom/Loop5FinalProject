@@ -80,18 +80,19 @@ public class ItemController : ControllerBase
 
     }
 
-    [HttpGet("plsWork")]
+    [HttpGet("GetEverySingleItem")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
     {
-        if (_context.Item == null)
-        {
-            return NotFound();
-        }
-        var meme = new ItemResponse
-        {
-            Name = "can't believe its not butter"
-        };
-        return Ok(meme);
+        return Ok(await (from item in _context.Item 
+                         let newItem = new ItemResponse
+                         {
+                             UniqueId = item.UniqueId,
+                             Name = item.Name,
+                             ExpiryDate = item.ExpiryDate,
+                             Amount = item.Amount,
+                             Measurement = item.Measurement
+                         }
+                         select newItem).ToListAsync());
     }
 
     // GET: api/Item/5
