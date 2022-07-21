@@ -40,6 +40,14 @@ public class ItemController : ControllerBase
                          select newItem).ToListAsync());
     }
 
+     [HttpGet("{uniqueId}")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetSpecificItem(string uniqueId) //this should take users id
+    {
+        if(!ItemExists(uniqueId)) return NotFound("Item does not exist");
+
+        return Ok(await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId));
+    }
+
     [HttpPut("edit")]
     public async Task<IActionResult> EditItem(PostItemRequest item)
     {
