@@ -28,12 +28,11 @@ const ItemList = () => {
   }
 
   const fetchData = () => {
-    setLoading(true);
     fetch(`https://localhost:7106/items/user/${user.uid}`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
+    .then(items => setLoading(false))
     .catch((err) => console.log(err));
-    setLoading(false);
   };
 
   const onSubmit = async (id) => {
