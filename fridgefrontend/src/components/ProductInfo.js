@@ -16,19 +16,19 @@ function ProductInfo() {
     setLoading(true);
     fetch(`https://localhost:7106/Items/${id}`)
       .then((response) => response.json())
-      .then((data) => setItem(data));
-    setLoading(false);
+      .then((data) => setItem(data))
+      .then(setLoading(false));
   };
 
   useEffect(() => {
     fetchData();
   }, [edit]);
-  console.log(item.location);
+  
 
   const changeEdit = () => {
     setEdit(false);
   }
-
+if(item.location === undefined) return <></>
   return edit ?  (
   <div>
     < EditItem item={item} onChange={changeEdit} />
