@@ -24,7 +24,6 @@ function UserPage() {
         <div>Hello {user.email} ! </div>
         <div>Account created since: {user.metadata.creationTime} </div>
         <div>Last login: {user.metadata.lastSignInTime} </div>
-        <div>IUD {user.uid} </div>
         <Button onClick={handleLogout}>Log out</Button>
       </div>
     </div>

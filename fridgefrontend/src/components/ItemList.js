@@ -53,23 +53,21 @@ const ItemList = () => {
     <div>
       <p> Items in stock: {items.length} </p>
       <input type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
-      <div className="tools">
-      <Link to = "/items/add"> <SiAddthis /> </Link>
+      <div className='add-icon-padding'>
+        <Link to = "/items/add"> <img className="add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
       </div>
-      <ul>
+      <ul className='item-ul'>
       {items.filter((value) => { 
         if(search === "") {return value}
         else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
       }).map((item)=> (
-        <li className='ItemList--list' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
-        <div className='ItemList--list__components'>
+        <li  className='item-li' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
           <div> {item.name} </div>
           <div> {item.expiryDate.split('T')[0]} </div>
-          <div> Countdown: {Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))} </div>
-          < RiDeleteBin5Fill className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
-        </div>
+          <div> {Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))} days left </div>
+          < img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
           { item.clicked && 
-            <div className="itemList__detail">
+            <div >
               <div>{item.amount} {item.measurement}</div>
               <div> {item.location} </div>
               <button onClick={() => {
@@ -83,7 +81,7 @@ const ItemList = () => {
   )
   
   return (
-    <div className='ItemList'>
+    <div className='item-list'>
       { loading ? < BounceLoader className='loader' size={150} color="#8aff99"/> : ItemRender }
     </div> 
   )

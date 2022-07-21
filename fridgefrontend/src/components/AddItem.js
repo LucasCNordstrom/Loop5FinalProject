@@ -58,7 +58,7 @@ function AddItem() {
   }
 
   return (
-    <div>
+    <div className='add'>
       <h1> Add new Item:</h1>
       {error && <h4> Please do not leave fields empty!</h4>}
       <form id="addItem" onSubmit={onSubmit}>
