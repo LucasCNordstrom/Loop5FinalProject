@@ -10,15 +10,10 @@ namespace fridgeApi.Controllers;
 public class ItemController : ControllerBase
 {
     private readonly ItemContext _context;
-    private readonly IConfiguration _config;
 
-    private readonly ILogger<ItemController> _logger;
-
-    public ItemController(ItemContext context, IConfiguration config, ILogger<ItemController> logger)
+    public ItemController(ItemContext context)
     {
         _context = context;
-        _config = config;
-        _logger = logger;
     }
 
     [HttpGet("user/{userId}")]
