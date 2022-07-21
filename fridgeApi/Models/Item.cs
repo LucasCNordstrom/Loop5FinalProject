@@ -17,6 +17,6 @@ public class Item
     [Required]
     public string Measurement { get; set; } = "";
     public string? Category { get; set; }
-    public string? Location { get; set; }
+    public string Location { get; set; } = "";
 
 }

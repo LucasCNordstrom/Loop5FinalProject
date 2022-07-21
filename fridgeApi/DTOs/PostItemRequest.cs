@@ -15,6 +15,6 @@ public class PostItemRequest
 
     public string UniqueId {get; set;}
 
-    public string? Location { get; set; }
+    public string Location { get; set; }
 
 }
