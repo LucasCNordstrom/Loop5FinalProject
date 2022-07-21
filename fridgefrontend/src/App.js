@@ -1,11 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
-import { useState } from "react";
-import NavBar from "./components/NavBar";
 import UserPage from "./components/UserPage";
 import ItemList from "./components/ItemList";
 import Home from "./components/Home";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import { UserAuthContextProvider } from "./context/UserAuthContext";

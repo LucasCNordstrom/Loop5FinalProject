@@ -2,7 +2,6 @@ import "../CSS/UserPage.css";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 function UserPage() {
   const { logOut, user } = useUserAuth();

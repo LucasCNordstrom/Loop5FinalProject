@@ -46,7 +46,7 @@ const ItemList = () => {
   fetchData();
 }
 
-  useEffect(() => {fetchData()}, [user]);
+    useEffect(() => {fetchData()}, [user]);
   
 
   const ItemRender = (
@@ -65,7 +65,6 @@ const ItemList = () => {
         <div className='ItemList--list__components'>
           <div> {item.name} </div>
           <div> {item.expiryDate.split('T')[0]} </div>
-          {console.log(item.expiryDate)}
           <div> Countdown: {Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))} </div>
           < RiDeleteBin5Fill className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
         </div>
