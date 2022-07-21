@@ -47,7 +47,8 @@ public class ItemController : ControllerBase
             UniqueId = dbItem.UniqueId,
             ExpiryDate = dbItem.ExpiryDate,
             Amount = dbItem.Amount,
-            Measurement = dbItem.Measurement
+            Measurement = dbItem.Measurement,
+            Location = dbItem.Location
         };
         return Ok(itemResponse);
     }
@@ -92,7 +93,7 @@ public class ItemController : ControllerBase
             Amount = item.Amount,
             Measurement = item.Unit,
             Category = "itemRequest.Category",
-            Location = "itemRequest.Location"
+            Location = item.Location
         };
         if (_context == null || _context.Item == null) return NotFound();
 
@@ -135,11 +136,12 @@ public class ItemController : ControllerBase
         return Ok(await (from item in _context.Item
                          let newItem = new ItemResponse
                          {
-                             UniqueId = item.UniqueId,
-                             Name = item.Name,
-                             ExpiryDate = item.ExpiryDate,
-                             Amount = item.Amount,
-                             Measurement = item.Measurement
+                            UniqueId = item.UniqueId,
+                            Name = item.Name,
+                            ExpiryDate = item.ExpiryDate,
+                            Amount = item.Amount,
+                            Measurement = item.Measurement,
+                            Location = item.Location
                          }
                          select newItem).ToListAsync());
     }
