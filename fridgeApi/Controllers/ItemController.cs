@@ -21,6 +21,117 @@ public class ItemController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItemsForUser(string userId)
+    {
+        if (string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
+        if (_context.Item == null) return NotFound("No database found");
+        if (!UserExists(userId)) return Ok(new List<ItemResponse>());
+
+        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId)
+                         let newItem = new ItemResponse
+                         {
+                             UniqueId = item.UniqueId,
+                             Name = item.Name,
+                             ExpiryDate = item.ExpiryDate,
+                             Amount = item.Amount,
+                             Measurement = item.Measurement
+                         }
+                         select newItem).ToListAsync());
+    }
+
+    [HttpPut("edit")]
+    public async Task<IActionResult> EditItem(PostItemRequest item)
+    {
+        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
+        var itemInDb = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == item.UniqueId);
+        itemInDb.Name = item.Name;
+        itemInDb.ExpiryDate = item.ExpiryDate;
+        itemInDb.Amount = item.Amount;
+        itemInDb.Measurement = item.Unit;
+        itemInDb.UserId = item.UserId;
+        try
+        {
+            await _context.SaveChangesAsync();
+            return Ok("changed successfully");
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!ItemExists(item.UniqueId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> AddItemToDb(PostItemRequest item)
+    {
+        var newItem = new Item
+        {
+            UserId = item.UserId,
+            UniqueId = Guid.NewGuid().ToString(),
+            Name = item.Name,
+            ExpiryDate = item.ExpiryDate,
+            Amount = item.Amount,
+            Measurement = item.Unit,
+            Category = "itemRequest.Category",
+            Location = "itemRequest.Location"
+        };
+        if (_context == null || _context.Item == null) return NotFound();
+
+        await _context.Item.AddAsync(newItem);
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpDelete("delete")]
+    public async Task<IActionResult> DeleteItem(DeleteItemRequest itemToDelete)
+    {
+        if (_context.Item == null) return NotFound();
+        
+        var item = await _context.Item
+                    .FirstOrDefaultAsync(e => e.UniqueId == itemToDelete.UniqueId);
+
+        if (item == null) return NotFound();
+        
+        _context.Item.Remove(item);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    // Helper Methods and Superflous Getters for testing below:
+    private bool ItemExists(string id)
+    {
+        return (_context.Item?.Any(e => e.UniqueId == id)).GetValueOrDefault();
+    }
+
+    private bool UserExists(string id)
+    {
+        return (_context.Item?.Any(e => e.UserId == id)).GetValueOrDefault();
+    }
+
+    [HttpGet("GetAllItems")]
+    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetEveryItemInDb()
+    {
+        return Ok(await (from item in _context.Item
+                         let newItem = new ItemResponse
+                         {
+                             UniqueId = item.UniqueId,
+                             Name = item.Name,
+                             ExpiryDate = item.ExpiryDate,
+                             Amount = item.Amount,
+                             Measurement = item.Measurement
+                         }
+                         select newItem).ToListAsync());
+    }
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetCheatedItems()
     {
@@ -48,153 +159,6 @@ public class ItemController : ControllerBase
             }
         };
         return Ok(itemResponses);
-    }
-
-    // GET: api/Item
-    [HttpGet("user/{userId}")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItems(string userId)  //should take a searchquery
-    {
-        string? searchQuery = "";
-        if (string.IsNullOrEmpty(userId)) return BadRequest("Requires a user Id");
-        if (_context.Item == null) return NotFound();
-        if (!UserExists(userId)) return Ok(new List<ItemResponse>());
-
-        if (!string.IsNullOrEmpty(searchQuery))
-        {
-            var item = await _context.Item.Where<Item>(i => i.Name.Contains(searchQuery) && i.UserId == userId).ToListAsync();
-            if (item == null) return NotFound();
-
-            return Ok(item);
-        }
-
-        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId)
-                         let newItem = new ItemResponse
-                         {
-                             UniqueId = item.UniqueId,
-                             Name = item.Name,
-                             ExpiryDate = item.ExpiryDate,
-                             Amount = item.Amount,
-                             Measurement = item.Measurement
-                         }
-                         select newItem).ToListAsync());
-    }
-
-    [HttpGet("GetEverySingleItem")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetMostItems()
-    {
-        return Ok(await (from item in _context.Item
-                         let newItem = new ItemResponse
-                         {
-                             UniqueId = item.UniqueId,
-                             Name = item.Name,
-                             ExpiryDate = item.ExpiryDate,
-                             Amount = item.Amount,
-                             Measurement = item.Measurement
-                         }
-                         select newItem).ToListAsync());
-    }
-
-    // GET: api/Item/5
-    [HttpGet("advanced/{searchQuery}")] //TODO fix advanced if we have time. Then Adding request instead of string
-    public async Task<ActionResult<Item>> GetItem(string searchUniqueId)
-    {
-        if (_context.Item == null)
-        {
-            return NotFound();
-        }
-
-        var item = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == searchUniqueId);
-
-        if (item == null)
-        {
-            return NotFound();
-        }
-        return item;
-    }
-
-    // PUT: api/Item/5
-    // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-    [HttpPut("edit")]
-    public async Task<IActionResult> PutItem(PostItemRequest item)
-    {
-        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
-        var itemInDb = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == item.UniqueId);
-        itemInDb.Name = item.Name;
-        itemInDb.ExpiryDate = item.ExpiryDate;
-        itemInDb.Amount = item.Amount;
-        itemInDb.Measurement = item.Unit;
-        itemInDb.UserId = item.UserId;
-        try
-        {
-            await _context.SaveChangesAsync();
-            return Ok("changed successfully");
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!ItemExists(item.UniqueId))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-        return NoContent();
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> PostSpecificItem(PostItemRequest item) //should probably take a DTO instead
-    {
-        var newItem = new Item
-        {
-            UserId = item.UserId,
-            UniqueId = Guid.NewGuid().ToString(),
-            Name = item.Name,
-            ExpiryDate = item.ExpiryDate,
-            Amount = item.Amount,
-            Measurement = item.Unit,
-            Category = "itemRequest.Category",
-            Location = "itemRequest.Location"
-        };
-        if (_context == null || _context.Item == null) return NotFound();
-
-        await _context.Item.AddAsync(newItem);
-
-        await _context.SaveChangesAsync();
-
-        return Ok();
-    }
-
-
-
-    // DELETE: api/Item/5
-    [HttpDelete("user/delete")]
-    public async Task<IActionResult> DeleteItem(DeleteItemRequest itemToDelete)
-    {
-        if (_context.Item == null)
-        {
-            return NotFound();
-        }
-        var item = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == itemToDelete.UniqueId);
-        if (item == null)
-        {
-            return NotFound();
-        }
-
-        _context.Item.Remove(item);
-        await _context.SaveChangesAsync();
-        return NoContent();
-    }
-
-    private bool ItemExists(string id)
-    {
-        return (_context.Item?.Any(e => e.UniqueId == id)).GetValueOrDefault();
-    }
-
-    private bool UserExists(string id)
-    {
-        return (_context.Item?.Any(e => e.UserId == id)).GetValueOrDefault();
     }
 }
 

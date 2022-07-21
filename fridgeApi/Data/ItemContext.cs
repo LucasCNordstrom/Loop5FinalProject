@@ -12,6 +12,4 @@ using Microsoft.EntityFrameworkCore;
         }
 
         public DbSet<Item> Item { get; set; } = default!;
-
-        
     }
