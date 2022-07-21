@@ -1,6 +1,29 @@
 
+.storage-input {
+    visibility:hidden;
+}
+
+.storage-input:checked + .sel-icon {
+    filter: invert(100%) sepia(78%) saturate(1109%) hue-rotate(303deg) brightness(102%) contrast(101%);
+}
+
+.sel-icon {
+    margin: 10px 0px;
+    width: 15%;
+    filter: invert(80%) sepia(28%) saturate(649%) hue-rotate(178deg) brightness(103%) contrast(102%);
+}
+
+.fridge-icon {
+    width: 14%;
+}
+
+.add div {
+    margin: 5px;
+}
 
 
 @media (min-width: 600px) {
-
+    .fridge-icon {
+        width: 13.7%;
+    }
 }

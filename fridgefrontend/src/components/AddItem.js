@@ -3,6 +3,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import {formatDate} from '../helperFunctions/helpers';
+import { Form } from "react-bootstrap";
 
 function AddItem() {
   const [title, setTitle] = useState('');
@@ -73,14 +74,17 @@ function AddItem() {
         <div>
           Storage:
             <label> 
-              <input type="radio" value='Fridge' name='storage'  onChange={(e) => setStorage(e.target.value)} checked/>
-              Fridge  </label>
+              <input className="storage-input" type="radio" value='Fridge' name='storage'  onChange={(e) => setStorage(e.target.value)} checked/>
+              <img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/>
+            </label>
             <label> 
-              <input type="radio" value='Freezer' name='storage' onChange={(e) => setStorage(e.target.value)} />
-              Freezer  </label>
+              <input className="storage-input" type="radio" value='Freezer' name='storage' onChange={(e) => setStorage(e.target.value)} />
+              <img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon' />  
+            </label>
               <label> 
-              <input type="radio" value='Pantry' name='storage' onChange={(e) => setStorage(e.target.value)} />
-              Pantry  </label>
+              <input className="storage-input" type="radio" value='Pantry' name='storage' onChange={(e) => setStorage(e.target.value)} />
+              <img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon' />   
+            </label>
         </div>
         <div>
           <label> Quantity: </label>

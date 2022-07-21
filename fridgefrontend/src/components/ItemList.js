@@ -22,6 +22,7 @@ const ItemList = () => {
   const [search, setSearch] =useState('');
   const { user } = useUserAuth();
   const today = Date.parse(new Date());
+  const countdown = 0;
 
   const itemDetails = (id) => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
@@ -43,9 +44,11 @@ const ItemList = () => {
       console.log(error);
   }
   fetchData();
-}
+  }
 
-    useEffect(() => {fetchData()}, [user]);
+  useEffect(() => {fetchData()}, [user]);
+
+
   
 
   const ItemRender = (
@@ -63,7 +66,8 @@ const ItemList = () => {
         <li  className='item-li' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
           <div> {item.name} </div>
           <div> {item.expiryDate.split('T')[0]} </div>
-          <div> {Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))} days left </div>
+          {countdown = Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))}
+          <div> {countdown} days left </div>
           < img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
           { item.clicked && 
             <div >
