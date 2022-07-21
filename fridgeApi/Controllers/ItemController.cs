@@ -23,7 +23,7 @@ public class ItemController : ControllerBase
         if (_context.Item == null) return NotFound("No database found");
         if (!UserExists(userId)) return Ok(new List<ItemResponse>());
 
-        return Ok(await (from item in _context.Item.Where<Item>(it => it.UserId == userId)
+        return await (from item in _context.Item.Where<Item>(it => it.UserId == userId)
                          let newItem = new ItemResponse
                          {
                              UniqueId = item.UniqueId,
@@ -33,11 +33,11 @@ public class ItemController : ControllerBase
                              Measurement = item.Measurement,
                              Location = item.Location
                          }
-                         select newItem).ToListAsync());
+                         select newItem).ToListAsync();
     }
 
      [HttpGet("{uniqueId}")]
-    public async Task<ActionResult<IEnumerable<ItemResponse>>> GetSpecificItem(string uniqueId) //this should take users id
+    public async Task<ActionResult<ItemResponse>> GetSpecificItem(string uniqueId) //this should take users id
     {
 
         var dbItem = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId);
@@ -50,7 +50,7 @@ public class ItemController : ControllerBase
             Measurement = dbItem.Measurement,
             Location = dbItem.Location
         };
-        return Ok(itemResponse);
+        return itemResponse;
     }
 
     [HttpPut("edit")]
@@ -100,7 +100,7 @@ public class ItemController : ControllerBase
         await _context.Item.AddAsync(newItem);
         await _context.SaveChangesAsync();
 
-        return Ok();
+        return Ok(); //created at
     }
 
     [HttpDelete("delete")]
@@ -133,7 +133,7 @@ public class ItemController : ControllerBase
     [HttpGet("GetAllItems")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetEveryItemInDb()
     {
-        return Ok(await (from item in _context.Item
+        return await (from item in _context.Item
                          let newItem = new ItemResponse
                          {
                             UniqueId = item.UniqueId,
@@ -143,7 +143,7 @@ public class ItemController : ControllerBase
                             Measurement = item.Measurement,
                             Location = item.Location
                          }
-                         select newItem).ToListAsync());
+                         select newItem).ToListAsync();
     }
 
     [HttpGet]
