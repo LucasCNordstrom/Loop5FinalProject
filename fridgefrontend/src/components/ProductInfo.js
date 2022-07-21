@@ -23,7 +23,7 @@ function ProductInfo() {
   useEffect(() => {
     fetchData();
   }, [edit]);
-  console.log(edit);
+  console.log(item.location);
 
   const changeEdit = () => {
     setEdit(false);

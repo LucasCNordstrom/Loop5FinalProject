@@ -51,7 +51,7 @@ const ItemList = () => {
 
   const ItemRender = (
     <div>
-      <p> Items in the fridge: {items.length} </p>
+      <p> Items in stock: {items.length} </p>
       <input type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
       <div className="tools">
       <Link to = "/items/add"> <SiAddthis /> </Link>
