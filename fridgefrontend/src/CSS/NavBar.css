@@ -7,10 +7,14 @@
 .NavBar--list {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
-    background: red;
+    background: #b1e2ff;
     padding: 2rem;
     margin-left: -30px;
     margin-right: -30px;
+}
+
+.NavBar--list div {
+    border-style: solid;
 }

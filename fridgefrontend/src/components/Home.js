@@ -1,4 +1,4 @@
-import '../CSS/UserPage.css';
+import '../CSS/Home.css';
 import { useUserAuth } from "../context/UserAuthContext";
 
 function UserPage() {

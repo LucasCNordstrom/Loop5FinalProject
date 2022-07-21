@@ -1,7 +1,7 @@
 import '../CSS/AddItem.css';
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {formatDate} from '../helperFunctions/helpers';
 
 function AddItem() {
@@ -10,6 +10,7 @@ function AddItem() {
   const [error, setError] = useState(false);
   const [amount, setAmount] = useState('');
   const [unit, setUnit] = useState('Kg')
+  const [storage, setStorage] = useState('');
   const { user } = useUserAuth();
   const navigate = useNavigate();
   const today = formatDate(new Date);
@@ -32,6 +33,7 @@ function AddItem() {
         ExpiryDate: date,
         Amount: amount,
         Unit: unit,
+        Location: storage,
         UserId: user.uid,
         UniqueId: 'something'
       })
@@ -50,10 +52,11 @@ function AddItem() {
       await fetch(`https://localhost:7106/Items`, requestOptions)
     } catch (error) {
       console.log(error);
-      
     }
+
     navigate('/items');
   }
+
   return (
     <div>
       <h1> Add new Item:</h1>
@@ -66,6 +69,18 @@ function AddItem() {
         <div>
           <label> Expiration date: </label>
           <input type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
+        </div>
+        <div>
+          Storage:
+            <label> 
+              <input type="radio" value='Fridge' name='storage'  onChange={(e) => setStorage(e.target.value)} checked/>
+              Fridge  </label>
+            <label> 
+              <input type="radio" value='Freezer' name='storage' onChange={(e) => setStorage(e.target.value)} />
+              Freezer  </label>
+              <label> 
+              <input type="radio" value='Pantry' name='storage' onChange={(e) => setStorage(e.target.value)} />
+              Pantry  </label>
         </div>
         <div>
           <label> Quantity: </label>

@@ -71,6 +71,7 @@ const ItemList = () => {
           { item.clicked && 
             <div className="itemList__detail">
               <div>{item.amount} {item.measurement}</div>
+              <div> {item.location} </div>
               <button onClick={() => {
                 navigate(`/items/${item.uniqueId}`);
               }}> DETAILS </button>
