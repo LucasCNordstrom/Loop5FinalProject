@@ -1,4 +1,4 @@
-import '../CSS/Signup.css';
+import '../CSS/Login.css';
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
@@ -42,8 +42,9 @@ const Signup = () => {
 
   return (
     <>
-      <div>
-        <h2 >Firebase Auth Signup</h2>
+      <div className='login'>
+        <img src='https://cdn-icons-png.flaticon.com/512/748/748137.png' />
+        <h2 >Sign up for Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -54,7 +55,7 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicName">
+          <Form.Group controlId="formBasicName">
             <Form.Control
               type="name"
               placeholder="Name"
@@ -62,7 +63,7 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword">
             <Form.Control
               type="password"
               placeholder="Password"
@@ -70,15 +71,15 @@ const Signup = () => {
             />
           </Form.Group>
 
-          <div className="d-grid gap-2">
+          <div>
             <Button variant="primary" type="Submit" onClick={updateProfile}>
               Sign up
             </Button>
           </div>
         </Form>
-      </div>
-      <div className="p-4 box mt-3 text-center">
+        <div className='width'>
         Already have an account? <Link to="/">Log In</Link>
+        </div>
       </div>
     </>
   );

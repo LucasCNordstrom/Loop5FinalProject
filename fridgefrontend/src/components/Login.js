@@ -42,8 +42,9 @@ const Login = () => {
 
   return (
     <>
-      <div >
-        <h2 >Firebase Auth Login</h2>
+      <div className="login">
+      <img src='https://cdn-icons-png.flaticon.com/512/1000/1000997.png'/>
+        <h2 >Login to Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -69,15 +70,15 @@ const Login = () => {
           </div>
         </Form>
         <hr />
-        <div>
+        <div className="googleBtn">
           <GoogleButton
             type="dark"
             onClick={handleGoogleSignIn}
           />
         </div>
-      </div>
-      <div>
+        <div>
         Don't have an account? <Link to="/signup">Sign up</Link>
+      </div>
       </div>
     </>
   );
