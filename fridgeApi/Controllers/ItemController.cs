@@ -30,7 +30,8 @@ public class ItemController : ControllerBase
                              Name = item.Name,
                              ExpiryDate = item.ExpiryDate,
                              Amount = item.Amount,
-                             Measurement = item.Measurement
+                             Measurement = item.Measurement,
+                             Location = item.Location
                          }
                          select newItem).ToListAsync());
     }
