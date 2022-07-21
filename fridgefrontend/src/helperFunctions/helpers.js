@@ -12,7 +12,22 @@ function padTo2Digits(num) {
   }
 
 
+const requestOptionDel = (itemid) => {
+  return {
+  method : 'DELETE', 
+  headers: {
+    Accept: '*/*', 
+    'Content-Type': 'application/json'
+  }, 
+  body: JSON.stringify({
+    UniqueId: itemid
+  })}
+};
+
+
+
   module.exports = {
     formatDate,
-    padTo2Digits
+    padTo2Digits,
+    requestOptionDel
   }

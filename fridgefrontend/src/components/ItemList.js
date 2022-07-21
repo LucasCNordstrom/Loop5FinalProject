@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import {requestOptionDel} from '../helperFunctions/helpers.js';
 
 
 function sortFunction(a,b){  
@@ -20,13 +21,7 @@ const ItemList = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] =useState('');
   const { user } = useUserAuth();
-  
-  const countdownformula = Math.floor((Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000) - Date.parse(new Date())) / (1000 * 60 * 60 * 24);
-
-  let link = '';
-  const requestOptions = {
-    method : 'GET', headers : {'Content-Type':'application/json'}, body: user.uid
-  };
+  const today = Date.parse(new Date());
 
   const itemDetails = (id) => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
@@ -41,12 +36,23 @@ const ItemList = () => {
     setLoading(false);
   };
 
-  useEffect(() => {fetchData()}, [items]);
+  const onSubmit = async (id) => {
+    const requestDel = requestOptionDel(id);
+    try {
+      await fetch(`https://localhost:7106/Items/Delete`, requestDel)
+    } catch (error) {
+      console.log(error);
+  }
+  fetchData();
+}
+
+  useEffect(() => {fetchData()}, [user]);
+  
 
   const ItemRender = (
     <div>
       <p> Items in the fridge: {items.length} </p>
-      <input type="text" maxLength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
+      <input type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
       <div className="tools">
       <Link to = "/items/add"> <SiAddthis /> </Link>
       </div>
@@ -58,9 +64,10 @@ const ItemList = () => {
         <li className='ItemList--list' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
         <div className='ItemList--list__components'>
           <div> {item.name} </div>
-          <div> {item.expiryDate} </div>
-          <div> Countdown: {Math.floor((Date.parse(item.expiryDate) - Date.parse(new Date())) / (1000 * 60 * 60 * 24))} </div>
-          < RiDeleteBin5Fill className='deleteIcon'/>
+          <div> {item.expiryDate.split('T')[0]} </div>
+          {console.log(item.expiryDate)}
+          <div> Countdown: {Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))} </div>
+          < RiDeleteBin5Fill className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
         </div>
           { item.clicked && 
             <div className="itemList__detail">

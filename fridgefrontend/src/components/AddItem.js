@@ -49,6 +49,7 @@ function AddItem() {
     try {
       await fetch(`https://localhost:7106/Items`, requestOptions)
     } catch (error) {
+      console.log(error);
       
     }
     navigate('/items');
