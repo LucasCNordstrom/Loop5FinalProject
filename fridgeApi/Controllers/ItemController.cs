@@ -43,9 +43,9 @@ public class ItemController : ControllerBase
      [HttpGet("{uniqueId}")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetSpecificItem(string uniqueId) //this should take users id
     {
-        if(!ItemExists(uniqueId)) return NotFound("Item does not exist");
 
         var dbItem = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId);
+        if(dbItem == null) return NotFound("Item does not exist");
         var itemResponse = new ItemResponse{
             Name = dbItem.Name,
             UniqueId = dbItem.UniqueId,
@@ -65,7 +65,6 @@ public class ItemController : ControllerBase
         itemInDb.ExpiryDate = item.ExpiryDate;
         itemInDb.Amount = item.Amount;
         itemInDb.Measurement = item.Unit;
-        itemInDb.UserId = item.UserId;
         try
         {
             await _context.SaveChangesAsync();
