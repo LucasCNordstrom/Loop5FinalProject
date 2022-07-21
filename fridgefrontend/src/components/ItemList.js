@@ -18,8 +18,10 @@ const ItemList = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] =useState('');
   const { user } = useUserAuth();
-  const today = new Date().toISOString().split('T')[0];
+  
+  const countdownformula = Math.floor((Date.parse(new Date()) + 15 * 24 * 60 * 60 * 1000) - Date.parse(new Date())) / (1000 * 60 * 60 * 24);
 
   let link = '';
   const requestOptions = {
@@ -35,18 +37,29 @@ const ItemList = () => {
     fetch(`https://localhost:7106/items/user/${user.uid}`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
+    .catch((err) => console.log(err));
     setLoading(false);
   };
 
   useEffect(() => {fetchData()}, [items]);
 
   const ItemRender = (
+    <div>
+      <p> Items in the fridge: {items.length} </p>
+      <input type="text" maxLength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
+      <div className="tools">
+      <Link to = "/items/add"> <SiAddthis /> </Link>
+      </div>
       <ul>
-      {items.map((item)=> (
+      {items.filter((value) => { 
+        if(search === "") {return value}
+        else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
+      }).map((item)=> (
         <li className='ItemList--list' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
         <div className='ItemList--list__components'>
           <div> {item.name} </div>
           <div> {item.expiryDate} </div>
+          <div> Countdown: {Math.floor((Date.parse(item.expiryDate) - Date.parse(new Date())) / (1000 * 60 * 60 * 24))} </div>
           < RiDeleteBin5Fill className='deleteIcon'/>
         </div>
           { item.clicked && 
@@ -59,18 +72,13 @@ const ItemList = () => {
           }
         </li>))}
       </ul> 
+    </div>
   )
   
   return (
-    <div>
-      Items in the fridge: {items.length}
-      <div className="tools">
-      <Link to = "/items/add"> <SiAddthis /> </Link>
-      </div>
     <div className='ItemList'>
-      { loading ? < BounceLoader size={150} color="#8aff99"/> : ItemRender }
+      { loading ? < BounceLoader className='loader' size={150} color="#8aff99"/> : ItemRender }
     </div> 
-    </div>
   )
 }
 

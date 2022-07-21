@@ -15,7 +15,8 @@ function AddItem() {
   const today = formatDate(new Date);
 
   const limitValue = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
+    const value = e.target.value;
+    if(value.length > 3) {return };
     setAmount(value);
   }
 
@@ -59,7 +60,7 @@ function AddItem() {
       <form id="addItem" onSubmit={onSubmit}>
         <div>
           <label> Item name: </label>
-          <input type="text" value={title} maxlength="25" onChange={(e) => setTitle(e.target.value)}/>
+          <input type="text" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
         </div>
         <div>
           <label> Expiration date: </label>
@@ -67,7 +68,7 @@ function AddItem() {
         </div>
         <div>
           <label> Quantity: </label>
-          <input type="text" value={amount} maxlength="3" onChange={limitValue}/>
+          <input type="number" min="0" value={amount} onChange={limitValue}/>
           <select value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option value="Kg">Kg</option>
             <option value="Liter">Liter</option>
