@@ -45,7 +45,15 @@ public class ItemController : ControllerBase
     {
         if(!ItemExists(uniqueId)) return NotFound("Item does not exist");
 
-        return Ok(await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId));
+        var dbItem = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId);
+        var itemResponse = new ItemResponse{
+            Name = dbItem.Name,
+            UniqueId = dbItem.UniqueId,
+            ExpiryDate = dbItem.ExpiryDate,
+            Amount = dbItem.Amount,
+            Measurement = dbItem.Measurement
+        };
+        return Ok(itemResponse);
     }
 
     [HttpPut("edit")]
