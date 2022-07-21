@@ -60,6 +60,7 @@ public class ItemController : ControllerBase
         itemInDb.ExpiryDate = item.ExpiryDate;
         itemInDb.Amount = item.Amount;
         itemInDb.Measurement = item.Unit;
+        itemInDb.Location = item.Location;
         try
         {
             await _context.SaveChangesAsync();
