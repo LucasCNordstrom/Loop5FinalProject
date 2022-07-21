@@ -1,8 +1,15 @@
 import '../CSS/Home.css';
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate} from "react-router-dom";
 
 function UserPage() {
   const { logOut, user } = useUserAuth();
+  const navigate = useNavigate();
+
+  if(!user)
+  {
+    navigate("/");
+  }
 
   return (
     <div className="UserPage">

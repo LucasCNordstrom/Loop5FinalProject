@@ -1,20 +1,23 @@
 import "../CSS/NavBar.css";
 import { Link } from "react-router-dom";
-import { FaRegUserCircle } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
+import { RiFileList3Fill } from 'react-icons/ri';
+import { IoIosHome } from 'react-icons/io';
+
 
 function ItemList() {
   return (
-    <div className="NavBar--list">
+    <nav className="NavBar--list">
       <div>
-      <Link to = "/home">  </Link>
+      <Link to = "/home"> <img src="https://cdn-icons-png.flaticon.com/512/553/553376.png"/> </Link>
       </div>
       <div>
-      <Link to = "/items"> Items </Link>
+      <Link to = "/items"> <img src="https://cdn-icons-png.flaticon.com/512/553/553376.png"/> </Link>
       </div>
       <div>
-        <Link to = "/user"> <FaRegUserCircle /> </Link>
+        <Link to = "/user"> <img src="https://cdn-icons-png.flaticon.com/512/553/553376.png"/> </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 

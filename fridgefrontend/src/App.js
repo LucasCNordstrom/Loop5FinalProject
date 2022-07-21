@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Link, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import UserPage from "./components/UserPage";
 import ItemList from "./components/ItemList";
 import Home from "./components/Home";
@@ -12,7 +12,6 @@ import ProductInfo from "./components/ProductInfo";
 
 function App() {
   return (
-    <Router>
       <UserAuthContextProvider>
         <div className="App-Logo"> LOGO </div>
         <Routes>
@@ -27,7 +26,6 @@ function App() {
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </UserAuthContextProvider>
-    </Router>
   );
 }
 export default App;

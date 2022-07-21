@@ -10,14 +10,17 @@ const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
 
 
-  return user.email ? (
+  if(!user)
+  {
+    navigate("/");
+  }
+
+  return (
     <div>
       <NavBar /> 
       <Outlet />
     </div>
-  ) : (
-    navigate("/")
-  );
+  )
 };
 
 export default ProtectedRoute;
