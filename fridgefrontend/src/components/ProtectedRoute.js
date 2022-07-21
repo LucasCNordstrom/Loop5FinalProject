@@ -9,9 +9,14 @@ import { Routes, Route } from "react-router-dom";
 import AddItem from "./AddItem";
 const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
-  return (
-    user ? <div><NavBar /> <Outlet/> </div> : <Navigate to="/"/>
-  )
+  return user.email ? (
+    <div>
+      <NavBar /> 
+      <Outlet />
+    </div>
+  ) : (
+    <Navigate to="/" />
+  );
 };
 
 export default ProtectedRoute;
