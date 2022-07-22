@@ -22,11 +22,11 @@ function UserPage() {
     !user.email ? navigate("/") :
     <div className="UserPage">
       <div>
-        <img src={user.reloadUserInfo.photoUrl ? user.reloadUserInfo.photoUrl : "http://lionhallattorneys.com.ng/wp-content/uploads/2015/12/empty-profile.png"} />
+        <img src={user.reloadUserInfo.photoUrl ? user.reloadUserInfo.photoUrl : "https://freesvg.org/img/abstract-user-flat-3.png"} />
         <div>Hello {user.displayName ? user.displayName : user.email} ! </div>
         <div>Account created since: {user.metadata.creationTime} </div>
         <div>Last login: {user.metadata.lastSignInTime} </div>
-        <Button onClick={handleLogout}>Log out</Button>
+        <Button className="userpage-button" onClick={handleLogout}>Log out</Button>
       </div>
     </div>
   );

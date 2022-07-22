@@ -11,8 +11,9 @@
 }
 
 .NavBar--list img {
+    filter: invert(100%);
     width: 40%;
-    filter: invert(76%) sepia(47%) saturate(1503%) hue-rotate(173deg) brightness(86%) contrast(91%);
+    
 }
 
 .profile {

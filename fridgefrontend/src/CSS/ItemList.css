@@ -1,14 +1,12 @@
-.item-list {
-    border-style: solid;
-}
-
-.add-icon-padding {
-    padding-top: 15px;
-    width: 365px;
+.item-li input {
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .add-icon {
+    margin-top: 15px;
+    margin-bottom: 0px;
     width: 10%;
+    filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%);
 }
 
 .item-ul {
@@ -22,6 +20,14 @@
     margin: 3px;
     margin: 0px 20px;
     align-items: center;
+}
+
+.item-ul li{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin-top: 7px;
+    margin-bottom: 7px;
+    height: 5%;
+
 }
 
 .green-color {
@@ -45,8 +51,13 @@
     color: white;
 }
 
+
 .deleteIcon {
-    width: 10%;
+    width: 6%;
+}
+
+.black-color .deleteIcon {
+    filter: invert(100%);
 }
 
 
