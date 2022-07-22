@@ -22,7 +22,7 @@ function App() {
             <Route path="items/add" element={<AddItem />} />
             <Route path="items/:id" element={<ProductInfo />} /> 
           </Route>
-          <Route path="/" element={<Login />} />
+          <Route path="*" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </UserAuthContextProvider>
