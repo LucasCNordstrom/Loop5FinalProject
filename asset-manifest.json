@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Loop5FinalProject/static/css/main.d25f6be8.css",
-    "main.js": "/Loop5FinalProject/static/js/main.c9d895ac.js",
+    "main.css": "/Loop5FinalProject/static/css/main.183fd713.css",
+    "main.js": "/Loop5FinalProject/static/js/main.9dd05f97.js",
     "index.html": "/Loop5FinalProject/index.html",
-    "main.d25f6be8.css.map": "/Loop5FinalProject/static/css/main.d25f6be8.css.map",
-    "main.c9d895ac.js.map": "/Loop5FinalProject/static/js/main.c9d895ac.js.map"
+    "main.183fd713.css.map": "/Loop5FinalProject/static/css/main.183fd713.css.map",
+    "main.9dd05f97.js.map": "/Loop5FinalProject/static/js/main.9dd05f97.js.map"
   },
   "entrypoints": [
-    "static/css/main.d25f6be8.css",
-    "static/js/main.c9d895ac.js"
+    "static/css/main.183fd713.css",
+    "static/js/main.9dd05f97.js"
   ]
 }
