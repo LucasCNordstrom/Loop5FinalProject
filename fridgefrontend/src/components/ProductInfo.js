@@ -14,7 +14,7 @@ function ProductInfo() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`https://localhost:7106/Items/${id}`)
+    fetch(`https://loop5finalproject.azurewebsites.net/items/${id}`)
       .then((response) => response.json())
       .then((data) => setItem(data))
       .then(setLoading(false));

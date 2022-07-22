@@ -22,7 +22,7 @@ const ItemList = () => {
   const [search, setSearch] =useState('');
   const { user } = useUserAuth();
   const today = Date.parse(new Date());
-  const countdown = 0;
+  let countdown = 0;
 
   const itemDetails = (id) => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
