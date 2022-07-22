@@ -14,7 +14,7 @@ function ProductInfo() {
 
   const fetchData = () => {
     setLoading(true);
-    fetch(`https://loop5finalproject.azurewebsites.net/items/${id}`)
+    fetch(`https://loop5finalproject.azurewebsites.net/Items/${id}`)
       .then((response) => response.json())
       .then((data) => setItem(data))
       .then(setLoading(false));
@@ -23,12 +23,11 @@ function ProductInfo() {
   useEffect(() => {
     fetchData();
   }, [edit]);
-  
-
   const changeEdit = () => {
     setEdit(false);
   }
-if(item.location === undefined) return <></>
+
+  if (loading) return ( <ClipLoader /> )
   return edit ?  (
   <div>
     < EditItem item={item} onChange={changeEdit} />

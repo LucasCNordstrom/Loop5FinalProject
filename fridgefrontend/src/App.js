@@ -13,7 +13,7 @@ import ProductInfo from "./components/ProductInfo";
 function App() {
   return (
       <UserAuthContextProvider>
-        <div className="App-Logo"> LOGO </div>
+        <div> <img className="logo-img" src="https://i.imgur.com/skhQcVC.png" /> </div>
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />
