@@ -47,7 +47,7 @@ function AddItem({item, onChange}) {
       document.getElementById("btnSubmit").click(); 
     }
     try {
-        let response = await fetch(`https://localhost:7106/Items/edit`, requestPut)
+        let response = await fetch(`https://loop5finalproject.azurewebsites.net/Items/edit`, requestPut)
         if (!response.ok) throw new Error(await response.json());
       } catch (error) {
         console.log(error);

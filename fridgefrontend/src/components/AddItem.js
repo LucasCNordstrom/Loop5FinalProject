@@ -49,7 +49,7 @@ function AddItem() {
       document.getElementById("btnSubmit").click(); 
     }
     try {
-      await fetch(`https://localhost:7106/Items`, requestOptions)
+      await fetch(`https://loop5finalproject.azurewebsites.net/Items`, requestOptions)
     } catch (error) {
       console.log(error);
     }
