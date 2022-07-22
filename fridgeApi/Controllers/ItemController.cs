@@ -56,7 +56,7 @@ public class ItemController : ControllerBase
     [HttpPut("edit")]
     public async Task<IActionResult> EditItem(PostItemRequest item)
     {
-        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
+        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest("is this the one we get?");
         var itemInDb = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == item.UniqueId);
         itemInDb.Name = item.Name;
         itemInDb.ExpiryDate = item.ExpiryDate;

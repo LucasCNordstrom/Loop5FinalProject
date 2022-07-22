@@ -29,7 +29,7 @@ const ItemList = () => {
   }
 
   const fetchData = () => {
-    fetch(`https://localhost:7106/items/user/${user.uid}`)
+    fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
     .then(items => setLoading(false))
@@ -39,7 +39,7 @@ const ItemList = () => {
   const onSubmit = async (id) => {
     const requestDel = requestOptionDel(id);
     try {
-      await fetch(`https://localhost:7106/Items/Delete`, requestDel)
+      await fetch(`https://loop5finalproject.azurewebsites.net/Items/Delete`, requestDel)
     } catch (error) {
       console.log(error);
   }
