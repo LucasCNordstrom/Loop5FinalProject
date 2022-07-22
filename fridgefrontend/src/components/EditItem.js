@@ -10,7 +10,7 @@ function AddItem({item, onChange}) {
   const [date, setDate] = useState('');
   const [error, setError] = useState(false);
   const [amount, setAmount] = useState('');
-  const [unit, setUnit] = useState('')
+  const [unit, setUnit] = useState('Kg')
   const [storage, setStorage] = useState('');
   const { user } = useUserAuth();
   const today = formatDate(new Date);
@@ -38,7 +38,6 @@ function AddItem({item, onChange}) {
         UniqueId: item.uniqueId,
       })
   };
-
     e.preventDefault();
     if (!title || !date || !amount) {
       setError(true);
@@ -48,7 +47,8 @@ function AddItem({item, onChange}) {
       document.getElementById("btnSubmit").click(); 
     }
     try {
-        await fetch(`https://localhost:7106/Items/edit`, requestPut)
+        let response = await fetch(`https://localhost:7106/Items/edit`, requestPut)
+        if (!response.ok) throw new Error(await response.json());
       } catch (error) {
         console.log(error);
       }
