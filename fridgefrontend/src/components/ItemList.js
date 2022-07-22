@@ -32,7 +32,7 @@ const ItemList = () => {
     fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
     .then(response => response.json())
     .then(data => setItems(data.sort(sortFunction)))
-    .then(items => setLoading(false))
+    .then(() => setLoading(false))
     .catch((err) => console.log(err));
   };
 
@@ -48,8 +48,18 @@ const ItemList = () => {
 
   useEffect(() => {fetchData()}, [user]);
 
+  const calcCountdown = (exp) => {
+    return Math.ceil((Date.parse(exp) - today) / (1000 * 60 * 60 * 24))
+  }
 
-  
+  const assignColor = (exp) =>  {
+    countdown = calcCountdown(exp);
+    if (countdown === 0) {return "item-li black-color"}
+    if (countdown < 4) { return "item-li red-color"}
+    if (countdown < 7) { return "item-li orange-color"}
+    if (countdown < 10) {return "item-li yellow-color"}
+    {return "item-li green-color"}
+  }
 
   const ItemRender = (
     <div>
@@ -63,11 +73,10 @@ const ItemList = () => {
         if(search === "") {return value}
         else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
       }).map((item)=> (
-        <li  className='item-li' onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
+        <li className={assignColor(item.expiryDate)} onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
           <div> {item.name} </div>
           <div> {item.expiryDate.split('T')[0]} </div>
-          {countdown = Math.ceil((Date.parse(item.expiryDate) - today) / (1000 * 60 * 60 * 24))}
-          <div> {countdown} days left </div>
+          <div> {calcCountdown(item.expiryDate)} days left </div>
           < img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
           { item.clicked && 
             <div >

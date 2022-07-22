@@ -45,7 +45,7 @@ function AddItem() {
       })
   };
     e.preventDefault();
-    if (!title || !date || !amount) {
+    if (!title || !date || !amount || !storage) {
       setError(true);
       return;
     }

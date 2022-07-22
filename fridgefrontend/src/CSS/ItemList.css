@@ -18,11 +18,31 @@
 
 .item-li {
     display: flex;
-    background-color: #a5ffc4;
     justify-content: space-around;
     margin: 3px;
     margin: 0px 20px;
     align-items: center;
+}
+
+.green-color {
+    background-color: #a5ffc4;
+}
+
+.yellow-color {
+    background-color: #feffb1;
+}
+
+.orange-color {
+    background-color: #ffdeb5;
+}
+
+.red-color {
+    background-color: #ffafb9;
+}
+
+.black-color {
+    background-color: #453851;
+    color: white;
 }
 
 .deleteIcon {
