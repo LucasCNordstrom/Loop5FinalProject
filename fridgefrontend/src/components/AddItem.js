@@ -14,10 +14,15 @@ function AddItem() {
   const [error, setError] = useState(false);
   const [amount, setAmount] = useState('');
   const [unit, setUnit] = useState('Kg')
-  const [storage, setStorage] = useState('Fridge');
+  const [storage, setStorage] = useState('');
   const { user } = useUserAuth();
   const navigate = useNavigate();
   const today = formatDate(new Date);
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const limitValue = (e) => {
     const value = e.target.value;
     if(value.length > 3) {return };
@@ -27,6 +32,7 @@ function AddItem() {
     e.persist();
     setStorage(e.target.value)
   }
+
   const onSubmit = async (e) => {
     const requestOptions = {
       method : 'POST', 
@@ -63,27 +69,31 @@ function AddItem() {
       <h3>Add new item:</h3>
         <p>Product name: </p>
         <Form.Group>
-          <Form.Control type="text" className="name-input" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
+          <Form.Control type="text" className="input" value={title} maxLength="25" onChange={(e) => setTitle(capitalizeFirstLetter(e.target.value))}/>
         </Form.Group>
+
         <p>Expiration date: </p>
         <Form.Group>
-          <Form.Control type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
+          <Form.Control type="date" className="input" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
         </Form.Group>
+
         <p>Storage: </p>
-        <ToggleButtonGroup className="storage-sel" type="radio" name="radio">
-        <ToggleButton className="radio-hide" value='Fridge' onChange={handleChange} >
-          <img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/>
-        </ToggleButton>
-        <ToggleButton className="radio-hide" value='Freezer' onChange={handleChange}>
-          <img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/>
-        </ToggleButton>
-        <ToggleButton className="radio-hide" value='Pantry' onChange={handleChange}>
-          <img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/>
-        </ToggleButton>
-      </ToggleButtonGroup>
+      <Form.Group>
+        <input type="radio" name="storage" id='fridge' value="Fridge" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="fridge"><img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/></label>
+        <input type="radio" name="storage" id='freezer' value="Freezer" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="freezer"><img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/></label>
+        <input type="radio" name="storage" id='pantry' value="Pantry" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="pantry"><img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/></label>
+        <p> Current selection: {storage} </p>
+      </Form.Group>
+
         <p> Amount: </p>
         <Form.Group> 
-          <Form.Control className="item-quantity" type="number" min="0" value={amount} onChange={limitValue}/>
+          <Form.Control className="input" type="number" min="0" value={amount} onChange={limitValue}/>
           <Form.Select value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option value="Kg">Kg</option>
             <option value="Liter">Liter</option>
@@ -91,7 +101,7 @@ function AddItem() {
           </Form.Select>
         </Form.Group>
         {error && <h4> Please do not leave fields empty!</h4>}
-        <Button type="submit" id="btnSubmit"> Submit </Button>
+        <Button type="submit" id="btnSubmit" className='page-button'> Submit </Button>
       </Form>
     </div>
   );

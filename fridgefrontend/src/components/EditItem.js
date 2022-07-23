@@ -9,7 +9,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 function EditItem({item, onChange}) {
   const [title, setTitle] = useState(item.name);
-  const [date, setDate] = useState(item.expiryDate);
+  const [date, setDate] = useState(item.expiryDate.split('T')[0]);
   const [error, setError] = useState(false);
   const [amount, setAmount] = useState(item.amount);
   const [unit, setUnit] = useState(item.measurement)
@@ -21,7 +21,6 @@ function EditItem({item, onChange}) {
     if(value.length > 3) {return };
     setAmount(value);
   }
-  console.log('title: ' + title + ' date: ' + date + ' amount: ' + amount + ' unit: ' + unit + ' storage ' + storage);
 
   const handleChange = e => {
     e.persist();
@@ -67,79 +66,41 @@ function EditItem({item, onChange}) {
         <Form.Group>
           <Form.Control type="text" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
         </Form.Group>
+
         <p>Expiration date: </p>
         <Form.Group>
           <Form.Control type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
         </Form.Group>
+        
         <p>Storage: </p>
-        <ToggleButtonGroup className="storage-sel" type="radio" name="radio">
-          <ToggleButton className="radio-hide" value='Fridge' onChange={handleChange} >
-          <img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/>
-        </ToggleButton>
-          <ToggleButton className="radio-hide" value='Freezer' onChange={handleChange} >
-          <img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/>
-        </ToggleButton>
-          <ToggleButton className="radio-hide" value='Pantry' onChange={handleChange} >
-          <img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/>
-        </ToggleButton>
-      </ToggleButtonGroup>
+        <Form.Group>
+        <input type="radio" name="storage" id='fridge' value="Fridge" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="fridge"><img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/></label>
+        <input type="radio" name="storage" id='freezer' value="Freezer" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="freezer"><img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/></label>
+        <input type="radio" name="storage" id='pantry' value="Pantry" className="storage"
+              onChange={handleChange} />
+        <label htmlFor="pantry"><img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/></label>
+        <p> Current selection: {storage} </p>
+      </Form.Group>
+
       <p> Amount: </p>
         <Form.Group> 
           <Form.Control className="item-quantity" type="number" min="0" value={amount} onChange={limitValue}/>
           <Form.Select value={unit} onChange={(e) => setUnit(e.target.value)}>
-            <option value="Kg">Kg</option>
-            <option value="Liter">Liter</option>
-            <option value="Pieces">Pieces</option>
+            <option selected={unit === "Kg"} value="Kg" >Kg</option>
+            <option selected={unit === "Liter"} value="Liter">Liter</option>
+            <option selected={unit === "Pieces"} value="Pieces" >Pieces</option>
           </Form.Select>
         </Form.Group>
         
         {error && <h4> Please do not leave fields empty!</h4>}
-        <Button onClick={() => onChange()}> Cancel </Button>
-        <Button type="submit"> Submit </Button>
+        <Button className="page-button" onClick={() => onChange()}> Cancel </Button>
+        <Button type="submit" className="page-button"> Submit </Button>
       </Form>
     </div>
-
-
-    // <div>
-    //   <h1> Edit item:</h1>
-    //   {error && <h4> Please do not leave fields empty!</h4>}
-    //   <Form id="addItem" onSubmit={onSubmit}>
-    //     <div>
-    //       <label> Item name: </label>
-    //       <input type="text" value={title} maxLength="25" placeholder={item.name} onChange={(e) => setTitle(e.target.value)}/>
-    //     </div>
-    //     <div>
-    //       <label> Expiration date: </label>
-    //       <input type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
-    //     </div>
-    //     <div>
-    //     <p>Storage: </p>
-    //     <ToggleButtonGroup className="storage-sel" type="radio" name="radio">
-    //     <ToggleButton className="radio-hide" value='Fridge' onChange={handleChange}>
-    //       <img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/>
-    //     </ToggleButton>
-    //     <ToggleButton className="radio-hide" value='Freezer' onChange={handleChange}>
-    //       <img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/>
-    //     </ToggleButton>
-    //     <ToggleButton className="radio-hide" value='Pantry' onChange={handleChange}>
-    //       <img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/>
-    //     </ToggleButton>
-    //   </ToggleButtonGroup>
-      
-    //   </div>
-    //     <div>
-    //       <label> Quantity: </label>
-    //       <input type="number" min="0" value={amount} placeholder={item.amount} onChange={limitValue}/>
-    //       <select value={unit} onChange={(e) => setUnit(e.target.value)}>
-    //         <option value="Kg">Kg</option>
-    //         <option value="Liter">Liter</option>
-    //         <option value="Pieces">Pieces</option>
-    //     </select>
-    //     </div>
-    //     <input type="submit" id="btnSubmit"/>
-    //     <button onClick={() => onChange()}> Cancel </button>
-    //   </Form>
-    // </div>
   );
 }
 export default EditItem;

@@ -21,7 +21,7 @@
 @media (min-width: 600px)
 {
     .NavBar--list {
-        width: 1000px;
+        width: 100vh;
     }
 
     .NavBar--list img {

@@ -44,7 +44,7 @@ const Signup = () => {
     <>
       <div className='login'>
         <img src='https://cdn-icons-png.flaticon.com/512/748/748137.png' />
-        <h2 >Sign up for Twerp</h2>
+        <h2 className='width' >Sign up for Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -72,12 +72,12 @@ const Signup = () => {
           </Form.Group>
 
           <div>
-            <Button variant="primary" type="Submit" onClick={updateProfile}>
+            <Button variant="primary" type="Submit" className="page-button" onClick={updateProfile}>
               Sign up
             </Button>
           </div>
         </Form>
-        <div className='width'>
+        <div>
         Already have an account? <Link to="/">Log In</Link>
         </div>
       </div>

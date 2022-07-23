@@ -15,10 +15,11 @@ const ProtectedRoute = ({ children }) => {
     navigate("/");
   }
 
-  return (
+  return ( 
     <div>
+      {user.email && <>
       <NavBar /> 
-      <Outlet />
+      <Outlet /></>}
     </div>
   )
 };

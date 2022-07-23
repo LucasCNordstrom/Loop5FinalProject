@@ -44,7 +44,7 @@ const Login = () => {
     <>
       <div className="login">
       <img src='https://cdn-icons-png.flaticon.com/512/1000/1000997.png'/>
-        <h2 >Login to Twerp</h2>
+        <h2 className='width'>Login to Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -64,7 +64,7 @@ const Login = () => {
           </Form.Group>
 
           <div >
-            <Button variant="primary" type="Submit">
+            <Button variant="primary" type="Submit" className="page-button">
               Log In
             </Button>
           </div>

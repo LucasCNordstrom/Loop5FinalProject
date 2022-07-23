@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useState, useEffect } from "react";
 import EditItem from "./EditItem";
-import '../CSS/ProductInfo.css';
+import '../CSS/AddItem.css';
 
 function ProductInfo() {
   const { id } = useParams();
@@ -28,6 +29,7 @@ function ProductInfo() {
   }
 
   if (loading) return ( <ClipLoader /> )
+
   return edit ?  (
   <div>
     < EditItem item={item} onChange={changeEdit} />
@@ -42,8 +44,8 @@ function ProductInfo() {
             {item.amount} {item.measurement}
           </div>
           <div> {item.location} </div>
-          <button onClick={() => setEdit(true)}> Edit </button>
-          <button onClick={() => navigate(-1)}> BACK  </button>
+          <Button className="page-button" onClick={() => navigate(-1)}>  Back </Button>
+          <Button className="page-button" onClick={() => setEdit(true)}> Edit </Button>
         </div>
     </div> )
 }

@@ -26,7 +26,7 @@ function UserPage() {
         <div>Hello {user.displayName ? user.displayName : user.email} ! </div>
         <div>Account created since: {user.metadata.creationTime.substring(0, 16)} </div>
         <div>Last login: {user.metadata.lastSignInTime.substring(0, 25)} </div>
-        <Button className="userpage-button" onClick={handleLogout}>Log out</Button>
+        <Button className="page-button" onClick={handleLogout}>Log out</Button>
       </div>
     </div>
   );

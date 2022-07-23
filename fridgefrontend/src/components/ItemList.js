@@ -27,17 +27,15 @@ const ItemList = () => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
   }
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   const fetchData = () => {
     fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
     .then(response => response.json())
-    .then(data => setItems(data.map(i => ({...i , name: capitalizeFirstLetter(i.name)}))))
+    .then(data => setItems(data.sort(sortFunction)))
     .then(() => setLoading(false))
     .catch((err) => console.log(err));
   };
+
+  console.log(items);
 
   const onDelete = async (id, item) => {
     if (window.confirm(`Are you sure you want to delete ${item.name} ?`)) {
@@ -78,8 +76,8 @@ const ItemList = () => {
         if(search === "") {return value}
         else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
       }).map((item)=> (
-        <li className={assignColor(item.expiryDate)} onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}>
-          <span className='item-li'>
+        <li className={assignColor(item.expiryDate)} key={item.uniqueId}>
+          <span className='item-li' onClick={() => {itemDetails(item.uniqueId)}}>
             <p> {item.name} </p>
             <p> {calcCountdown(item.expiryDate)} days left </p>
             <img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onDelete(item.uniqueId, item)}/>
