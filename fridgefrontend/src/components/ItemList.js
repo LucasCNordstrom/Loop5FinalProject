@@ -20,6 +20,7 @@ const ItemList = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] =useState('');
+  const [confirm, setConfirm] =useState(false);
   const { user } = useUserAuth();
   const today = Date.parse(new Date());
   let countdown = 0;
@@ -36,14 +37,16 @@ const ItemList = () => {
     .catch((err) => console.log(err));
   };
 
-  const onSubmit = async (id) => {
+  const onDelete = async (id, item) => {
+    if (window.confirm(`Are you sure you want to delete ${item.name} ?`)) {
     const requestDel = requestOptionDel(id);
     try {
       await fetch(`https://loop5finalproject.azurewebsites.net/Items/Delete`, requestDel)
-    } catch (error) {
-      console.log(error);
-  }
-  fetchData();
+      } catch (error) {
+        console.log(error);
+      }
+      fetchData();
+    }
   }
 
   useEffect(() => {fetchData()}, [user]);
@@ -54,11 +57,11 @@ const ItemList = () => {
 
   const assignColor = (exp) =>  {
     countdown = calcCountdown(exp);
-    if (countdown === 0) {return "item-li black-color"}
-    if (countdown < 4) { return "item-li red-color"}
-    if (countdown < 7) { return "item-li orange-color"}
-    if (countdown < 10) {return "item-li yellow-color"}
-    {return "item-li green-color"}
+    if (countdown <= 0) {return "black-color"}
+    if (countdown < 4) { return "red-color"}
+    if (countdown < 7) { return "orange-color"}
+    if (countdown < 10) {return "yellow-color"}
+    {return "green-color"}
   }
 
   const ItemRender = (
@@ -73,19 +76,21 @@ const ItemList = () => {
         if(search === "") {return value}
         else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
       }).map((item)=> (
-        <li className={assignColor(item.expiryDate)} onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}> 
-          <div> {item.name} </div>
-          <div> {item.expiryDate.split('T')[0]} </div>
-          <div> {calcCountdown(item.expiryDate)} days left </div>
-          < img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onSubmit(item.uniqueId)}/>
+        <li className={assignColor(item.expiryDate)} onClick={() => {itemDetails(item.uniqueId)}} key={item.uniqueId}>
+          <span className='item-li'>
+            <p> {item.name} </p>
+            <p> {calcCountdown(item.expiryDate)} days left </p>
+            <img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onDelete(item.uniqueId, item)}/>
+          </span>
           { item.clicked && 
-            <div >
-              <div>{item.amount} {item.measurement}</div>
-              <div> {item.location} </div>
-              <button onClick={() => {
-                navigate(`/items/${item.uniqueId}`);
-              }}> DETAILS </button>
-            </div>
+          <span className='item-details'>
+            <p> Expiration date: {item.expiryDate.split('T')[0]} </p>
+            <p>Quantity: {item.amount} {item.measurement}</p>
+            <p> Stored in: {item.location} </p>
+            <button onClick={() => {
+              navigate(`/items/${item.uniqueId}`);
+            }}> DETAILS </button>
+          </span>
           }
         </li>))}
       </ul> 
@@ -94,7 +99,7 @@ const ItemList = () => {
   
   return (
     <div className='item-list'>
-      { loading ? < BounceLoader className='loader' size={150} color="#8aff99"/> : ItemRender }
+      { loading ? < BounceLoader className='loader' size={150} color="#b1e2ff"/> : ItemRender }
     </div> 
   )
 }

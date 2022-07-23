@@ -17,10 +17,6 @@
     width: 14%;
 }
 
-.add div {
-    margin: 5px;
-}
-
 
 @media (min-width: 600px) {
     .fridge-icon {

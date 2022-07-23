@@ -9,6 +9,10 @@
     width: max-content;
 }
 
+.login img {
+    width: 40%
+}
+
 @media (min-width: 600px)
 {
     .login {

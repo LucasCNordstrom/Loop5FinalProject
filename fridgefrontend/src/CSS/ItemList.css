@@ -5,8 +5,15 @@
 .add-icon {
     margin-top: 15px;
     margin-bottom: 0px;
-    width: 10%;
+    width: 20%;
     filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%);
+}
+
+.item-li {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 2rem;
 }
 
 .item-ul {
@@ -14,20 +21,30 @@
     padding-left: 0;
 }
 
-.item-li {
-    display: flex;
-    justify-content: space-around;
-    margin: 3px;
-    margin: 0px 20px;
-    align-items: center;
-}
-
 .item-ul li{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
     margin-top: 7px;
     margin-bottom: 7px;
-    height: 5%;
+    border-radius: 5px;
+}
 
+.item-details {
+
+}
+
+.item-details p {
+    margin: -5px;
+    padding: 0px 10px;
+}
+
+.item-details button {
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgb(45 35 66 / 40%) 0 2px 4px, rgb(45 35 66 / 30%) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+    color: #36395A;
+    width: 100%;
+    transition: box-shadow .15s, transform .15s;
 }
 
 .green-color {
@@ -51,7 +68,6 @@
     color: white;
 }
 
-
 .deleteIcon {
     width: 6%;
 }
@@ -60,12 +76,25 @@
     filter: invert(100%);
 }
 
+.deleteIcon:hover {
+    width: 9%;
+    filter: invert(89%) sepia(44%) saturate(4673%) hue-rotate(288deg) brightness(100%) contrast(103%);
+}
+
+.red-color .deleteIcon:hover {
+    width: 9%;
+    filter: invert(100%);
+}
+
 
 @media (min-width: 600px) {
-    .add-icon-padding {
-        width: 100%
-    }
 
+    .add-icon {
+        width: 5%;
+    }
+    .item-li {
+        height: 4rem;
+    }
 }
 
 
