@@ -1,7 +1,5 @@
 import '../CSS/ItemList.css';
 import { useState, useEffect } from 'react';
-import { RiDeleteBin5Fill } from 'react-icons/ri';
-import { SiAddthis } from 'react-icons/si';
 import { Link } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +27,14 @@ const ItemList = () => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const fetchData = () => {
     fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
     .then(response => response.json())
-    .then(data => setItems(data.sort(sortFunction)))
+    .then(data => setItems(data.map(i => ({...i , name: capitalizeFirstLetter(i.name)}))))
     .then(() => setLoading(false))
     .catch((err) => console.log(err));
   };

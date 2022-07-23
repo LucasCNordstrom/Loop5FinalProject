@@ -63,7 +63,7 @@ function AddItem() {
       <h3>Add new item:</h3>
         <p>Product name: </p>
         <Form.Group>
-          <Form.Control type="text" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
+          <Form.Control type="text" className="name-input" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
         </Form.Group>
         <p>Expiration date: </p>
         <Form.Group>

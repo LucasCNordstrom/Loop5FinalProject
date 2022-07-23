@@ -9,6 +9,7 @@ import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddItem from "./components/AddItem";
 import ProductInfo from "./components/ProductInfo";
+import MiniGame from "./components/Minigame";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="items" element={<ItemList />} />
             <Route path="items/add" element={<AddItem />} />
             <Route path="items/:id" element={<ProductInfo />} /> 
+            <Route path="minigame" element={<MiniGame />} />
           </Route>
           <Route path="*" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
