@@ -1,9 +1,5 @@
 import "../CSS/NavBar.css";
 import { Link } from "react-router-dom";
-import { FaUserCircle } from 'react-icons/fa';
-import { RiFileList3Fill } from 'react-icons/ri';
-import { IoIosHome } from 'react-icons/io';
-
 
 function ItemList() {
   return (

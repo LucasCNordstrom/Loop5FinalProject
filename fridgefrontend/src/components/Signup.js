@@ -43,7 +43,7 @@ const Signup = () => {
   return (
     <>
       <div className='login'>
-        <img src='https://cdn-icons-png.flaticon.com/512/748/748137.png' />
+        <img alt="Signup-icon" src='https://cdn-icons-png.flaticon.com/512/748/748137.png' />
         <h2 className='width' >Sign up for Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>

@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import {formatDate} from '../helperFunctions/helpers';
 import { Form, Button } from "react-bootstrap";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import {capitalizeFirstLetter} from '../helperFunctions/helpers.js';
 
 
 function AddItem() {
@@ -17,17 +16,14 @@ function AddItem() {
   const [storage, setStorage] = useState('');
   const { user } = useUserAuth();
   const navigate = useNavigate();
-  const today = formatDate(new Date);
-
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
+  const today = formatDate(new Date());
 
   const limitValue = (e) => {
     const value = e.target.value;
     if(value.length > 3) {return };
     setAmount(value);
   }
+  
   const handleChange = e => {
     e.persist();
     setStorage(e.target.value)
@@ -81,13 +77,13 @@ function AddItem() {
       <Form.Group>
         <input type="radio" name="storage" id='fridge' value="Fridge" className="storage"
               onChange={handleChange} />
-        <label htmlFor="fridge"><img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/></label>
+        <label htmlFor="fridge"><img alt="fridge-icon" src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/></label>
         <input type="radio" name="storage" id='freezer' value="Freezer" className="storage"
               onChange={handleChange} />
-        <label htmlFor="freezer"><img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/></label>
+        <label htmlFor="freezer"><img alt="freezer-icon" src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/></label>
         <input type="radio" name="storage" id='pantry' value="Pantry" className="storage"
               onChange={handleChange} />
-        <label htmlFor="pantry"><img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/></label>
+        <label htmlFor="pantry"><img alt="pantry-icon" src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/></label>
         <p> Current selection: {storage} </p>
       </Form.Group>
 

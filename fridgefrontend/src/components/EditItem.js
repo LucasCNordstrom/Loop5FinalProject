@@ -3,8 +3,6 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { useState } from 'react';
 import {formatDate} from '../helperFunctions/helpers';
 import { Form, Button } from "react-bootstrap";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 
 
 function EditItem({item, onChange}) {
@@ -15,7 +13,7 @@ function EditItem({item, onChange}) {
   const [unit, setUnit] = useState(item.measurement)
   const [storage, setStorage] = useState(item.location);
   const { user } = useUserAuth();
-  const today = formatDate(new Date);
+  const today = formatDate(new Date());
   const limitValue = (e) => {
     const value = e.target.value;
     if(value.length > 3) {return };
@@ -60,28 +58,29 @@ function EditItem({item, onChange}) {
   }
 
   return (
-    <div>
-      <Form onSubmit={onSubmit}>
+    <div className='add'>
+      <Form id="addItem" onSubmit={onSubmit}>
+      <h3>Edit item:</h3>
       <p>Product name: </p>
         <Form.Group>
-          <Form.Control type="text" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
+          <Form.Control type="text" className="input" value={title} maxLength="25" onChange={(e) => setTitle(e.target.value)}/>
         </Form.Group>
 
         <p>Expiration date: </p>
         <Form.Group>
-          <Form.Control type="date" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
+          <Form.Control type="date" className="input" value={date} min={today} onChange={(e) => setDate(e.target.value)} />
         </Form.Group>
         
         <p>Storage: </p>
         <Form.Group>
         <input type="radio" name="storage" id='fridge' value="Fridge" className="storage"
-              onChange={handleChange} />
+              onChange={handleChange} checked={storage === "Fridge"}/>
         <label htmlFor="fridge"><img src='https://cdn-icons-png.flaticon.com/512/483/483850.png' className='sel-icon fridge-icon'/></label>
         <input type="radio" name="storage" id='freezer' value="Freezer" className="storage"
-              onChange={handleChange} />
+              onChange={handleChange} checked={storage === "Freezer"}/>
         <label htmlFor="freezer"><img src='https://cdn-icons-png.flaticon.com/512/445/445903.png' className='sel-icon freezer-icon'/></label>
         <input type="radio" name="storage" id='pantry' value="Pantry" className="storage"
-              onChange={handleChange} />
+              onChange={handleChange} checked={storage === "Pantry"}/>
         <label htmlFor="pantry"><img src='https://cdn-icons-png.flaticon.com/512/6785/6785540.png' className='sel-icon pantry-icon'/></label>
         <p> Current selection: {storage} </p>
       </Form.Group>

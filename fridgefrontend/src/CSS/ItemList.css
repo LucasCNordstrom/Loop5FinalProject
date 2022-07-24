@@ -77,12 +77,10 @@
 }
 
 .deleteIcon:hover {
-    width: 9%;
     filter: invert(89%) sepia(44%) saturate(4673%) hue-rotate(288deg) brightness(100%) contrast(103%);
 }
 
 .red-color .deleteIcon:hover {
-    width: 9%;
     filter: invert(100%);
 }
 

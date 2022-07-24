@@ -29,7 +29,9 @@ div {
   padding-right: 16px;
   transition: box-shadow .15s,transform .15s;
   font-size: 18px;
-  margin-top: 30px;
+  margin-top: 10px;
+  margin-left: 1vh;
+  margin-right: 1vh;
 }
 
 .userpage-button:active {

@@ -11,6 +11,10 @@ function padTo2Digits(num) {
     ].join('-');
   }
 
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
 
 const requestOptionDel = (itemid) => {
   return {
@@ -29,5 +33,6 @@ const requestOptionDel = (itemid) => {
   module.exports = {
     formatDate,
     padTo2Digits,
-    requestOptionDel
+    requestOptionDel,
+    capitalizeFirstLetter
   }

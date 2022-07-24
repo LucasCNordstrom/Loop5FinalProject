@@ -24,6 +24,7 @@ function ProductInfo() {
   useEffect(() => {
     fetchData();
   }, [edit]);
+  
   const changeEdit = () => {
     setEdit(false);
   }
@@ -31,22 +32,18 @@ function ProductInfo() {
   if (loading) return ( <ClipLoader /> )
 
   return edit ?  (
-  <div>
+  <>
     < EditItem item={item} onChange={changeEdit} />
-  </div>) 
+  </>) 
   :
   (
-    <div>
-        <div>
-          <div> {item.name} </div>
-          <div> {item.expiryDate} </div>
-          <div>
-            {item.amount} {item.measurement}
-          </div>
-          <div> {item.location} </div>
-          <Button className="page-button" onClick={() => navigate(-1)}>  Back </Button>
-          <Button className="page-button" onClick={() => setEdit(true)}> Edit </Button>
-        </div>
-    </div> )
+  <>
+    <p> Product name: <b>{item.name}</b> </p>
+    <p> Product expiration date: <b>{item.expiryDate}</b> </p>
+    <p> Product quantity: <b>{item.amount} {item.measurement}</b> </p>
+    <p> Product stored in: <b>{item.location}</b> </p>
+    <Button className="page-button" onClick={() => navigate(-1)}>  Back </Button>
+    <Button className="page-button" onClick={() => setEdit(true)}> Edit </Button>
+  </>)
 }
 export default ProductInfo;

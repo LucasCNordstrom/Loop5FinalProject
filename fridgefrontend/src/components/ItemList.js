@@ -1,28 +1,49 @@
 import '../CSS/ItemList.css';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import {requestOptionDel} from '../helperFunctions/helpers.js';
+import { motion, AnimatePresence } from "framer-motion"
 
-
-function sortFunction(a,b){  
-  var dateA = new Date(a.expiryDate).getTime();
-  var dateB = new Date(b.expiryDate).getTime();
-  return dateA > dateB ? 1 : -1;  
-}; 
 
 const ItemList = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] =useState('');
-  const [confirm, setConfirm] =useState(false);
+  const [orderBy, setOrderBy] =useState('expirationDate');
+  const [displayBy, setDisplayBy] = useState('');
   const { user } = useUserAuth();
   const today = Date.parse(new Date());
   let countdown = 0;
 
+  //Sort the order in which data is displayed
+  function sortFunction(a,b){  
+    var dateA = new Date(a.expiryDate).getTime();
+    var dateB = new Date(b.expiryDate).getTime();
+    if (orderBy === 'expirationDate') {
+      return dateA > dateB ? 1 : -1;
+    }
+    if (orderBy === 'expirationDateRev') {
+      return dateA < dateB ? 1 : -1;
+    }
+    if (orderBy === 'alphabetical') {
+      return a.name > b.name ? 1 : -1;
+    }
+    if (orderBy === 'alphabeticalRev') {
+      return a.name < b.name ? 1 : -1;
+    }
+    if (orderBy === 'quantity') {
+      return a.amount > b.amount ? 1 : -1;
+    }
+    if (orderBy === 'quantityRev') {
+      return a.amount < b.amount ? 1 : -1;
+    }
+  }; 
+  
   const itemDetails = (id) => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
   }
@@ -35,8 +56,7 @@ const ItemList = () => {
     .catch((err) => console.log(err));
   };
 
-  console.log(items);
-
+  //Delete request for data
   const onDelete = async (id, item) => {
     if (window.confirm(`Are you sure you want to delete ${item.name} ?`)) {
     const requestDel = requestOptionDel(id);
@@ -48,13 +68,19 @@ const ItemList = () => {
       fetchData();
     }
   }
-
-  useEffect(() => {fetchData()}, [user]);
-
+  //Calculate time left on expiration date in days
   const calcCountdown = (exp) => {
     return Math.ceil((Date.parse(exp) - today) / (1000 * 60 * 60 * 24))
   }
 
+  const handleChange = e => {
+    e.persist();
+    setDisplayBy(e.target.value)
+  }
+
+  useEffect(() => {fetchData()}, [user, orderBy, displayBy]);
+
+  //assign color of items dependant on expirydate
   const assignColor = (exp) =>  {
     countdown = calcCountdown(exp);
     if (countdown <= 0) {return "black-color"}
@@ -65,36 +91,77 @@ const ItemList = () => {
   }
 
   const ItemRender = (
-    <div>
+    <>
       <p> Items in stock: {items.length} </p>
       <input type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
       <div className='add-icon-padding'>
-        <Link to = "/items/add"> <img className="add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
+        <Link to = "/items/add"> <img className="add-icon" alt="Add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
       </div>
+
+      <Form.Group> 
+          <p> Sort by: </p>
+          <Form.Select value={orderBy} onChange={(e) => setOrderBy(e.target.value)}>
+            <option value="expirationDate">Expiration Date</option>
+            <option value="expirationDateRev">Expiration Date Descending</option>
+            <option value="alphabetical">Alphabetically</option>
+            <option value="alphabeticalRev">Alphabetically Descending</option>
+            <option value="quantity">Amount</option>
+            <option value="quantityRev">Amount Descending</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group>
+        <input type="radio" name="storage" value="" className="displayBy"
+              onChange={handleChange} checked={displayBy === ""}/>
+        <label htmlFor="fridge">All</label>
+        <input type="radio" name="storage" value="Fridge" className="displayBy"
+              onChange={handleChange} checked={displayBy === "Fridge"}/>
+        <label htmlFor="fridge">Frige</label>
+        <input type="radio" name="storage" value="Freezer" className="displayBy"
+              onChange={handleChange} checked={displayBy === "Freezer"}/>
+        <label htmlFor="freezer">Freezer</label>
+        <input type="radio" name="storage" value="Pantry" className="displayBy"
+              onChange={handleChange} checked={displayBy === "Pantry"}/>
+        <label htmlFor="pantry">Pantry</label>
+      </Form.Group>
+
       <ul className='item-ul'>
-      {items.filter((value) => { 
+      <AnimatePresence>
+      {items
+      .filter((value) => {
+        if (displayBy === "") {return value}
+        else if(value.location.includes(displayBy)) {return value}
+      })
+      .filter((value) => {
         if(search === "") {return value}
         else if(value.name.toLowerCase().includes(search.toLowerCase())) {return value}
       }).map((item)=> (
-        <li className={assignColor(item.expiryDate)} key={item.uniqueId}>
+        <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: 700 }} className={assignColor(item.expiryDate)} key={item.uniqueId}>
           <span className='item-li' onClick={() => {itemDetails(item.uniqueId)}}>
             <p> {item.name} </p>
             <p> {calcCountdown(item.expiryDate)} days left </p>
-            <img src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onDelete(item.uniqueId, item)}/>
+            <motion.img  whileHover={{ scale: 1.5}} alt="Delete icon" src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onDelete(item.uniqueId, item)}/>
           </span>
+
+          <AnimatePresence>
           { item.clicked && 
-          <span className='item-details'>
+          <motion.span initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }} className='item-details'>
             <p> Expiration date: {item.expiryDate.split('T')[0]} </p>
             <p>Quantity: {item.amount} {item.measurement}</p>
             <p> Stored in: {item.location} </p>
-            <button onClick={() => {
+            <Button onClick={() => {
               navigate(`/items/${item.uniqueId}`);
-            }}> DETAILS </button>
-          </span>
+            }}> DETAILS </Button>
+          </motion.span>
           }
-        </li>))}
+          </AnimatePresence>
+
+        </motion.li>))}
+        </AnimatePresence>
       </ul> 
-    </div>
+    </>
   )
   
   return (
