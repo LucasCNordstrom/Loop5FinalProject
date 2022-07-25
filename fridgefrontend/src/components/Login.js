@@ -36,9 +36,11 @@ const Login = () => {
     }
   };
 
-  if (user) {
-    return <Navigate to="home" />;
-  }
+  console.log(user);
+
+  // if (user) {
+  //   return <Navigate to="home" />;
+  // }
 
   return (
     <>

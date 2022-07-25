@@ -17,7 +17,6 @@ function UserPage() {
   };
 
   return (
-    !user.email ? navigate("/") :
     <div className="UserPage">
         <img alt="User" src={user.reloadUserInfo.photoUrl ? user.reloadUserInfo.photoUrl : "http://lionhallattorneys.com.ng/wp-content/uploads/2015/12/empty-profile.png"} />
         <p>Hello {user.displayName ? user.displayName : user.email} ! </p>

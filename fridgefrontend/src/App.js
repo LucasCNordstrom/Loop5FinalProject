@@ -12,6 +12,7 @@ import ProductInfo from "./components/ProductInfo";
 import MiniGame from "./components/Minigame";
 import CloudsBg from "./components/subcomponents/CloudsBg";
 
+
 function App() {
 
   return (
