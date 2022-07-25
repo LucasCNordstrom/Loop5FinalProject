@@ -1,26 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../CSS/ProtectedRoute.css";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import NavBar from "./NavBar";
 
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
 
-
-  if(!user)
-  {
-    navigate("/");
-  }
+  useEffect(() => { 
+    if (!user) {
+      navigate("/");
+    }
+    }, [navigate, user]);
 
   return ( 
-    <div>
-      {user.email && <>
-      <NavBar /> 
-      <Outlet /></>}
-    </div>
+    <>
+      <NavBar />
+      <Outlet />
+    </>
   )
 };
 

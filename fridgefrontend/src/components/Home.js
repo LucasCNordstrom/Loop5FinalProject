@@ -1,15 +1,6 @@
 import '../CSS/Home.css';
-import { useUserAuth } from "../context/UserAuthContext";
-import { useNavigate} from "react-router-dom";
 
-function UserPage() {
-  const { logOut, user } = useUserAuth();
-  const navigate = useNavigate();
-
-  if(!user)
-  {
-    navigate("/");
-  }
+function Home() {
 
   return (
     <div className="UserPage">
@@ -18,4 +9,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default Home;

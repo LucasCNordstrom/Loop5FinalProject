@@ -51,6 +51,7 @@ function EditItem({item, onChange}) {
     }
     try {
         await fetch(`https://loop5finalproject.azurewebsites.net/Items/edit`, requestPut)
+        localStorage.setItem("should fetch", JSON.stringify(true));
       } catch (error) {
         console.log(error);
       }
@@ -89,7 +90,7 @@ function EditItem({item, onChange}) {
         <Form.Group> 
           <Form.Control className="input" type="number" min="0" value={amount} onChange={limitValue}/>
 
-          <Form.Select className="input unit-size" value={unit} onChange={(e) => setUnit(e.target.value)}>
+          <Form.Select className="input" value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option selected={unit === "Kg"} value="Kg" >Kg</option>
             <option selected={unit === "Liter"} value="Liter">Liter</option>
             <option selected={unit === "Pieces"} value="Pieces" >Pieces</option>

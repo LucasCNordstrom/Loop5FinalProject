@@ -1,6 +1,8 @@
 import { getAuth } from "firebase/auth";
-import { initializeAuth } from "firebase/auth";
 import {initializeApp} from "firebase/app"
+
+
+//TODO: MAKE IT A SECRET
 
 const firebaseConfig = {
     apiKey: "AIzaSyBM243PNhydxpk32wyRk0nUomDlFy9AucA",
