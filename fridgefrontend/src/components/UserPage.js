@@ -16,7 +16,7 @@ function UserPage() {
     }
   };
 
-  if (!user) { return <></>}
+  if (!user) { return <></> }
   return (
 
     <div className="UserPage">

@@ -1,20 +1,29 @@
 import '../CSS/ItemList.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
-import { Form } from "react-bootstrap";
 import BounceLoader from "react-spinners/BounceLoader";
-import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import {requestOptionDel} from '../helperFunctions/helpers.js';
-import { motion, AnimatePresence } from "framer-motion"
-import ItemListDetails from './subcomponents/ItemListDetails';
 import StorageSelector from './subcomponents/StorageSelector';
 import OrderDropDown from './subcomponents/OrderDropDown';
-import ItemListXXX from './subcomponents/ItemListXXX';
+import ItemList from './subcomponents/ItemList';
 
+const localItems = () =>  { 
+  let something = localStorage.getItem("items");
+  if(something) return JSON.parse(something);
+  else return [];
+} 
 
-const ItemList = () => {
-  const navigate = useNavigate();
+const localFetch = () =>  { 
+  let shouldFetch = JSON.parse(localStorage.getItem("should fetch"));
+  if(shouldFetch === null) return true;
+  return shouldFetch;
+} 
+
+const ItemsPage = () => {
+
+  //let shouldFetchRef = useRef(localFetch());
+  const [fetching, setShouldFetch] = useState(localFetch());
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] =useState('');
@@ -50,13 +59,37 @@ const ItemList = () => {
     setItems(items.map((item) => item.uniqueId === id ? {...item, clicked: !item.clicked} : item));
   }
 
-  const fetchData = () => {
-    fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
-    .then(response => response.json())
-    .then(data => setItems(data.sort(sortFunction)))
-    .then(() => setLoading(false))
-    .catch((err) => console.log(err));
+  const fetchData = async () => {
+    console.log(fetching);
+    let ex = null;
+    if (fetching){
+       await fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
+      .then(response => response.json())
+      .then(data => {
+        ex = data.sort(sortFunction);
+        console.log(ex);
+        setItems(ex);
+      })
+      .then(() => setLoading(false))
+      .then(() => {
+        localStorage.setItem("items", JSON.stringify(ex))
+        setShouldFetch(false);
+        localStorage.setItem("should fetch", false);
+    })
+      .catch((err) => console.log(err));
+    }
+    else {
+      console.log("trying from localstorage")
+      console.log(localItems());
+      setItems(localItems().sort(sortFunction));
+      setLoading(false);
+    }
   };
+
+  // useEffect(() => {
+  //   console.log(items);
+  //   localStorage.setItem("items", JSON.stringify(items))
+  // }, [items])
 
   //Delete request for data
   const onDelete = async (id, item) => {
@@ -67,7 +100,7 @@ const ItemList = () => {
       } catch (error) {
         console.log(error);
       }
-      fetchData();
+        fetchData();
     }
   }
   //Calculate time left on expiration date in days
@@ -78,8 +111,8 @@ const ItemList = () => {
 
   useEffect(() => {
     if (user) {
-    fetchData()}},
-    [user, orderBy, displayBy]);
+      fetchData()
+    }}, [user, orderBy, displayBy, fetching]);
 
 
   const ItemRender = (
@@ -93,15 +126,15 @@ const ItemList = () => {
 
       <StorageSelector displayBy={displayBy} handleChange={handleChange}/>
 
-      <ItemListXXX items={items} search={search} displayBy={displayBy} onDelete={onDelete} itemDetails={itemDetails}/>
+      <ItemList items={items} search={search} displayBy={displayBy} onDelete={onDelete} itemDetails={itemDetails}/>
 
     </>
   )
   return (
     <div className='item-list'>
-      { loading ? < BounceLoader className='loader' size={150} color="#b1e2ff"/> : ItemRender }
+      { loading ? < BounceLoader className='loader' size={150} color="white"/> : ItemRender }
     </div> 
   )
 }
 
-export default ItemList;
+export default ItemsPage;

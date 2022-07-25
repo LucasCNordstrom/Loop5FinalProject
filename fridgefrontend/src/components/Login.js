@@ -11,9 +11,10 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+  const { user, logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
-  const { user } = useUserAuth();
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,13 +37,11 @@ const Login = () => {
     }
   };
 
-  console.log(user);
-
   if (user) {
     return <Navigate to="home" />;
   }
 
-  return (
+  return ( 
     <>
       <div className="login">
       <img alt="Login-icon" src='https://cdn-icons-png.flaticon.com/512/1000/1000997.png'/>

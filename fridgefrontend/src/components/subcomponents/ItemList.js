@@ -2,7 +2,7 @@ import React from 'react'
 import { motion, AnimatePresence } from "framer-motion"
 import ItemListDetails from './ItemListDetails';
 
-export default function ItemListXXX({items, search, displayBy, onDelete, itemDetails}) {
+export default function ItemList({items, search, displayBy, onDelete, itemDetails}) {
     let countdown = 0;
     const today = Date.parse(new Date());
 

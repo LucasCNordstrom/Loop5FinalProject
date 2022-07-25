@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import UserPage from "./components/UserPage";
-import ItemList from "./components/ItemList";
+import ItemsPage from "./components/ItemsPage";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -24,10 +24,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="home" element={<Home />} />
             <Route path="user" element={<UserPage />} />
-            <Route path="items" element={<ItemList/>} />
+            <Route path="items" element={<ItemsPage/>} />
             <Route path="items/add" element={<AddItem />} />
             <Route path="items/:id" element={<ProductInfo />} /> 
-            <Route path="minigame" element={<MiniGame/>} />
+            {/* <Route path="minigame" element={<MiniGame/>} /> */}
           </Route>
           <Route path="*" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
