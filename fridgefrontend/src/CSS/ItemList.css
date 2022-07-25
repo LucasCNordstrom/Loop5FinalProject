@@ -1,12 +1,17 @@
 .item-li input {
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    
 }
 
 .add-icon {
     margin-top: 15px;
     margin-bottom: 0px;
+    border-style: solid;
+    border-color: white;
     width: 20%;
-    filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%);
+    filter: invert(1);
+    border-radius: 20px;
+    /* filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%); */
 }
 
 .item-li {
@@ -28,13 +33,23 @@
     border-radius: 5px;
 }
 
-.item-details {
-
+.item-search {
+    border-radius: 20px;
+    box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
+}
+.order-by {
+    border-radius: 20px;
+    box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
 }
 
 .item-details p {
     margin: -5px;
     padding: 0px 10px;
+    
+}
+
+.item-ul h5 {
+    font-size: 3vh;
 }
 
 .item-details button {

@@ -87,8 +87,9 @@ function EditItem({item, onChange}) {
 
       <p> Amount: </p>
         <Form.Group> 
-          <Form.Control className="item-quantity" type="number" min="0" value={amount} onChange={limitValue}/>
-          <Form.Select value={unit} onChange={(e) => setUnit(e.target.value)}>
+          <Form.Control className="input" type="number" min="0" value={amount} onChange={limitValue}/>
+
+          <Form.Select className="input unit-size" value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option selected={unit === "Kg"} value="Kg" >Kg</option>
             <option selected={unit === "Liter"} value="Liter">Liter</option>
             <option selected={unit === "Pieces"} value="Pieces" >Pieces</option>

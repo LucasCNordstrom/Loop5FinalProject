@@ -4,12 +4,14 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-end;
-    background: #b1e2ff;
+    background: white;
     padding-top: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    border-radius: 60px;
 }
 
 .NavBar--list img {
-    filter: invert(100%);
+    filter: invert(70%) sepia(84%) saturate(354%) hue-rotate(183deg) brightness(107%) contrast(111%);
     width: 40%;
     
 }
@@ -21,7 +23,7 @@
 @media (min-width: 600px)
 {
     .NavBar--list {
-        width: 100vh;
+        width: 105vh;
     }
 
     .NavBar--list img {

@@ -78,7 +78,7 @@ const ItemList = () => {
     setDisplayBy(e.target.value)
   }
 
-  useEffect(() => {fetchData()}, [user, orderBy, displayBy]);
+  useEffect(() => {fetchData()}, [orderBy, displayBy]);
 
   //assign color of items dependant on expirydate
   const assignColor = (exp) =>  {
@@ -93,14 +93,12 @@ const ItemList = () => {
   const ItemRender = (
     <>
       <p> Items in stock: {items.length} </p>
-      <input type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} />
-      <div className='add-icon-padding'>
-        <Link to = "/items/add"> <img className="add-icon" alt="Add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
-      </div>
+
+      <input className="item-search" type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} /> <br/>
+      <Link to = "/items/add"> <img className="add-icon" alt="Add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
 
       <Form.Group> 
-          <p> Sort by: </p>
-          <Form.Select value={orderBy} onChange={(e) => setOrderBy(e.target.value)}>
+          <Form.Select className="order-by" value={orderBy} onChange={(e) => setOrderBy(e.target.value)}>
             <option value="expirationDate">Expiration Date</option>
             <option value="expirationDateRev">Expiration Date Descending</option>
             <option value="alphabetical">Alphabetically</option>
@@ -110,7 +108,7 @@ const ItemList = () => {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group>
+        <Form.Group className="sort-by">
         <input type="radio" name="storage" value="" className="displayBy"
               onChange={handleChange} checked={displayBy === ""}/>
         <label htmlFor="fridge">All</label>
@@ -138,8 +136,8 @@ const ItemList = () => {
       }).map((item)=> (
         <motion.li initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, x: 700 }} className={assignColor(item.expiryDate)} key={item.uniqueId}>
           <span className='item-li' onClick={() => {itemDetails(item.uniqueId)}}>
-            <p> {item.name} </p>
-            <p> {calcCountdown(item.expiryDate)} days left </p>
+            <h5> {item.name} </h5>
+            <h5> {calcCountdown(item.expiryDate)} days left </h5>
             <motion.img  whileHover={{ scale: 1.5}} alt="Delete icon" src='https://cdn-icons-png.flaticon.com/512/484/484611.png' className='deleteIcon' onClick={() => onDelete(item.uniqueId, item)}/>
           </span>
 

@@ -7,3 +7,13 @@
 .logo-img {
   width: 15%;
 }
+
+.topper {
+  height: 16vh;
+}
+
+@media (min-width: 600px) {
+  .logo-img {
+    width: 10%;
+  }
+}

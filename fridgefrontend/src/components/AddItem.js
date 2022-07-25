@@ -90,7 +90,8 @@ function AddItem() {
         <p> Amount: </p>
         <Form.Group> 
           <Form.Control className="input" type="number" min="0" value={amount} onChange={limitValue}/>
-          <Form.Select value={unit} onChange={(e) => setUnit(e.target.value)}>
+          
+          <Form.Select className="input unit-size" value={unit} onChange={(e) => setUnit(e.target.value)}>
             <option value="Kg">Kg</option>
             <option value="Liter">Liter</option>
             <option value="Pieces">Pieces</option>

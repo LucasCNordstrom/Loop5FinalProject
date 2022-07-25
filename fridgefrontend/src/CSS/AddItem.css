@@ -1,6 +1,6 @@
 .sel-icon {
     width: 15%;
-    filter: invert(80%) sepia(28%) saturate(649%) hue-rotate(178deg) brightness(103%) contrast(102%);
+    /* filter: invert(80%) sepia(28%) saturate(649%) hue-rotate(178deg) brightness(103%) contrast(102%); */
 }
 
 .fridge-icon {
@@ -13,6 +13,12 @@
 
 .input {
     width: 25vh;
+    border-radius: 20px;
+    box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
+}
+
+.unit-size {
+    width: 10vh;
 }
 
 .add input[type="radio"]
@@ -31,6 +37,10 @@
 .add h4 {
     background-color: #ffafb9;
     margin-bottom: inherit;
+}
+
+.order-by {
+    border-radius: 20px;
 }
 
 
