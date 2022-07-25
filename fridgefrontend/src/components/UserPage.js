@@ -1,5 +1,4 @@
 import "../CSS/UserPage.css";
-import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -16,15 +15,31 @@ function UserPage() {
     }
   };
 
-  if (!user) { return <></> }
+  if (!user) {
+    return <></>;
+  }
   return (
-
     <div className="UserPage">
-        <img alt="User" src={user.reloadUserInfo.photoUrl ? user.reloadUserInfo.photoUrl : "http://lionhallattorneys.com.ng/wp-content/uploads/2015/12/empty-profile.png"} />
-        <p>Hello {user.displayName ? user.displayName : user.email} ! </p>
-        <p>Account created since: {user.metadata.creationTime.substring(0, 16)} </p>
-        <p>Last login: {user.metadata.lastSignInTime.substring(0, 25)} </p>
-        <Button className="page-button" onClick={handleLogout}>Log out</Button>
+      <img
+        alt="User"
+        src={
+          user.reloadUserInfo.photoUrl
+            ? user.reloadUserInfo.photoUrl
+            : "http://lionhallattorneys.com.ng/wp-content/uploads/2015/12/empty-profile.png"
+        }
+      />
+      <p> Hello {user.displayName ? user.displayName : user.email} ! </p>
+      <p>
+        Account created since: {user.metadata.creationTime.substring(0, 16)}
+      </p>
+      <p>
+        Account created since: {user.metadata.creationTime.substring(0, 16)}
+      </p>
+      <p> Last login: {user.metadata.lastSignInTime.substring(0, 25)} </p>
+      <button 
+        className="page-button" onClick={handleLogout}>
+        Log out
+      </button>
     </div>
   );
 }

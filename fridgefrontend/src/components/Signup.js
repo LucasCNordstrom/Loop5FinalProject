@@ -44,7 +44,7 @@ const Signup = () => {
     <>
       <div className='login'>
         <img alt="Signup-icon" src='https://cdn-icons-png.flaticon.com/512/748/748137.png' />
-        <h2 className='width' >Sign up for Twerp</h2>
+        <h2>Sign up for Twerp</h2>
         {error && <Alert variant="danger">{error}</Alert>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
@@ -52,14 +52,6 @@ const Signup = () => {
               type="email"
               placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicName">
-            <Form.Control
-              type="name"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
             />
           </Form.Group>
 
