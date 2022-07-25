@@ -51,6 +51,7 @@ function EditItem({item, onChange}) {
     }
     try {
         await fetch(`https://loop5finalproject.azurewebsites.net/Items/edit`, requestPut)
+        localStorage.setItem("should fetch", JSON.stringify(true));
       } catch (error) {
         console.log(error);
       }

@@ -21,9 +21,6 @@ const localFetch = () =>  {
 } 
 
 const ItemsPage = () => {
-
-  //let shouldFetchRef = useRef(localFetch());
-  const [fetching, setShouldFetch] = useState(localFetch());
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] =useState('');
@@ -60,36 +57,27 @@ const ItemsPage = () => {
   }
 
   const fetchData = async () => {
-    console.log(fetching);
     let ex = null;
-    if (fetching){
+    if (localFetch()){
        await fetch(`https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`)
       .then(response => response.json())
       .then(data => {
         ex = data.sort(sortFunction);
-        console.log(ex);
         setItems(ex);
       })
       .then(() => setLoading(false))
       .then(() => {
         localStorage.setItem("items", JSON.stringify(ex))
-        setShouldFetch(false);
-        localStorage.setItem("should fetch", false);
+        localStorage.setItem("should fetch", JSON.stringify(false));
     })
       .catch((err) => console.log(err));
     }
     else {
-      console.log("trying from localstorage")
-      console.log(localItems());
       setItems(localItems().sort(sortFunction));
       setLoading(false);
     }
   };
 
-  // useEffect(() => {
-  //   console.log(items);
-  //   localStorage.setItem("items", JSON.stringify(items))
-  // }, [items])
 
   //Delete request for data
   const onDelete = async (id, item) => {
@@ -100,6 +88,7 @@ const ItemsPage = () => {
       } catch (error) {
         console.log(error);
       }
+        localStorage.setItem("should fetch", JSON.stringify(true));
         fetchData();
     }
   }
@@ -112,7 +101,7 @@ const ItemsPage = () => {
   useEffect(() => {
     if (user) {
       fetchData()
-    }}, [user, orderBy, displayBy, fetching]);
+    }}, [user, orderBy, displayBy]);
 
 
   const ItemRender = (

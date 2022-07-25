@@ -53,6 +53,7 @@ function AddItem() {
     }
     try {
       await fetch(`https://loop5finalproject.azurewebsites.net/items`, requestOptions)
+      localStorage.setItem("should fetch", JSON.stringify(true));
     } catch (error) {
       console.log(error);
     }
