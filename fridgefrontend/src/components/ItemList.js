@@ -78,7 +78,10 @@ const ItemList = () => {
     setDisplayBy(e.target.value)
   }
 
-  useEffect(() => {fetchData()}, [orderBy, displayBy]);
+  useEffect(() => {
+    if (user) {
+    fetchData()}},
+    [user, orderBy, displayBy]);
 
   //assign color of items dependant on expirydate
   const assignColor = (exp) =>  {
@@ -161,7 +164,6 @@ const ItemList = () => {
       </ul> 
     </>
   )
-  
   return (
     <div className='item-list'>
       { loading ? < BounceLoader className='loader' size={150} color="#b1e2ff"/> : ItemRender }
