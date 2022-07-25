@@ -95,7 +95,7 @@ const ItemList = () => {
       <p> Items in stock: {items.length} </p>
 
       <input className="item-search" type="text" maxength="25" placeholder='Search...' onChange={e => {setSearch(e.target.value)}} /> <br/>
-      <Link to = "/items/add"> <img className="add-icon" alt="Add-icon" src='https://cdn-icons.flaticon.com/png/512/3032/premium/3032220.png?token=exp=1658414735~hmac=ba35ed9683a842b44cf9b95f0ffa9533' /> </Link>
+      <Link to = "/items/add"> <img className="add-icon" alt="Add-icon" src='https://cdn-icons-png.flaticon.com/512/1828/1828919.png' /> </Link>
 
       <Form.Group> 
           <Form.Select className="order-by" value={orderBy} onChange={(e) => setOrderBy(e.target.value)}>

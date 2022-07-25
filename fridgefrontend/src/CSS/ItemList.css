@@ -10,7 +10,7 @@
     border-color: white;
     width: 20%;
     filter: invert(1);
-    border-radius: 20px;
+    border-radius: 100px;
     /* filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%); */
 }
 

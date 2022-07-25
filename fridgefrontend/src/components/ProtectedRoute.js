@@ -5,14 +5,14 @@ import { useUserAuth } from "../context/UserAuthContext";
 import NavBar from "./NavBar";
 
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
-
 
   if(!user)
   {
     navigate("/");
+    return <div></div>
   }
 
   return ( 

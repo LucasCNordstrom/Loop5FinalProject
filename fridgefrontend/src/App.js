@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import {useState} from "react";
 import UserPage from "./components/UserPage";
 import ItemList from "./components/ItemList";
 import Home from "./components/Home";
