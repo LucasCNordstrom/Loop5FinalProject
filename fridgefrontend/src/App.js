@@ -1,11 +1,12 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import UserPage from "./components/UserPage";
 import ItemList from "./components/ItemList";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
-import { UserAuthContextProvider } from "./context/UserAuthContext";
+import { UserAuthContextProvider, useUserAuth } from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddItem from "./components/AddItem";
 import ProductInfo from "./components/ProductInfo";
@@ -26,7 +27,7 @@ function App() {
             <Route path="items" element={<ItemList/>} />
             <Route path="items/add" element={<AddItem />} />
             <Route path="items/:id" element={<ProductInfo />} /> 
-            <Route path="minigame" element={<MiniGame />} />
+            <Route path="minigame" element={<MiniGame/>} />
           </Route>
           <Route path="*" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
