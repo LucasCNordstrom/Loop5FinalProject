@@ -8,6 +8,7 @@ import StorageSelector from "./subcomponents/StorageSelector";
 import OrderDropDown from "./subcomponents/OrderDropDown";
 import ItemList from "./subcomponents/ItemList";
 import { motion } from "framer-motion";
+import { FridgeApiControllerUrl } from "../GlobalVariables";
 
 const localItems = () => {
   let something = localStorage.getItem("items");
@@ -46,6 +47,8 @@ const ItemsPage = () => {
         return a.amount > b.amount ? 1 : -1;
       case "quantityRev":
         return a.amount < b.amount ? 1 : -1;
+        default:
+          return dateA > dateB ? 1 : -1;
     }
   }
 
@@ -61,7 +64,7 @@ const ItemsPage = () => {
     let ex = null;
     if (localFetch()) {
       await fetch(
-        `https://loop5finalproject.azurewebsites.net/items/user/${user.uid}`
+        `${FridgeApiControllerUrl}/user/${user.uid}`
       )
         .then((response) => response.json())
         .then((data) => {
@@ -86,7 +89,7 @@ const ItemsPage = () => {
       const requestDel = requestOptionDel(id);
       try {
         await fetch(
-          `https://loop5finalproject.azurewebsites.net/Items/Delete`,
+          `${FridgeApiControllerUrl}/Delete`,
           requestDel
         );
       } catch (error) {

@@ -6,6 +6,7 @@ import { Form } from "react-bootstrap";
 import StorageForm from "./subcomponents/StorageForm";
 import UnitForm from "./subcomponents/UnitForm";
 import { useNavigate } from "react-router-dom";
+import { FridgeApiControllerUrl } from "../GlobalVariables";
 
 function EditItem({ item, onChange }) {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ function EditItem({ item, onChange }) {
     }
     try {
       await fetch(
-        `https://loop5finalproject.azurewebsites.net/Items/edit`,
+        `${FridgeApiControllerUrl}/edit`,
         requestPut
       );
       localStorage.setItem("should fetch", JSON.stringify(true));
