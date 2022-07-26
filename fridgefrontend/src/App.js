@@ -16,7 +16,6 @@ function App() {
   return (
     <UserAuthContextProvider>
       <CloudsBg />
-      <img className="logo-img" src="https://i.imgur.com/skhQcVC.png" />
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route path="home" element={<Home />} />
@@ -24,7 +23,7 @@ function App() {
           <Route path="items" element={<ItemsPage />} />
           <Route path="items/add" element={<AddItem />} />
           <Route path="items/:id" element={<ItemInfo />} />
-          {/* <Route path="minigame" element={<MiniGame/>} /> */}
+          <Route path="minigame" element={<MiniGame/>} />
         </Route>
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

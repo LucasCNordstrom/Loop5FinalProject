@@ -112,25 +112,25 @@ const ItemsPage = () => {
   const ItemRender = (
     <>
       <p> Items in stock: {items.length} </p>
-      <input
-        className="item-search"
-        type="text"
-        maxength="25"
-        placeholder="Search..."
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-      />
-      <br />
-      <Link to="/items/add">
-        <motion.img
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }} 
-          className="add-icon"
-          alt="Add-icon"
-          src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png"
-        />
-      </Link>
+        <input
+            className="item-search"
+            type="text"
+            maxength="25"
+            placeholder="Search..."
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
+        <Link to="/items/add">
+          <motion.img
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }} 
+            className="add-icon"
+            alt="Add-icon"
+            src="https://cdn-icons-png.flaticon.com/512/1828/1828919.png"
+          />
+        </Link>
+      
       <OrderDropDown orderBy={orderBy} setOrderBy={setOrderBy} />
       <StorageSelector displayBy={displayBy} handleChange={handleChange} />
       <ItemList

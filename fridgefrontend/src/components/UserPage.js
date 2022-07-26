@@ -30,10 +30,7 @@ function UserPage() {
       />
       <p> Hello {user.displayName ? user.displayName : user.email} ! </p>
       <p>
-        Account created since: {user.metadata.creationTime.substring(0, 16)}
-      </p>
-      <p>
-        Account created since: {user.metadata.creationTime.substring(0, 16)}
+        Account created at: {user.metadata.creationTime.substring(0, 16)}
       </p>
       <p> Last login: {user.metadata.lastSignInTime.substring(0, 25)} </p>
       <button 

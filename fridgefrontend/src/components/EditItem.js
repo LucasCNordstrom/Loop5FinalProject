@@ -29,6 +29,7 @@ function EditItem({ item, onChange }) {
     e.persist();
     setStorage(e.target.value);
   };
+  
   const onSubmit = async (e) => {
     const requestPut = {
       method: "PUT",
