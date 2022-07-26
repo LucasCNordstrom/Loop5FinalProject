@@ -53,6 +53,13 @@
   font-size: 3vh;
   margin-left: 5px;
 }
+.item-li-align {
+display:flex;
+}
+.align{
+  flex-grow: 1;
+  text-align: center;
+}
 
 .item-details button {
   background-color: #fcfcfd;
@@ -89,6 +96,7 @@ button:hover {
 .deleteIcon {
   width: 6%;
   margin-right: 10px;
+  
 }
 
 .black-color .deleteIcon {

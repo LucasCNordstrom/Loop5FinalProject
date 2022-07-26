@@ -62,16 +62,17 @@ export default function ItemList({
                 onClick={() => {
                   itemDetails(item.uniqueId);
                 }}
-              >
-                <h5> {item.name} </h5>
-                <h5> {calcCountdown(item.expiryDate)} days left </h5>
-                  <motion.img
+              ><div className="item-li-align">
+                <h5 className="align"> {item.name} </h5>
+                <h5 className="align"> {calcCountdown(item.expiryDate)} days left </h5>
+                
+                  <motion.img 
                   whileHover={{ scale: 1.5 }}
                   alt="Delete icon"
                   src="https://cdn-icons-png.flaticon.com/512/484/484611.png"
                   className="deleteIcon"
                   onClick={() => onDelete(item.uniqueId, item)}
-                  />
+                  /></div>
               </span>
                 {item.clicked && <ItemListDetails item={item} />}
             </motion.li>
