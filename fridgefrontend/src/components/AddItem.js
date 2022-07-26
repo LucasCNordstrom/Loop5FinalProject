@@ -79,6 +79,7 @@ function AddItem() {
             value={title}
             maxLength="25"
             onChange={(e) => setTitle(capitalizeFirstLetter(e.target.value))}
+            required={true}
           />
         </Form.Group>
 
@@ -90,6 +91,7 @@ function AddItem() {
             value={date}
             min={today}
             onChange={(e) => setDate(e.target.value)}
+            required={true}
           />
         </Form.Group>
 

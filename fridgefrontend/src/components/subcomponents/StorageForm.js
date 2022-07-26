@@ -12,6 +12,7 @@ export default function StorageForm({ handleChange, storage }) {
         className="storage"
         onChange={handleChange}
         checked={storage === "Fridge"}
+        required={true}
       />
       <label htmlFor="fridge">
         <img

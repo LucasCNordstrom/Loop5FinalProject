@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Navigate } from "react-router-dom";
 import { getAuth, updateProfile } from "firebase/auth";
+import BounceLoader from "react-spinners/BounceLoader";
 
 const auth = getAuth();
 
@@ -40,6 +41,7 @@ const Signup = () => {
     console.log(error);
   });
 
+  if (!user) return <BounceLoader className="loader" size={150} color="white" />
   return (
     <>
       <div className='login'>
