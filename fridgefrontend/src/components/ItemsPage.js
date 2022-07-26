@@ -30,6 +30,8 @@ const ItemsPage = () => {
   const [displayBy, setDisplayBy] = useState("");
   const { user } = useUserAuth();
 
+  
+
   //Sort the order in which data is displayed
   function sortFunction(a, b) {
     var dateA = new Date(a.expiryDate).getTime();
@@ -136,20 +138,25 @@ const ItemsPage = () => {
       </Link>
       <OrderDropDown orderBy={orderBy} setOrderBy={setOrderBy} />
       <StorageSelector displayBy={displayBy} handleChange={handleChange} />
+      
       <ItemList
         items={items}
         search={search}
         displayBy={displayBy}
         onDelete={onDelete}
         itemDetails={itemDetails}
-      />
+      /> 
     </>
   );
+
+
+
   return (
     <div className="item-list">
       {loading ? (
         <BounceLoader className="loader" size={150} color="white" />
       ) : (
+        
         ItemRender
       )}
     </div>
