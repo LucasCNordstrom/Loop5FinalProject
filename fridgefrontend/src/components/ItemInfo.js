@@ -5,30 +5,28 @@ import { useState, useEffect } from "react";
 import EditItem from "./EditItem";
 import "../CSS/AddItem.css";
 
-function ItemInfo() {
+const ItemInfo = () => {
   const { id } = useParams();
-  const [item, setItem] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [item, setItem] = useState();
   const [edit, setEdit] = useState(false);
   const navigate = useNavigate();
 
-  const fetchData = () => {
-    setLoading(true);
-    fetch(`https://loop5finalproject.azurewebsites.net/Items/${id}`)
-      .then((response) => response.json())
-      .then((data) => setItem(data))
-      .then(() => setLoading(false));
-  };
-
+  let localItems = JSON.parse(localStorage.getItem("items"))
   useEffect(() => {
-    fetchData();
+    
+    setItem(localItems.filter(item => item.uniqueId === id)[0])
+
   }, [edit]);
+
+  console.log(localItems);
+  console.log(item);
+
 
   const changeEdit = () => {
     setEdit(false);
   };
 
-  if (loading) return <ClipLoader />;
+  if (!item) return (<>Loading...</>)
 
   return edit ? (
     <>
@@ -40,7 +38,7 @@ function ItemInfo() {
         Product name: <b>{item.name}</b>
       </p>
       <p>
-        Product expiration date: <b>{item.expiryDate}</b>
+        Product expiration date: <b>{item.expiryDate.split('T')[0]}</b>
       </p>
       <p>
         Product quantity:

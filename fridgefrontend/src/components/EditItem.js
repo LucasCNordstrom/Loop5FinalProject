@@ -5,8 +5,10 @@ import { formatDate } from "../helperFunctions/helpers";
 import { Form } from "react-bootstrap";
 import StorageForm from "./subcomponents/StorageForm";
 import UnitForm from "./subcomponents/UnitForm";
+import { useNavigate } from "react-router-dom";
 
 function EditItem({ item, onChange }) {
+  const navigate = useNavigate();
   const [title, setTitle] = useState(item.name);
   const [date, setDate] = useState(item.expiryDate.split("T")[0]);
   const [error, setError] = useState(false);
@@ -61,7 +63,7 @@ function EditItem({ item, onChange }) {
     } catch (error) {
       console.log(error);
     }
-    onChange();
+    navigate("/items");
   };
 
   return (

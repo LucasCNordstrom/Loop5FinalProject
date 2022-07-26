@@ -13,8 +13,6 @@ const Login = () => {
   const { user, logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -71,7 +69,7 @@ const Login = () => {
           </div>
         </Form>
         <hr />
-        <div>
+        <div className="googleBtn">
           <GoogleButton
             type="dark"
             onClick={handleGoogleSignIn}

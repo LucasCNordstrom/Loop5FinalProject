@@ -70,7 +70,7 @@ const ItemsPage = () => {
         })
         .then(() => setLoading(false))
         .then(() => {
-          localStorage.setItem("items", JSON.parse(ex));
+          localStorage.setItem("items", JSON.stringify(ex));
           localStorage.setItem("should fetch", JSON.stringify(false));
         })
         .catch((err) => console.log(err));

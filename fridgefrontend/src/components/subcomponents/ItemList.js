@@ -51,10 +51,9 @@ export default function ItemList({
           })
           .map((item) => (
             <motion.li
-              layout
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0, x: 700 }}
+              exit={{ opacity: 0}}
               className={assignColor(item.expiryDate)}
               key={item.uniqueId}
             >

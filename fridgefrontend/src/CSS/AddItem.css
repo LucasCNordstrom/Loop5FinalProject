@@ -1,6 +1,7 @@
 .sel-icon {
   width: 15%;
-  filter: invert(51%) sepia(98%) saturate(301%) hue-rotate(156deg) brightness(85%) contrast(88%);
+  filter: invert(51%) sepia(98%) saturate(301%) hue-rotate(156deg)
+    brightness(85%) contrast(88%);
 }
 
 .fridge-icon {
@@ -8,7 +9,7 @@
 }
 
 .pantry-icon {
-    margin-left: -2vh;
+  margin-left: -2vh;
 }
 
 .add p {
@@ -18,7 +19,8 @@
 .item-info p {
   background-color: white;
   border-radius: 20px;
-  box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+  box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px,
+    rgb(0 0 0 / 30%) 0px 3px 7px -3px;
 }
 
 .input {
@@ -36,7 +38,7 @@
 }
 
 .add input[type="radio"]:checked + label > img {
-    filter: invert(82%) sepia(36%) saturate(693%) hue-rotate(283deg)
+  filter: invert(82%) sepia(36%) saturate(693%) hue-rotate(283deg)
     brightness(101%) contrast(101%);
 }
 

@@ -9,7 +9,7 @@
 // const MiniGame = () => {
 
 
-//   let something = localStorage.getItem("items");
+//   let something = JSON.parse(localStorage.getItem("items"));
 //   const navigate = useNavigate();
 //   const [answers, setAnswers] = useState([]);
 //   const [score, setScore] = useState(0);
