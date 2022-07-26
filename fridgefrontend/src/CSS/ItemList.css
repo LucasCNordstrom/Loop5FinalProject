@@ -16,7 +16,7 @@
 .item-li {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   height: 2rem;
 }
 
@@ -31,6 +31,7 @@
   margin-top: 7px;
   margin-bottom: 7px;
   border-radius: 5px;
+  padding:0;
 }
 
 .item-search {
@@ -50,6 +51,7 @@
 
 .item-ul h5 {
   font-size: 3vh;
+  margin-left: 5px;
 }
 
 .item-details button {
@@ -86,6 +88,7 @@ button:hover {
 
 .deleteIcon {
   width: 6%;
+  margin-right: 10px;
 }
 
 .black-color .deleteIcon {
