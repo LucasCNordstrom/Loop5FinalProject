@@ -65,13 +65,13 @@ export default function ItemList({
               >
                 <h5> {item.name} </h5>
                 <h5> {calcCountdown(item.expiryDate)} days left </h5>
-                <motion.img
+                  <motion.img
                   whileHover={{ scale: 1.5 }}
                   alt="Delete icon"
                   src="https://cdn-icons-png.flaticon.com/512/484/484611.png"
                   className="deleteIcon"
                   onClick={() => onDelete(item.uniqueId, item)}
-                />
+                  />
               </span>
                 {item.clicked && <ItemListDetails item={item} />}
             </motion.li>

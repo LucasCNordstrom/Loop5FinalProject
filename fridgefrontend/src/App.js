@@ -26,7 +26,7 @@ function App() {
           <Route path="items/:id" element={<ItemInfo />} />
           {/* <Route path="minigame" element={<MiniGame/>} /> */}
         </Route>
-        <Route path="*" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </UserAuthContextProvider>

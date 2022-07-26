@@ -18,10 +18,6 @@ const ItemInfo = () => {
 
   }, [edit]);
 
-  console.log(localItems);
-  console.log(item);
-
-
   const changeEdit = () => {
     setEdit(false);
   };
