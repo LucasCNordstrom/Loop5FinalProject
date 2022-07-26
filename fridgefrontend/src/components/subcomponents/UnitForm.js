@@ -10,6 +10,7 @@ export default function UnitForm({ amount, limitValue, unit, setUnit }) {
         min="0"
         value={amount}
         onChange={limitValue}
+        required={true}
       />
       <Form.Select
         className="input unit-size"
