@@ -1,21 +1,24 @@
 .login {
-    border-style: solid;
-    width: min-content;
-    padding: 40px;
-    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+  border-style: solid;
+  padding: 40px;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.2);
+}
+
+.login input {
+  border-radius: 20px;
+  box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
 }
 
 .width {
-    width: 30vh;
+  width: 30vh;
 }
 
 .login img {
-    width: 40%
+  width: 40%;
 }
 
-@media (min-width: 600px)
-{
-    .login {
-        width: max-content;
-    }
+@media (min-width: 600px) {
+  .login {
+    width: max-content;
+  }
 }

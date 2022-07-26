@@ -1,61 +1,72 @@
 .sel-icon {
-    width: 15%;
-    /* filter: invert(80%) sepia(28%) saturate(649%) hue-rotate(178deg) brightness(103%) contrast(102%); */
+  width: 15%;
+  filter: invert(51%) sepia(98%) saturate(301%) hue-rotate(156deg)
+    brightness(85%) contrast(88%);
 }
 
 .fridge-icon {
-    width: 14%;
+  width: 14%;
+}
+
+.pantry-icon {
+  margin-left: -2vh;
 }
 
 .add p {
-    margin: 2vh 0vh 0vh;
+  margin: 2vh 0vh 0vh;
+}
+
+.item-info p {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px,
+    rgb(0 0 0 / 30%) 0px 3px 7px -3px;
 }
 
 .input {
-    width: 25vh;
-    border-radius: 20px;
-    box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
+  width: 25vh;
+  border-radius: 20px;
+  box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
 }
 
 .unit-size {
-    width: 10vh;
+  width: 10vh;
 }
 
-.add input[type="radio"]
-{
-    opacity: 0;
+.add input[type="radio"] {
+  opacity: 0;
 }
 
-.add input[type=radio]:checked + label>img{
-    filter: invert(99%) sepia(71%) saturate(1159%) hue-rotate(303deg) brightness(102%) contrast(100%);
+.add input[type="radio"]:checked + label > img {
+  filter: invert(82%) sepia(36%) saturate(693%) hue-rotate(283deg)
+    brightness(101%) contrast(101%);
 }
 
 .add h3 {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .add h4 {
-    background-color: #ffafb9;
-    margin-bottom: inherit;
+  background-color: #ffafb9;
+  margin-bottom: inherit;
 }
 
 .order-by {
-    border-radius: 20px;
+  border-radius: 20px;
 }
 
-
 @media (min-width: 600px) {
-    .add {
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .sel-icon {
-        margin: 10px 0px;
-        width: 15vh;
-    }
+  .add {
+    display: flex;
+    flex-direction: column;
+  }
 
-    .fridge-icon {
-        width: 13.7%;
-    }
+  .sel-icon {
+    margin: 10px 0px;
+    width: 15vh;
+  }
+
+  .fridge-icon {
+    width: 13.5vh;
+  }
 }
