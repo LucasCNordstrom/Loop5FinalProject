@@ -4,12 +4,13 @@
 
 .add-icon {
   margin-top: 15px;
-  margin-bottom: 0px;
+  margin-bottom: -3vh;;
   border-style: solid;
   border-color: white;
-  width: 20%;
+  width: 8vh;
   filter: invert(1);
   border-radius: 100px;
+  margin-left: 2vh;
   /* filter: invert(80%) sepia(8%) saturate(1725%) hue-rotate(177deg) brightness(105%) contrast(102%); */
 }
 
@@ -23,6 +24,8 @@
 .item-ul {
   list-style-type: none;
   padding-left: 0;
+  height: 70vh;
+  overflow: scroll;
 }
 
 .item-ul li {
@@ -37,6 +40,7 @@
 .item-search {
   border-radius: 20px;
   box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
+  margin-bottom: 4vh;
 }
 
 .order-by {
@@ -119,9 +123,13 @@ button:hover {
 @media (min-width: 600px) {
   .add-icon {
     width: 7vh;
+    margin-left: 5vh;
   }
   .item-li {
     height: 8vh;
     width: 100vh;
+  }
+  .sort-by {
+    margin: 2vh;
   }
 }

@@ -5,6 +5,7 @@ import { Form, Alert } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Navigate } from "react-router-dom";
+import BounceLoader from "react-spinners/BounceLoader";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -38,6 +39,7 @@ const Login = () => {
     return <Navigate to="home" />;
   }
 
+  if (!user) return <BounceLoader className="loader" size={150} color="white" />
   return ( 
     <>
       <div className="login">
