@@ -62,10 +62,9 @@ export default function ItemList({
                 onClick={() => {
                   itemDetails(item.uniqueId);
                 }}
-              ><div className="item-li-align">
-                <h5 className="align"> {item.name} </h5>
-                <h5 className="align"> {calcCountdown(item.expiryDate)} days left </h5>
-                
+              ><div className="items">
+                <h5> {item.name} </h5>
+                <h5> {calcCountdown(item.expiryDate)} days left </h5>
                   <motion.img 
                   whileHover={{ scale: 1.5 }}
                   alt="Delete icon"

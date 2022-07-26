@@ -19,7 +19,15 @@
   justify-content: space-between;
   height: 2rem;
 }
-
+.item-li h5:nth-of-type(1){
+  flex:2;
+}
+.item-li h5:nth-of-type(2){
+  flex:2;
+}
+.item-li h5:nth-of-type(3){
+  flex:1;
+}
 .item-ul {
   list-style-type: none;
   padding-left: 0;
@@ -53,12 +61,9 @@
   font-size: 3vh;
   margin-left: 5px;
 }
-.item-li-align {
-display:flex;
-}
-.align{
-  flex-grow: 1;
-  text-align: center;
+
+.items{
+  display: contents;
 }
 
 .item-details button {
