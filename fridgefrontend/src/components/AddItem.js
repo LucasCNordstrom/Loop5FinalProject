@@ -52,11 +52,9 @@ function AddItem() {
       }),
     };
     e.preventDefault();
-    
-    //if item with that name as earlier expirydate already exists => give warning
     try {
       await fetch(
-        `${FridgeApiControllerUrl}`,
+        'https://loop5finalproject.azurewebsites.net/items',
         postRequestOptions
       );
       localStorage.setItem("should fetch", JSON.stringify(true));
