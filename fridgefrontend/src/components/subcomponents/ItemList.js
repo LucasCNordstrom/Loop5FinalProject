@@ -1,5 +1,5 @@
 import React from "react";
-import { motion} from "framer-motion";
+import { motion,AnimatePresence } from "framer-motion";
 import ItemListDetails from "./ItemListDetails";
 
 export default function ItemList({
@@ -51,11 +51,11 @@ export default function ItemList({
           })
           .map((item) => (
             <motion.li
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0}}
-              className={assignColor(item.expiryDate)}
               key={item.uniqueId}
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+              exit={{ x: 300}}
+              className={assignColor(item.expiryDate)}
             >
               <span className="item-li">
                   <div className="items">
@@ -71,7 +71,7 @@ export default function ItemList({
                   onClick={() => onDelete(item.uniqueId, item)}
                   /></div>
               </span>
-                {item.clicked && <ItemListDetails item={item} itemDetails={itemDetails}/>}
+              <AnimatePresence>{item.clicked && <ItemListDetails item={item} itemDetails={itemDetails}/>}</AnimatePresence>
             </motion.li>
           ))}
     </ul>

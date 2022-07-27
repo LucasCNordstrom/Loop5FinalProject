@@ -1,11 +1,15 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const ItemListDetails = ({ item, itemDetails }) => {
   const navigate = useNavigate();
 
   return (
-    <span
+    <motion.span
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       className="item-details"
       onClick={() => {itemDetails(item.uniqueId);}}
     >
@@ -19,7 +23,7 @@ const ItemListDetails = ({ item, itemDetails }) => {
       >
         DETAILS
       </button>
-    </span>
+    </motion.span>
   );
 };
 

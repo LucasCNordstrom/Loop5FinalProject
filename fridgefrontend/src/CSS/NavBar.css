@@ -19,10 +19,11 @@
 @media (min-width: 600px) {
   .NavBar--list {
     width: 105vh;
+    height: 10vh;
   }
 
   .NavBar--list img {
-    width: 100px;
+    width: 8vh;
   }
 
   .profile {
