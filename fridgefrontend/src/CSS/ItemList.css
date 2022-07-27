@@ -124,6 +124,10 @@ button:hover {
 .loader {
   margin: 0 auto;
 }
+.sort-by {
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
 
 @media (min-width: 600px) {
   .add-icon {
@@ -137,4 +141,5 @@ button:hover {
   .sort-by {
     margin: 2vh;
   }
+  
 }

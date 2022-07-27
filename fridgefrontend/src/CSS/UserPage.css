@@ -24,7 +24,7 @@ div {
   box-shadow: rgb(45 35 66 / 40%) 0 2px 4px, rgb(45 35 66 / 30%) 0 7px 13px -3px,
     #d6d6e7 0 -3px 0 inset;
   color: #36395a;
-  height: 48px;
+  height: 40px;
   padding-left: 16px;
   padding-right: 16px;
   transition: box-shadow 0.15s, transform 0.15s;

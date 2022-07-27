@@ -1,0 +1,27 @@
+.Recipe-Image{
+  width:100%;
+  
+}
+.hide-button {
+  display: none;
+}
+.recipes{
+  display:flex;
+}
+.Recipe :nth-of-type(1){
+ flex:2;
+}
+.Recipe :nth-of-type(2){
+  flex:1;
+ }
+
+  
+
+
+
+@media (max-width: 600px) {
+  .Recipe-Image {
+    width: 100%;
+    
+  }
+}

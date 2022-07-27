@@ -1,4 +1,5 @@
 import "../CSS/ItemList.css";
+import "../CSS/RecipeCard.css";
 import { useState, useEffect } from "react";
 
 function RecipeCard({ ingridient }) {
@@ -40,17 +41,18 @@ function RecipeCard({ ingridient }) {
 
   return (
     <>
-      <div>
-        <p>{recipeInformation.strMeal}</p>
-        <br />
-        <p>{recipeInformation.strCategory}</p>
-        <br />
-        <img
+      <div className="Recipe-section">
+        <p>Meal Name : {recipeInformation.strMeal}
+        <br/>
+        Category : {recipeInformation.strCategory}</p>
+        <div className="recipes">
+        <div className="Recipe"><img className="Recipe-Image"
           src={recipeInformation.strMealThumb}
           alt={recipeInformation.strMeal}
-        />
-        <br />
-        <a href={recipeInformation.strSource}>Link to recipe</a>
+        /></div>
+       <div className="Recipe">
+        <a href={recipeInformation.strSource}>Link to recipe</a></div>
+      </div>
       </div>
     </>
   );
