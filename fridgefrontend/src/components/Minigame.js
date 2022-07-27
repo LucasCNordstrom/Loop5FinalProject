@@ -13,6 +13,7 @@ const MiniGame = () => {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState();
   const [score, setScore] = useState(0);
+  const [nrClicks, setNrClicks] = useState(0);
   const [loading, setLoading] = useState(false);
   const today = Date.parse(new Date());
 
@@ -24,7 +25,7 @@ const MiniGame = () => {
     let array = [];
     while(array.length < 3) {
         var random = products[mathRandom(products.length)];
-        if(!array.includes(random) && !localItems.includes(random)) array.push({id: random, value: false})
+        if((!array.some(x => x.id === random)) && (!localItems.some(x => x.name === random))) {array.push({id: random, value: false})}
     }
     while(array.length < 4){
         random = localItems[mathRandom(localItems.length)].name
@@ -42,7 +43,7 @@ const MiniGame = () => {
   useEffect(() => {
     const tempanswers = shuffleArray()
     setAnswers(tempanswers);
-  }, [score]);
+  }, [score, nrClicks]);
 
   const validateAnswer = (value) => {
     if (value === true) {
@@ -50,10 +51,11 @@ const MiniGame = () => {
     } else if (value === false) {
       setScore(0);
     }
+    setNrClicks(nrClicks + 1)
   };
 
   if (!answers) return <>Loading...</>
-  if (localItems.length < 11) return <p> Sorry you must have at least 10 items to play! You need {10 - localItems.length} more items. </p>
+  if (localItems.length < 10) return <p> Sorry you must have at least 10 items to play! You need {10 - localItems.length} more items. </p>
   return (
     <div>
       Which one of these products exist in your list?
