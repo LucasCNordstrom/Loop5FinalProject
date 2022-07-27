@@ -20,6 +20,7 @@ const Login = () => {
     try {
       await logIn(email, password);
       navigate("/home");
+      localStorage.clear();
     } catch (err) {
       setError(err.message);
     }
@@ -30,12 +31,14 @@ const Login = () => {
     try {
       await googleSignIn();
       navigate("/home");
+      localStorage.clear();
     } catch (error) {
       console.log(error.message);
     }
   };
 
   if (user) {
+    localStorage.clear();
     return <Navigate to="home" />;
   }
   return ( 
