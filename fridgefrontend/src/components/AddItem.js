@@ -53,8 +53,9 @@ function AddItem() {
     };
     e.preventDefault();
     try {
+      console.log("trying once")
       await fetch(
-        'https://loop5finalproject.azurewebsites.net/items',
+        `${FridgeApiControllerUrl}`,
         postRequestOptions
       );
       localStorage.setItem("should fetch", JSON.stringify(true));
