@@ -9,7 +9,6 @@ import {UserAuthContextProvider} from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AddItem from "./components/AddItem";
 import ItemInfo from "./components/ItemInfo";
-import MiniGame from "./components/Minigame";
 import CloudsBg from "./components/subcomponents/CloudsBg";
 import Footer from "./components/Footer";
 
@@ -24,7 +23,6 @@ function App() {
           <Route path="items" element={<ItemsPage />} />
           <Route path="items/add" element={<AddItem />} />
           <Route path="items/:id" element={<ItemInfo />} />
-          <Route path="minigame" element={<MiniGame/>} />
         </Route>
         <Route path="*" element={<Login />} />
         <Route path="/signup" element={<Signup />} />

@@ -1,5 +1,5 @@
 import "../CSS/ItemList.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
 import { useUserAuth } from "../context/UserAuthContext";

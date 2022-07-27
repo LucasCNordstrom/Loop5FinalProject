@@ -6,24 +6,6 @@ import { motion } from "framer-motion"
 function RecipeCard({ ingridient, nextRecipe }) {
   const [recipeInformation, setRecipeInformation] = useState();
 
-  const fetchRecipe = async (fetchIngridient) => {
-    const picture = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?i=${fetchIngridient}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.meals)
-          return data.meals[Math.floor(Math.random() * data.meals.length)];
-        throw new Error("No recipies found");
-      })
-      .catch((err) => console.log(err));
-
-    setTimeout(() => {
-      if (picture) fetchInfoAboutRecipe(picture.idMeal);
-      else setRecipeInformation(null)
-    }, 10);
-  };
-
   const fetchInfoAboutRecipe = async (recipeId) => {
     await fetch(
       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`
@@ -35,8 +17,25 @@ function RecipeCard({ ingridient, nextRecipe }) {
   };
 
   useEffect(() => {
+    const fetchRecipe = async (fetchIngridient) => {
+      const picture = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${fetchIngridient}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.meals)
+            return data.meals[Math.floor(Math.random() * data.meals.length)];
+          throw new Error("No recipies found");
+        })
+        .catch((err) => console.log(err));
+  
+      setTimeout(() => {
+        if (picture) fetchInfoAboutRecipe(picture.idMeal);
+        else setRecipeInformation(null)
+      }, 10);
+    };
     fetchRecipe(ingridient);
-  }, [nextRecipe]);
+  }, [nextRecipe, ingridient]);
 
   if(!recipeInformation) return (<><br/>No recipe</>)
 
@@ -48,7 +47,7 @@ function RecipeCard({ ingridient, nextRecipe }) {
         Category : {recipeInformation.strCategory}</p>
         <div className="recipes">
        <div className="Recipe">
-        <a href={recipeInformation.strSource} target="_blank">
+        <a href={recipeInformation.strSource} target="_blank" rel="noreferrer">
           <motion.img className="Recipe-Image"
             whileHover={{ scale: 1.1 }}
             src={recipeInformation.strMealThumb}

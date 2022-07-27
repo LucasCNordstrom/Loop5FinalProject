@@ -32,7 +32,7 @@ const ItemInfo = () => {
 
   useEffect(() => {
     setItem(localItems.filter((item) => item.uniqueId === id)[0]);
-  }, [edit, getRecipe]);
+  }, [edit, getRecipe, id, localItems]);
 
   const changeEdit = () => {
     setEdit(false);
