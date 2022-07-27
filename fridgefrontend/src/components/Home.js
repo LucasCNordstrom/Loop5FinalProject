@@ -1,7 +1,6 @@
 import '../CSS/Home.css';
 
 function Home() {
-
   return (
     <>
       <img className="logo-img" src="https://i.imgur.com/skhQcVC.png" />

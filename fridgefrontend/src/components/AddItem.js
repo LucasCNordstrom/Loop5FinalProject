@@ -7,6 +7,7 @@ import { Form, Button } from "react-bootstrap";
 import { capitalizeFirstLetter } from "../helperFunctions/helpers.js";
 import StorageForm from "./subcomponents/StorageForm";
 import UnitForm from "./subcomponents/UnitForm";
+import { FridgeApiControllerUrl } from "../GlobalVariables";
 
 function AddItem() {
   const [title, setTitle] = useState("");
@@ -33,7 +34,7 @@ function AddItem() {
   };
 
   const onSubmit = async (e) => {
-    const requestOptions = {
+    const postRequestOptions = {
       method: "POST",
       headers: {
         Accept: "*/*",
@@ -54,10 +55,11 @@ function AddItem() {
       setError(true);
       return;
     }
+    //if item with that name as earlier expirydate already exists => give warning
     try {
       await fetch(
-        `https://loop5finalproject.azurewebsites.net/items`,
-        requestOptions
+        `${FridgeApiControllerUrl}`,
+        postRequestOptions
       );
       localStorage.setItem("should fetch", JSON.stringify(true));
     } catch (error) {
