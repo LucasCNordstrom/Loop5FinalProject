@@ -185,7 +185,11 @@ button:hover {
   .sort-by {
     width: 25vh;
   }
-
+  .item-ul {
+    
+    height: 50vh;
+    overflow: scroll;
+  }
   
 }
 

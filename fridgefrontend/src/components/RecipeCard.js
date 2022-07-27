@@ -45,8 +45,7 @@ function RecipeCard({ ingridient, nextRecipe }) {
         <p>Meal Name : {recipeInformation.strMeal}
         <br/>
         Category : {recipeInformation.strCategory}</p>
-        <div className="recipes">
-       <div className="Recipe">
+        
         <a href={recipeInformation.strSource} target="_blank" rel="noreferrer">
           <motion.img className="Recipe-Image"
             whileHover={{ scale: 1.1 }}
@@ -54,8 +53,8 @@ function RecipeCard({ ingridient, nextRecipe }) {
             alt={recipeInformation.strMeal}
         /></a>
         </div>
-      </div>
-      </div>
+      
+      
     </>
   );
 }

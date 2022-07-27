@@ -32,7 +32,7 @@ const ItemInfo = () => {
 
   useEffect(() => {
     setItem(localItems.filter((item) => item.uniqueId === id)[0]);
-  }, [edit, getRecipe, id, localItems]);
+  }, [edit, getRecipe]); // removed id,localitems as dependencies inorder to stop re-rendering 1000's times.
 
   const changeEdit = () => {
     setEdit(false);
@@ -77,8 +77,7 @@ const ItemInfo = () => {
         <button
           className={displaynextandback ? "page-button next-recipe-btn" : "hide-button"}
           onClick={updategetrecipe}
-        >
-          Next Random Recipe!
+        >Next Random Recipe!
         </button>
 
         {getRecipe && <RecipeCard ingridient={item.name} nextRecipe={nextRecipe}/>}
