@@ -1,7 +1,10 @@
 .Recipe-Image{
-  width:100%;
-  
+  width:70vh;
+  border-style: solid;
+  border-color: white;
+  border-radius: 50px;
 }
+
 .hide-button {
   display: none;
 }
@@ -13,6 +16,10 @@
 }
 .Recipe :nth-of-type(2){
   flex:1;
+ }
+
+ .next-recipe-btn {
+  margin-top: 3vh;
  }
 
   

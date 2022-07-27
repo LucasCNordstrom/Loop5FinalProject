@@ -1,8 +1,9 @@
 import "../CSS/ItemList.css";
 import "../CSS/RecipeCard.css";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion"
 
-function RecipeCard({ ingridient }) {
+function RecipeCard({ ingridient, nextRecipe }) {
   const [recipeInformation, setRecipeInformation] = useState();
 
   const fetchRecipe = async (fetchIngridient) => {
@@ -35,7 +36,7 @@ function RecipeCard({ ingridient }) {
 
   useEffect(() => {
     fetchRecipe(ingridient);
-  }, []);
+  }, [nextRecipe]);
 
   if(!recipeInformation) return (<><br/>No recipe</>)
 
@@ -46,12 +47,14 @@ function RecipeCard({ ingridient }) {
         <br/>
         Category : {recipeInformation.strCategory}</p>
         <div className="recipes">
-        <div className="Recipe"><img className="Recipe-Image"
-          src={recipeInformation.strMealThumb}
-          alt={recipeInformation.strMeal}
-        /></div>
        <div className="Recipe">
-        <a href={recipeInformation.strSource}>Link to recipe</a></div>
+        <a href={recipeInformation.strSource} target="_blank">
+          <motion.img className="Recipe-Image"
+            whileHover={{ scale: 1.1 }}
+            src={recipeInformation.strMealThumb}
+            alt={recipeInformation.strMeal}
+        /></a>
+        </div>
       </div>
       </div>
     </>

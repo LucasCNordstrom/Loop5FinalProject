@@ -1,0 +1,32 @@
+.footer {
+  display: inline-flex;
+  font-size: 1.5vh;
+}
+
+.footer p {
+  margin-right: 50vh;
+}
+
+.footer img {
+  width: 5vh;
+  margin-left: -45vh;
+}
+
+.footer div {
+  grid-template-columns: 11vh 11vh;
+  display: grid;
+}
+
+.footer h5 {
+  margin-bottom: 0px;
+}
+
+.footer a {
+  font-size: 8px;
+}
+
+@media (min-width: 600px) {
+  .footer img {
+    margin-left: -25vh;
+  }
+}

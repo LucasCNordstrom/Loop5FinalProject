@@ -11,6 +11,7 @@ import AddItem from "./components/AddItem";
 import ItemInfo from "./components/ItemInfo";
 import MiniGame from "./components/Minigame";
 import CloudsBg from "./components/subcomponents/CloudsBg";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="*" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>
+      <Footer />
     </UserAuthContextProvider>
   );
 }
