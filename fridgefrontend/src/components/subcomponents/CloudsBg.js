@@ -8,19 +8,19 @@ export default function CloudsBg() {
     </div>
 
     <div className="x2">
-        <div className="cloud">Monica is gay</div>
+        <div className="cloud"></div>
     </div>
 
     <div className="x3">
-        <div className="cloud">Lucas is dumb</div>
+        <div className="cloud"></div>
     </div>
 
     <div className="x4">
-        <div className="cloud">Bjorn isn't</div>
+        <div className="cloud"></div>
     </div>
 
     <div className="x5">
-        <div className="cloud">Laura is a cunt</div>
+        <div className="cloud"></div>
     </div>
 </div>
   )
