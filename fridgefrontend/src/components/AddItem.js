@@ -12,7 +12,6 @@ import { FridgeApiControllerUrl } from "../GlobalVariables";
 function AddItem() {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
-  const [error, setError] = useState(false);
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("Kg");
   const [storage, setStorage] = useState("");
@@ -105,8 +104,6 @@ function AddItem() {
           unit={unit}
           setUnit={setUnit}
         />
-
-        {error && <h4> Please do not leave fields empty!</h4>}
         <button style={{pointerEvents: isActive ? "auto" : "none"}}      
           type="submit" id="btnSubmit" className="page-button">
           Submit

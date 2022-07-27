@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import "../CSS/ProtectedRoute.css";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
