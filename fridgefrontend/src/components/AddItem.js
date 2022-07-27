@@ -16,6 +16,7 @@ function AddItem() {
   const [amount, setAmount] = useState("");
   const [unit, setUnit] = useState("Kg");
   const [storage, setStorage] = useState("");
+  const [isActive, setIsActive] = useState(true);
   const { user } = useUserAuth();
   const navigate = useNavigate();
   const today = formatDate(new Date());
@@ -51,10 +52,7 @@ function AddItem() {
       }),
     };
     e.preventDefault();
-    if (!title || !date || !amount || !storage) {
-      setError(true);
-      return;
-    }
+    
     //if item with that name as earlier expirydate already exists => give warning
     try {
       await fetch(
@@ -65,6 +63,7 @@ function AddItem() {
     } catch (error) {
       console.log(error);
     }
+    setIsActive(current => !current);
     navigate("/items");
   };
   useEffect(() => {}, [storage]);
@@ -109,7 +108,7 @@ function AddItem() {
         />
 
         {error && <h4> Please do not leave fields empty!</h4>}
-        <button     
+        <button style={{pointerEvents: isActive ? "auto" : "none"}}      
           type="submit" id="btnSubmit" className="page-button">
           Submit
         </button>

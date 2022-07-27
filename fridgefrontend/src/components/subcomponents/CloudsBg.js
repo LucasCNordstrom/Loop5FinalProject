@@ -12,7 +12,7 @@ export default function CloudsBg() {
     </div>
 
     <div className="x3">
-        <div className="cloud"></div>
+        <div className="cloud">Lucas is dumb</div>
     </div>
 
     <div className="x4">
