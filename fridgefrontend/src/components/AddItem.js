@@ -51,9 +51,8 @@ function AddItem() {
       }),
     };
     e.preventDefault();
-    
-    //if item with that name as earlier expirydate already exists => give warning
     try {
+      console.log("trying once")
       await fetch(
         `${FridgeApiControllerUrl}`,
         postRequestOptions
