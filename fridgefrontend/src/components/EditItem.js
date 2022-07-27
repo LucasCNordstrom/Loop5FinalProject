@@ -12,10 +12,11 @@ function EditItem({ item, onChange }) {
   const navigate = useNavigate();
   const [title, setTitle] = useState(item.name);
   const [date, setDate] = useState(item.expiryDate.split("T")[0]);
-  const [error, setError] = useState(false);
   const [amount, setAmount] = useState(item.amount);
   const [unit, setUnit] = useState(item.measurement);
   const [storage, setStorage] = useState(item.location);
+  const [isActive, setIsActive] = useState(true);
+
   const { user } = useUserAuth();
   const today = formatDate(new Date());
   const limitValue = (e) => {
@@ -49,10 +50,6 @@ function EditItem({ item, onChange }) {
       }),
     };
     e.preventDefault();
-    if (!title || !date || !amount) {
-      setError(true);
-      return;
-    }
     if (e.key === "Enter") {
       document.getElementById("btnSubmit").click();
     }
@@ -65,6 +62,7 @@ function EditItem({ item, onChange }) {
     } catch (error) {
       console.log(error);
     }
+    setIsActive(current => !current);
     navigate("/items");
   };
 
@@ -79,6 +77,7 @@ function EditItem({ item, onChange }) {
             className="input"
             value={title}
             maxLength="25"
+            required={true}
             onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Group>
@@ -90,6 +89,7 @@ function EditItem({ item, onChange }) {
             className="input"
             value={date}
             min={today}
+            required={true}
             onChange={(e) => setDate(e.target.value)}
           />
         </Form.Group>
@@ -104,12 +104,13 @@ function EditItem({ item, onChange }) {
           unit={unit}
           setUnit={setUnit}
         />
-        {error && <h4> Please do not leave fields empty!</h4>}
+
         <button 
           className="page-button" onClick={() => onChange()}>
           Cancel
         </button>
         <button 
+          style={{pointerEvents: isActive ? "auto" : "none"}}
           type="submit" className="page-button">
           Submit
         </button>

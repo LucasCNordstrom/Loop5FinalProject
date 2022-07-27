@@ -8,7 +8,7 @@ export default function CloudsBg() {
     </div>
 
     <div className="x2">
-        <div className="cloud"></div>
+        <div className="cloud">Monica is gay</div>
     </div>
 
     <div className="x3">
@@ -16,11 +16,11 @@ export default function CloudsBg() {
     </div>
 
     <div className="x4">
-        <div className="cloud"></div>
+        <div className="cloud">Bjorn isn't</div>
     </div>
 
     <div className="x5">
-        <div className="cloud"></div>
+        <div className="cloud">Laura is a cunt</div>
     </div>
 </div>
   )
