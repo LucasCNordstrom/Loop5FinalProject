@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Navigate } from "react-router-dom";
 import { getAuth, updateProfile } from "firebase/auth";
 import BounceLoader from "react-spinners/BounceLoader";
 

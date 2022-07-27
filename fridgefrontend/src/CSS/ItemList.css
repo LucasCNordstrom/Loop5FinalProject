@@ -34,7 +34,7 @@
 .item-ul {
   list-style-type: none;
   padding-left: 0;
-  height: 70vh;
+  height: 50vh;
   overflow: scroll;
 }
 
@@ -149,6 +149,11 @@ button:hover {
     width: 7vh;
     margin-left: 5vh;
   }
+  .item-ul {
+    padding-left: 0;
+    height: 80vh;
+  }
+
   .item-li {
     height: 8vh;
     width: 100vh;
