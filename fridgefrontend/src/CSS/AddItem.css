@@ -12,6 +12,10 @@
   margin-left: -2vh;
 }
 
+.item-info {
+  height: 75vh;
+}
+
 .add p {
   margin: 2vh 0vh 0vh;
 }
@@ -24,7 +28,7 @@
   display: inline-block;
   padding: 0 .5rem;
   margin:.5rem 0;
-  
+  width: 45vh;
 }
 
 .input {
@@ -79,6 +83,7 @@
   .add {
     display: flex;
     flex-direction: column;
+    height: 75vh;
   }
 
   .sel-icon {

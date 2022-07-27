@@ -1,5 +1,5 @@
 .Recipe-Image{
-  width:70vh;
+  width:35vh;
   border-style: solid;
   border-color: white;
   border-radius: 50px;
@@ -22,13 +22,8 @@
   margin-top: 3vh;
  }
 
-  
-
-
-
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .Recipe-Image {
     width: 100%;
-    
   }
 }

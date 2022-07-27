@@ -1,7 +1,11 @@
 .footer {
   display: inline-flex;
   font-size: 1.5vh;
+  position: fixed;
+  bottom: 0;
 }
+
+
 
 .footer p {
   margin-right: 50vh;
@@ -26,6 +30,10 @@
 }
 
 @media (min-width: 600px) {
+  .footer {
+    position:relative
+  }
+
   .footer img {
     margin-left: -25vh;
   }

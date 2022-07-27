@@ -22,19 +22,10 @@
   position: relative;
 }
 
-.item-li h5:nth-of-type(1){
-  flex:2;
-}
-.item-li h5:nth-of-type(2){
-  flex:2;
-}
-.item-li h5:nth-of-type(3){
-  flex:1;
-}
 .item-ul {
   list-style-type: none;
   padding-left: 0;
-  height: 50vh;
+  height: 45vh;
   overflow: scroll;
 }
 
@@ -110,7 +101,6 @@ button:hover {
 .deleteIcon {
   width: 6%;
   margin-right: 10px;
-  
 }
 
 .black-color .deleteIcon {
@@ -161,6 +151,7 @@ button:hover {
   .sort-by {
     margin: 2vh;
   }
+
   
 }
 

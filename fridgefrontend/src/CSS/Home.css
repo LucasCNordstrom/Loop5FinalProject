@@ -1,8 +1,11 @@
 .logo-img {
-    margin-top: 2vh;
-    border-radius: 0px;
-    width: 15vh;
+  margin-top: 2vh;
+  border-radius: 0px;
+  width: 15vh;
 }
 
 @media (min-width: 600px) {
+  .home {
+    height: 75vh;
+  }
 }
