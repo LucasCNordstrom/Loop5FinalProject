@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 
 export default function StorageForm({ handleChange, storage }) {
   return (
-    <Form.Group>
+    <Form.Group className="storage-form">
       <input
         type="radio"
         name="storage"

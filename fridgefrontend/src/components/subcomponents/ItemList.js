@@ -59,7 +59,7 @@ export default function ItemList({
             >
               <span className="item-li">
                   <div className="items">
-                    <div className="list-button"onClick={() => {itemDetails(item.uniqueId);}}>
+                    <div className="list-button" onClick={() => {itemDetails(item.uniqueId);}}>
                     </div>
                 <h5> {item.name} </h5>
                 <h5> {calcCountdown(item.expiryDate)} days left </h5>
@@ -71,7 +71,7 @@ export default function ItemList({
                   onClick={() => onDelete(item.uniqueId, item)}
                   /></div>
               </span>
-                {item.clicked && <ItemListDetails item={item} />}
+                {item.clicked && <ItemListDetails item={item} itemDetails={itemDetails}/>}
             </motion.li>
           ))}
     </ul>
