@@ -37,9 +37,8 @@ public class ItemController : ControllerBase
     }
 
      [HttpGet("{uniqueId}")]
-    public async Task<ActionResult<ItemResponse>> GetSpecificItem(string uniqueId) //this should take users id
+    public async Task<ActionResult<ItemResponse>> GetSpecificItem(string uniqueId)
     {
-
         var dbItem = await _context.Item.FirstOrDefaultAsync(i => i.UniqueId == uniqueId);
         if(dbItem == null) return NotFound("Item does not exist");
         var itemResponse = new ItemResponse{
@@ -56,7 +55,8 @@ public class ItemController : ControllerBase
     [HttpPut("edit")]
     public async Task<IActionResult> EditItem(PostItemRequest item)
     {
-        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest("is this the one we get?");
+        if(item == null) return BadRequest("Submit an Item");
+        if (string.IsNullOrEmpty(item.UniqueId)) return BadRequest();
         var itemInDb = await _context.Item.FirstOrDefaultAsync(e => e.UniqueId == item.UniqueId);
         itemInDb.Name = item.Name;
         itemInDb.ExpiryDate = item.ExpiryDate;
@@ -100,7 +100,7 @@ public class ItemController : ControllerBase
         await _context.Item.AddAsync(newItem);
         await _context.SaveChangesAsync();
 
-        return Ok(); //created at
+        return CreatedAtAction(newItem.UniqueId, newItem); //created at
     }
 
     [HttpDelete("delete")]
