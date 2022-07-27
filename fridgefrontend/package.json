@@ -1,7 +1,6 @@
 {
   "name": "fridgefrontend",
   "version": "0.1.0",
-  "homepage": "purple-grass-03d55a510.1.azurestaticapps.net",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
