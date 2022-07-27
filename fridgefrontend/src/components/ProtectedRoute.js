@@ -9,9 +9,11 @@ const ProtectedRoute = () => {
   const navigate = useNavigate();
   const { user } = useUserAuth();
 
-  if (!user) {navigate("/")};
+  if (!user) {
+    navigate("/login")
+  return ( <BounceLoader className="loader" size={150} color="white" /> ) 
+};
 
-  if (!user) return ( <><BounceLoader className="loader" size={150} color="white" /><p>its me</p></> )
   return (
     <>
       <NavBar />

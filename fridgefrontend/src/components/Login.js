@@ -1,5 +1,5 @@
 import '../CSS/Login.css';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import GoogleButton from "react-google-button";
@@ -8,11 +8,18 @@ import { Navigate } from "react-router-dom";
 import BounceLoader from "react-spinners/BounceLoader";
 
 const Login = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { user, logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  },[user])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,9 +41,9 @@ const Login = () => {
       console.log(error.message);
     }
   };
-  if (user) {
-    return <Navigate to="home" />;
-  }
+
+  if(user === undefined) return (<BounceLoader className="loader" size={150} color="white" /> ) 
+
   return ( 
     <>
       <div className="login">

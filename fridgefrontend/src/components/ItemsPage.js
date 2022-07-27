@@ -87,6 +87,7 @@ const ItemsPage = () => {
 
   //Delete request for data
   const onDelete = async (id, item) => {
+    console.log(item);
     if (window.confirm(`Are you sure you want to delete ${item.name} ?`)) {
       const requestDel = requestOptionDel(id);
       try {
