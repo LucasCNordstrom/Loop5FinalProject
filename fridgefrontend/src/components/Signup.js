@@ -1,5 +1,5 @@
 import '../CSS/Login.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -24,19 +24,22 @@ const Signup = () => {
     setError("");
     try {
       await signUp(email, password);
-      navigate("/");
+      navigate("/login");
     } catch (err) {
       setError(err.message);
     }
   };
-  if (user) {
-    return <Navigate to="/home" />;
-  }
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  },[user])
+
+  if(user === undefined) return (<BounceLoader className="loader" size={150} color="white" /> ) 
 
   updateProfile(auth.currentUser, {
     displayName: name
-  }).then(() => {
-    console.log('worked')
   }).catch((error) => {
     console.log(error);
   });
@@ -71,7 +74,7 @@ const Signup = () => {
           </div>
         </Form>
         <div>
-        Already have an account? <Link to="/">Log In</Link>
+        Already have an account? <Link to="/login">Log In</Link>
         </div>
       </div>
     </>

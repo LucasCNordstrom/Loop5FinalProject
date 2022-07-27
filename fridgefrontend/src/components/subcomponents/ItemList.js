@@ -57,12 +57,10 @@ export default function ItemList({
               className={assignColor(item.expiryDate)}
               key={item.uniqueId}
             >
-              <span
-                className="item-li"
-                onClick={() => {
-                  itemDetails(item.uniqueId);
-                }}
-              ><div className="items">
+              <span className="item-li">
+                  <div className="items">
+                    <div className="list-button"onClick={() => {itemDetails(item.uniqueId);}}>
+                    </div>
                 <h5> {item.name} </h5>
                 <h5> {calcCountdown(item.expiryDate)} days left </h5>
                   <motion.img 

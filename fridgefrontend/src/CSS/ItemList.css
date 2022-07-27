@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: space-between;
   height: 2rem;
+  position: relative;
 }
 .item-li h5:nth-of-type(1){
   flex:2;
@@ -43,6 +44,7 @@
   margin-bottom: 7px;
   border-radius: 5px;
   padding:0;
+  position: relative; 
 }
 
 .item-search {
@@ -64,6 +66,7 @@
 .item-ul h5 {
   font-size: 3vh;
   margin-left: 5px;
+  z-index: 20;
 }
 
 .items{
@@ -129,6 +132,16 @@ button:hover {
   margin-top: 1rem;
 }
 
+.list-button {
+  width: 90%;
+  height: 100%;
+  opacity: 0%;
+  background-color: #36395a;
+  z-index: 200;
+  position: absolute;
+}
+
+
 @media (min-width: 600px) {
   .add-icon {
     width: 7vh;
@@ -143,3 +156,4 @@ button:hover {
   }
   
 }
+
