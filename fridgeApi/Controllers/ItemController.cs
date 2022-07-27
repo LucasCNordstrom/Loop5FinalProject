@@ -100,7 +100,7 @@ public class ItemController : ControllerBase
         await _context.Item.AddAsync(newItem);
         await _context.SaveChangesAsync();
 
-        return CreatedAtAction(newItem.UniqueId, newItem); //created at
+        return Ok();
     }
 
     [HttpDelete("delete")]
