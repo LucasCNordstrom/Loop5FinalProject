@@ -34,6 +34,7 @@ const Login = () => {
       console.log(error.message);
     }
   };
+
   if (user) {
     return <Navigate to="home" />;
   }

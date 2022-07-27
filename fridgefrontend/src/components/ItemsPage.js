@@ -30,8 +30,6 @@ const ItemsPage = () => {
   const [displayBy, setDisplayBy] = useState("");
   const { user } = useUserAuth();
 
-  
-
   //Sort the order in which data is displayed
   function sortFunction(a, b) {
     var dateA = new Date(a.expiryDate).getTime();

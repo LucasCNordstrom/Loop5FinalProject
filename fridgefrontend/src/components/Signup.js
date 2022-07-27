@@ -41,7 +41,6 @@ const Signup = () => {
     console.log(error);
   });
 
-  if (!user) return <BounceLoader className="loader" size={150} color="white" />
   return (
     <>
       <div className='login'>
