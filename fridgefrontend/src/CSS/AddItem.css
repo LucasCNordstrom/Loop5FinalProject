@@ -41,7 +41,6 @@
   width: 10vh;
 }
 
-
 .storage-form {
   position: relative;
 }
@@ -73,10 +72,6 @@
 .add h4 {
   background-color: #ffafb9;
   margin-bottom: inherit;
-}
-
-.order-by {
-  border-radius: 20px;
 }
 
 @media (min-width: 600px) {

@@ -5,6 +5,7 @@ const StorageSelector = ({ displayBy, handleChange }) => {
   return (
     <Form.Group className="sort-by">
       <input
+        label="All"
         type="radio"
         name="storage"
         value=""
@@ -12,8 +13,8 @@ const StorageSelector = ({ displayBy, handleChange }) => {
         onChange={handleChange}
         checked={displayBy === ""}
       />
-      <label htmlFor="fridge">All</label>
       <input
+        label="Fridge"
         type="radio"
         name="storage"
         value="Fridge"
@@ -21,8 +22,8 @@ const StorageSelector = ({ displayBy, handleChange }) => {
         onChange={handleChange}
         checked={displayBy === "Fridge"}
       />
-      <label htmlFor="fridge">Frige</label>
       <input
+        label="Freezer"
         type="radio"
         name="storage"
         value="Freezer"
@@ -30,8 +31,8 @@ const StorageSelector = ({ displayBy, handleChange }) => {
         onChange={handleChange}
         checked={displayBy === "Freezer"}
       />
-      <label htmlFor="freezer">Freezer</label>
       <input
+        label="Pantry"
         type="radio"
         name="storage"
         value="Pantry"
@@ -39,7 +40,6 @@ const StorageSelector = ({ displayBy, handleChange }) => {
         onChange={handleChange}
         checked={displayBy === "Pantry"}
       />
-      <label htmlFor="pantry">Pantry</label>
     </Form.Group>
   );
 };

@@ -149,8 +149,6 @@ const ItemsPage = () => {
     </>
   );
 
-
-
   return (
     <div className="item-list">
       {loading ? (

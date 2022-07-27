@@ -45,11 +45,6 @@
   margin-bottom: 4vh;
 }
 
-.order-by {
-  border-radius: 20px;
-  box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
-}
-
 .item-details p {
   margin: -5px;
   padding: 0px 10px;
@@ -119,9 +114,42 @@ button:hover {
 .loader {
   margin: 0 auto;
 }
+
+.order-by {
+  width: 25vh;
+  border-radius: 20px;
+  box-shadow: #ffffffe6 2.4px 2.4px 3.2px;
+}
+
 .sort-by {
-  font-size: 1.25rem;
-  margin-top: 1rem;
+  margin-top: 1vh;
+  width: 25vh;
+  background-color: #ffffff;
+  border-radius: 20px;
+  display: inline-flex;
+  border-style: solid;
+  box-shadow: rgb(255 255 255 / 90%) 2.4px 2.4px 3.2px;
+  justify-content: center;
+  border-color: #0000006e;
+}
+
+.sort-by input {
+	appearance: none;
+	border-radius: 10px;
+	font-size: 2vh;
+}
+
+.sort-by input:checked
+{
+  background-image: linear-gradient(180deg, #91d3d8, #69b2d4);
+	color: #fff;
+	box-shadow: 0 1px 1px #0000002e;
+  margin-bottom: 2px;
+}
+
+.sort-by input:before {
+  content: attr(label);
+  text-align: center;
 }
 
 .list-button {
@@ -148,8 +176,14 @@ button:hover {
     height: 8vh;
     width: 100vh;
   }
+
+  .order-by {
+    width: 25vh;
+    height: 4vh;
+  }
+
   .sort-by {
-    margin: 2vh;
+    width: 25vh;
   }
 
   
