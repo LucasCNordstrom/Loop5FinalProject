@@ -1,6 +1,9 @@
+/* for all html elements */
+
 .root {
     display: flex;
     flex-direction: column;
     align-content: center;
     justify-content: center;
+
 }

@@ -16,6 +16,8 @@ public class ItemController : ControllerBase
         _context = context;
     }
 
+    //REST
+
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<IEnumerable<ItemResponse>>> GetAllItemsForUser(string userId)
     {
